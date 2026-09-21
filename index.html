@@ -343,7 +343,7 @@
             <span>Graph Paper</span>
             <span class="text-[10px] font-semibold px-1.5 py-0.2 bg-blue-500/20 text-blue-300 rounded">by EazyOPC</span>
           </div>
-          <span class="text-[10px] text-slate-400 hidden sm:inline leading-none">数学坐标网格与工程方格纸</span>
+          <span class="text-[10px] text-slate-400 hidden sm:inline leading-none" data-i18n="site_subtitle">数学坐标网格与工程方格纸</span>
         </div>
       </a>
     </div>
@@ -378,11 +378,11 @@
     <!-- 右侧动作按钮组 -->
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
       <!-- 白天/黑夜模式切换 -->
-      <button id="btnThemeToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)">
+      <button id="btnThemeToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)" data-i18n-title="tip_theme">
         <span id="themeIcon">🌙</span> <span id="themeLabel" class="hidden sm:inline">夜间</span>
       </button>
 
-      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition" title="全屏沉浸创作">
+      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition" title="全屏沉浸创作" data-i18n-title="tip_fullscreen">
         <span>⛶</span> <span class="hidden sm:inline" data-i18n="fullscreen">全屏</span>
       </button>
 
@@ -421,43 +421,43 @@
     <!-- 左侧专业悬浮工具坞 -->
     <aside id="leftSidebar" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-1.5 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-1.5 rounded-2xl shadow-2xl transition-all">
       <!-- 0. 鼠标选择与调整 (Select - V) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="select" title="↖️ 鼠标选择与调整 (快捷键 V，点选图片/文字可拖动、四角缩放或删除)">↖️</button>
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="select" title="↖️ 鼠标选择与调整 (快捷键 V，点选图片/文字可拖动、四角缩放或删除)" data-i18n-title="tip_select">↖️</button>
       <!-- 1. 精密钢笔 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition tool-btn-active" data-tool="pen" title="钢笔 (数学精准画线，停顿吸附标准几何)">🖋️</button>
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition tool-btn-active" data-tool="pen" title="钢笔 (数学精准画线，停顿吸附标准几何)" data-i18n-title="tip_pen">🖋️</button>
       <!-- 2. 铅笔草稿 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="pencil" title="铅笔 (细线条草稿)">✏️</button>
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="pencil" title="铅笔 (细线条草稿)" data-i18n-title="tip_pencil">✏️</button>
       <!-- 3. 荧光笔批注 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="highlighter" title="荧光高亮 (几何图形填充高光)">🖍️</button>
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="highlighter" title="荧光高亮 (几何图形填充高光)" data-i18n-title="tip_highlighter">🖍️</button>
       <!-- 4. 自由打字工具 (Text Tool - T) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="text" title="🔤 文本/公式打字工具 (快捷键 T，点击任意位置输入)">🔤</button>
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="text" title="🔤 文本/公式打字工具 (快捷键 T，点击任意位置输入)" data-i18n-title="tip_text">🔤</button>
       <!-- 5. ⚡ 一笔整擦 -->
-      <button class="tool-btn p-2 rounded-xl text-amber-300 hover:bg-amber-500/20 text-xs transition" data-tool="eraser" title="⚡ 一笔整擦 (点中线段瞬间整根消失)">⚡</button>
+      <button class="tool-btn p-2 rounded-xl text-amber-300 hover:bg-amber-500/20 text-xs transition" data-tool="eraser" title="⚡ 一笔整擦 (点中线段瞬间整根消失)" data-i18n-title="tip_eraser">⚡</button>
       <!-- 6. ⭕ 套索选择与移动 -->
-      <button class="tool-btn p-2 rounded-xl text-blue-300 hover:bg-blue-500/20 text-xs transition" data-tool="lasso" title="⭕ 套索圈选与平移 (圈住图形即可整体拖动)">⭕</button>
+      <button class="tool-btn p-2 rounded-xl text-blue-300 hover:bg-blue-500/20 text-xs transition" data-tool="lasso" title="⭕ 套索圈选与平移 (圈住图形即可整体拖动)" data-i18n-title="tip_lasso">⭕</button>
       <!-- 7. 插入/粘贴图片 (支持剪贴板 Ctrl+V) -->
-      <button id="btnInsertImage" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="🖼️ 插入试题/图表图片，支持 Ctrl+V 粘贴">🖼️</button>
+      <button id="btnInsertImage" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="🖼️ 插入试题/图表图片，支持 Ctrl+V 粘贴" data-i18n-title="tip_image">🖼️</button>
       <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
 
       <div class="w-6 h-px bg-slate-700 my-0.5"></div>
 
       <!-- 8. 3D 几何与坐标轴菜单 -->
-      <button id="btnToggleGeom" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="插入 3D 立体几何 / 坐标轴">📐</button>
+      <button id="btnToggleGeom" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="插入 3D 立体几何 / 坐标轴" data-i18n-title="tip_geom">📐</button>
       <!-- 9. 直线工具 -->
-      <button id="btnToolStraightLine" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="绘制水平/垂直直线">📏</button>
+      <button id="btnToolStraightLine" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="绘制水平/垂直直线" data-i18n-title="tip_line">📏</button>
       <!-- 10. 激光教鞭 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="laser" title="激光笔 (讲题指示)">🔦</button>
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" data-tool="laser" title="激光笔 (讲题指示)" data-i18n-title="tip_laser">🔦</button>
 
       <div class="w-6 h-px bg-slate-700 my-0.5"></div>
 
       <!-- 11. 调色面板 -->
-      <button id="btnTogglePalette" class="relative p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="画笔色彩与粗细调节">
+      <button id="btnTogglePalette" class="relative p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="画笔色彩与粗细调节" data-i18n-title="tip_palette">
         <span id="activeColorDot" class="w-3.5 h-3.5 rounded-full block border border-white/60 bg-blue-600"></span>
       </button>
 
       <!-- 12. 撤销 -->
-      <button id="btnUndo" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="撤销 (Ctrl+Z，移动端双指轻敲)">↩️</button>
+      <button id="btnUndo" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition" title="撤销 (Ctrl+Z，移动端双指轻敲)" data-i18n-title="tip_undo">↩️</button>
       <!-- 13. 清屏 -->
-      <button id="btnClearAll" class="p-2 rounded-xl text-rose-400 hover:bg-rose-950/60 text-xs transition" title="🗑️ 清空所有绘图">🗑️</button>
+      <button id="btnClearAll" class="p-2 rounded-xl text-rose-400 hover:bg-rose-950/60 text-xs transition" title="🗑️ 清空所有绘图" data-i18n-title="tip_clear">🗑️</button>
     </aside>
 
     <!-- 几何图形弹窗面板 -->
@@ -493,11 +493,11 @@
 
     <!-- 左下角画布缩放与导航坞 (Pan & Zoom Dock) -->
     <div id="zoomDock" class="absolute bottom-4 left-4 z-30 flex items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-2 py-1 rounded-xl shadow-xl text-xs text-slate-300">
-      <button id="btnZoomOut" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="缩小 (Ctrl+滚轮)">−</button>
-      <button id="btnZoomReset" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg font-mono text-[11px]" title="重置 100%">100%</button>
-      <button id="btnZoomIn" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="放大 (Ctrl+滚轮)">+</button>
+      <button id="btnZoomOut" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="缩小 (Ctrl+滚轮)" data-i18n-title="tip_zoom_out">−</button>
+      <button id="btnZoomReset" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg font-mono text-[11px]" title="重置 100%" data-i18n-title="tip_zoom_reset">100%</button>
+      <button id="btnZoomIn" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="放大 (Ctrl+滚轮)" data-i18n-title="tip_zoom_in">+</button>
       <span class="text-slate-600">|</span>
-      <button id="btnZoomFit" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg text-[11px]" title="适应居中">📐 适中</button>
+      <button id="btnZoomFit" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg text-[11px]" title="适应居中" data-i18n-title="tip_zoom_fit">📐 <span data-i18n="fit">适中</span></button>
     </div>
 
     <!-- 真实坐标方格纸卡片 -->
@@ -595,18 +595,30 @@
     </div>
   </footer>
 
-  <!-- ================= 6. 现代专业导出中心模态弹窗 ================= -->
+    <!-- ================= 6. 现代专业导出中心模态弹窗 ================= -->
   <div id="exportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4">
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base">💾</div>
           <div>
-            <h3 class="text-base font-bold">导出图表 · Export Center</h3>
-            <p class="text-[11px] text-slate-400">选择输出文件格式与画质规格</p>
+            <h3 class="text-base font-bold" data-i18n="export_title">导出图表 · Export Center</h3>
+            <p class="text-[11px] text-slate-400" data-i18n="export_subtitle">选择输出文件格式与画质规格</p>
           </div>
         </div>
         <button id="btnCloseExportModal" class="text-slate-400 hover:text-white text-lg px-2">✕</button>
+      </div>
+
+      <!-- Pro 权益全包说明条 -->
+      <div class="p-3 bg-gradient-to-r from-amber-500/20 via-amber-600/15 to-transparent border border-amber-500/40 rounded-2xl flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">⭐</span>
+          <div>
+            <div class="text-xs font-bold text-amber-300" data-i18n="pro_bundle_badge">$4.99 一次付费 · 永久使用</div>
+            <div class="text-[10px] text-slate-300" data-i18n="pro_bundle_desc">解锁下方全部 Pro 专属导出格式与特权，无后续费用</div>
+          </div>
+        </div>
+        <span class="text-[11px] font-extrabold text-amber-400 bg-amber-400/20 px-2 py-0.5 rounded-lg">All-in-One</span>
       </div>
 
       <div class="space-y-2 text-xs">
@@ -615,13 +627,13 @@
             <input type="radio" name="exportFormat" value="png_free" checked class="w-4 h-4 accent-emerald-500" />
             <div>
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span>🖼️ 1080P 标准图表</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-semibold">免费 Free</span>
+                <span data-i18n="opt_png_free">🖼️ 1080P 标准图表</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-semibold" data-i18n="free_tag">免费 Free</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">带微小 EazyOPC 水印，作业提交首选</p>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="opt_png_free_desc">带微小 EazyOPC 水印，作业提交首选</p>
             </div>
           </div>
-          <span class="font-bold text-emerald-400">$0 免费</span>
+          <span class="font-bold text-emerald-400" data-i18n="opt_free_price">$0 免费</span>
         </label>
 
         <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
@@ -629,13 +641,13 @@
             <input type="radio" name="exportFormat" value="png_4k" class="w-4 h-4 accent-amber-500" />
             <div>
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span>✨ 4K Ultra-HD 超清原画</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold">⭐ Pro</span>
+                <span data-i18n="opt_png_4k">✨ 4K Ultra-HD 超清原画</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">3840px 极清分辨率，永久纯净无水印</p>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="opt_png_4k_desc">3840px 极清分辨率，永久纯净无水印</p>
             </div>
           </div>
-          <span class="font-bold text-amber-400">$4.99 买断</span>
+          <span class="text-xs font-semibold text-amber-400" data-i18n="pro_included_lifetime">⭐ Pro 包含 · 永久使用</span>
         </label>
 
         <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
@@ -643,13 +655,13 @@
             <input type="radio" name="exportFormat" value="png_transparent" class="w-4 h-4 accent-amber-500" />
             <div>
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span>🪟 透明背景 PNG (扣除网格底纸)</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold">⭐ Pro</span>
+                <span data-i18n="opt_png_trans">🪟 透明背景 PNG (扣除网格底纸)</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">自动剥离网格，仅留几何图形，做论文插图神器</p>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="opt_png_trans_desc">自动剥离网格，仅留几何图形，做论文插图神器</p>
             </div>
           </div>
-          <span class="font-bold text-amber-400">$4.99 买断</span>
+          <span class="text-xs font-semibold text-amber-400" data-i18n="pro_included_lifetime">⭐ Pro 包含 · 永久使用</span>
         </label>
 
         <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
@@ -657,13 +669,13 @@
             <input type="radio" name="exportFormat" value="svg_vector" class="w-4 h-4 accent-amber-500" />
             <div>
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span>📐 矢量 SVG 原画 (无损无限缩放)</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold">⭐ Pro</span>
+                <span data-i18n="opt_svg">📐 矢量 SVG (Canva / Figma / Illustrator 可编辑)</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">数学贝塞尔曲线，无缝导入 AutoCAD/Illustrator</p>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="opt_svg_desc">100% 独立矢量图层，支持 Canva、Figma 与 AI 无缝二次编辑</p>
             </div>
           </div>
-          <span class="font-bold text-amber-400">$4.99 买断</span>
+          <span class="text-xs font-semibold text-amber-400" data-i18n="pro_included_lifetime">⭐ Pro 包含 · 永久使用</span>
         </label>
 
         <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
@@ -671,19 +683,44 @@
             <input type="radio" name="exportFormat" value="pdf_pro" class="w-4 h-4 accent-amber-500" />
             <div>
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span>📄 矢量 PDF 打印文档</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold">⭐ Pro</span>
+                <span data-i18n="opt_pdf">📄 矢量 PDF 打印文档</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">按选定 A4 比例精准排版，打印作业与论文首选</p>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="opt_pdf_desc">按选定 A4 比例精准排版，打印作业与论文首选</p>
             </div>
           </div>
-          <span class="font-bold text-amber-400">$4.99 买断</span>
+          <span class="text-xs font-semibold text-amber-400" data-i18n="pro_included_lifetime">⭐ Pro 包含 · 永久使用</span>
         </label>
+      </div>
+
+      <!-- Canva / Figma / Illustrator 快捷联动直通工具栏 -->
+      <div id="canvaFigmaActions" class="hidden p-3 bg-indigo-950/40 border border-indigo-500/40 rounded-2xl space-y-2.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🎨</span>
+            <div>
+              <div class="text-xs font-bold text-indigo-300" data-i18n="canva_figma_title">Canva / Figma / Illustrator 矢量直通</div>
+              <div class="text-[10px] text-slate-400" data-i18n="canva_figma_desc">无需下载，复制后直接在设计工具中粘贴 (Ctrl+V) 即可分层编辑</div>
+            </div>
+          </div>
+          <span class="text-[9px] font-bold px-1.5 py-0.5 bg-indigo-500/20 text-indigo-300 rounded">Vector Pass</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <button type="button" id="btnCopySvgToClipboard" class="flex-1 min-w-[140px] py-2 px-3 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition">
+            <span>📋</span> <span data-i18n="btn_copy_svg">复制矢量到剪贴板</span>
+          </button>
+          <a href="https://www.canva.com" target="_blank" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition">
+            <span>🖌️</span> <span data-i18n="open_canva">前往 Canva</span>
+          </a>
+          <a href="https://www.figma.com" target="_blank" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition">
+            <span>❖</span> <span data-i18n="open_figma">前往 Figma</span>
+          </a>
+        </div>
       </div>
 
       <div class="pt-2">
         <button id="btnExecuteExport" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2">
-          <span>⬇️</span> <span id="lblExecuteExport">免费导出 1080P 标准图 (带水印)</span>
+          <span>⬇️</span> <span id="lblExecuteExport" data-i18n="btn_export_free">免费导出 1080P 标准图 (带水印)</span>
         </button>
       </div>
     </div>
@@ -693,16 +730,16 @@
   <div id="mobileSaveModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-3xl p-5 shadow-2xl text-white text-center space-y-3">
       <div class="flex justify-between items-center">
-        <h4 class="text-sm font-bold flex items-center gap-1">📸 <span>手机保存到相册</span></h4>
+        <h4 class="text-sm font-bold flex items-center gap-1">📸 <span data-i18n="mobile_save_title">手机保存到相册</span></h4>
         <button id="btnCloseMobileSave" class="text-slate-400 hover:text-white text-base">✕</button>
       </div>
       <p class="text-[11px] text-amber-300 bg-amber-500/15 p-2 rounded-xl border border-amber-500/30">
-        👉 <strong>长按下方图片 1 秒</strong>，在系统菜单中选择<strong>「存储图像」</strong>或<strong>「保存到相册」</strong>即可！
+        👉 <strong data-i18n="mobile_save_tip_strong">长按下方图片 1 秒</strong><span data-i18n="mobile_save_tip_text">，在系统菜单中选择「存储图像」或「保存到相册」即可！</span>
       </p>
       <div class="rounded-xl overflow-hidden border border-slate-700 bg-slate-950 max-h-64 flex items-center justify-center">
         <img id="mobilePreviewImg" class="max-h-60 max-w-full object-contain" alt="Graph Export Preview" />
       </div>
-      <button id="btnMobileFallbackDownload" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-xl font-medium">
+      <button id="btnMobileFallbackDownload" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-xl font-medium" data-i18n="mobile_save_fallback">
         浏览器直接下载文件
       </button>
     </div>
@@ -713,20 +750,20 @@
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4">
       <div class="text-center space-y-1.5">
         <div class="inline-block p-3 bg-amber-500/15 text-amber-400 rounded-2xl text-2xl mb-1">⭐</div>
-        <h3 class="text-lg font-bold" data-i18n="pro_title">解锁 Graph Paper Pro 终身版</h3>
-        <p class="text-xs text-slate-400" data-i18n="pro_desc">一杯咖啡钱，永久买断 4K 原画、透明图、SVG 矢量及全套空间几何工具。</p>
+        <h3 class="text-lg font-bold" data-i18n="pro_title">解锁 Graph Paper Pro 永久使用版</h3>
+        <p class="text-xs text-slate-400" data-i18n="pro_desc">一次付费 $4.99 永久使用，解锁 4K 原画、透明图、SVG 矢量及全套空间几何工具。</p>
       </div>
 
       <div class="p-4 bg-slate-800/80 border border-slate-700/60 rounded-2xl space-y-2 text-xs text-slate-300">
-        <div class="flex items-center gap-2">✅ <strong>4K Ultra-HD 超清原画</strong>（永久纯净去水印）</div>
-        <div class="flex items-center gap-2">✅ <strong>透明背景 PNG</strong>（无背景网格，论文插图必备）</div>
-        <div class="flex items-center gap-2">✅ <strong>数学矢量 SVG 原画</strong>（无限放大不失真）</div>
-        <div class="flex items-center gap-2">✅ <strong>高保真 PDF 打印文档</strong>（标准 A4 作业排版）</div>
+        <div class="flex items-center gap-2">✅ <strong data-i18n="pro_perk_1">4K Ultra-HD 超清原画（永久纯净去水印）</strong></div>
+        <div class="flex items-center gap-2">✅ <strong data-i18n="pro_perk_2">透明背景 PNG（无背景网格，论文插图必备）</strong></div>
+        <div class="flex items-center gap-2">✅ <strong data-i18n="pro_perk_3">数学矢量 SVG 原画（无限放大不失真，直通 Canva/Figma）</strong></div>
+        <div class="flex items-center gap-2">✅ <strong data-i18n="pro_perk_4">高保真 PDF 打印文档（标准 A4 作业排版）</strong></div>
       </div>
 
       <div class="space-y-2.5">
-        <a id="creemCheckoutBtn" href="https://www.creem.io/payment/prod_bXhOxSQiOnXJimrmBCcXd" target="_blank" class="block w-full text-center py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-xs" data-i18n="buy_btn">
-          立即以 $4.99 USD 买断终身授权
+        <a id="creemCheckoutBtn" href="https://www.creem.io/payment/prod_6X0743bZq13Jk139l1Jm8u" target="_blank" class="block w-full text-center py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-xs" data-i18n="buy_btn">
+          立即以 $4.99 USD 解锁永久使用
         </a>
         
         <div class="relative flex py-1 items-center">
@@ -736,7 +773,7 @@
         </div>
 
         <div class="flex gap-2">
-          <input id="licenseInput" type="text" placeholder="输入卡密 (如 EZPRO-...)" class="flex-1 bg-slate-800 border border-slate-700 px-3 py-2 rounded-xl text-xs text-white outline-none focus:border-amber-500" />
+          <input id="licenseInput" type="text" placeholder="输入卡密 (如 EZPRO-...)" data-i18n-placeholder="license_ph" class="flex-1 bg-slate-800 border border-slate-700 px-3 py-2 rounded-xl text-xs text-white outline-none focus:border-amber-500" />
           <button id="btnVerifyLicense" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-xs font-semibold rounded-xl transition" data-i18n="activate">激活</button>
         </div>
       </div>
@@ -749,46 +786,487 @@
   <script>
     const TRANSLATIONS = {
       zh: {
+        site_subtitle: '数学坐标网格与工程方格纸',
         lbl_ratio: '画幅', lbl_paper: '网格', fullscreen: '全屏', exit_fullscreen: '退出全屏',
-        export: '导出', palette_title: '画笔颜色', size: '粗细', theme_light: '白天', theme_dark: '夜间',
-        pro_title: '解锁 Graph Paper Pro 终身版', pro_desc: '一杯咖啡钱，永久买断 4K 原画、透明图、SVG 矢量及全套空间几何工具。',
-        buy_btn: '立即以 $4.99 USD 买断终身授权', has_license: '已有授权码？', activate: '激活', continue_free: '暂不解锁，继续免费使用'
+        export: '导出', export_title: '导出图表 · Export Center', export_subtitle: '选择输出文件格式与画质规格',
+        free_tag: '免费 Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ 1080P 标准图表', opt_png_free_desc: '带微小 EazyOPC 水印，作业提交首选', opt_free_price: '$0 免费',
+        opt_png_4k: '✨ 4K Ultra-HD 超清原画', opt_png_4k_desc: '3840px 极清分辨率，永久纯净无水印',
+        opt_png_trans: '🪟 透明背景 PNG (扣除网格底纸)', opt_png_trans_desc: '自动剥离网格，仅留几何图形，做论文插图神器',
+        opt_svg: '📐 矢量 SVG (Canva / Figma / Illustrator 可编辑)', opt_svg_desc: '100% 独立矢量图层，支持 Canva、Figma 与 AI 无缝二次编辑',
+        opt_pdf: '📄 矢量 PDF 打印文档', opt_pdf_desc: '按选定 A4 比例精准排版，打印作业与论文首选',
+        pro_included_lifetime: '⭐ Pro 包含 · 永久使用',
+        pro_bundle_badge: '$4.99 一次付费 · 永久使用',
+        pro_bundle_desc: '解锁下方全部 Pro 专属导出格式与特权，无后续费用',
+        canva_figma_title: 'Canva / Figma / Illustrator 矢量直通',
+        canva_figma_desc: '无需下载，复制后直接在设计工具中粘贴 (Ctrl+V) 即可分层编辑',
+        btn_copy_svg: '复制矢量到剪贴板', open_canva: '前往 Canva', open_figma: '前往 Figma',
+        btn_export_free: '免费导出 1080P 标准图 (带水印)',
+        btn_export_pro_active: '立即以 Pro 权限导出',
+        btn_export_pro_buy: '⭐ 仅需 $4.99 永久解锁全部 Pro 特权 (包含当前格式)',
+        mobile_save_title: '手机保存到相册',
+        mobile_save_tip_strong: '长按下方图片 1 秒',
+        mobile_save_tip_text: '，在系统菜单中选择「存储图像」或「保存到相册」即可！',
+        mobile_save_fallback: '浏览器直接下载文件',
+        pro_title: '解锁 Graph Paper Pro 永久使用版',
+        pro_desc: '一次付费 $4.99 永久使用，解锁 4K 原画、透明图、SVG 矢量及全套空间几何工具。',
+        pro_perk_1: '4K Ultra-HD 超清原画（永久纯净去水印）',
+        pro_perk_2: '透明背景 PNG（无背景网格，论文插图必备）',
+        pro_perk_3: '数学矢量 SVG 原画（无限放大不失真，直通 Canva/Figma）',
+        pro_perk_4: '高保真 PDF 打印文档（标准 A4 作业排版）',
+        buy_btn: '立即以 $4.99 USD 解锁永久使用',
+        has_license: '已有授权码？',
+        license_ph: '输入卡密 (如 EZPRO-...)',
+        activate: '激活',
+        continue_free: '暂不解锁，继续免费使用',
+        palette_title: '画笔颜色', size: '粗细', fit: '适中', theme_light: '白天', theme_dark: '夜间',
+        tip_select: '↖️ 鼠标选择与调整 (快捷键 V，点选图片/文字可拖动、四角缩放或删除)',
+        tip_pen: '钢笔 (数学精准画线，停顿吸附标准几何)',
+        tip_pencil: '铅笔 (细线条草稿)',
+        tip_highlighter: '荧光高亮 (几何图形填充高光)',
+        tip_text: '🔤 文本/公式打字工具 (快捷键 T，点击任意位置输入)',
+        tip_eraser: '⚡ 一笔整擦 (点中线段瞬间整根消失)',
+        tip_lasso: '⭕ 套索圈选与平移 (圈住图形即可整体拖动)',
+        tip_image: '🖼️ 插入试题/图表图片，支持 Ctrl+V 粘贴',
+        tip_geom: '插入 3D 立体几何 / 坐标轴',
+        tip_line: '绘制水平/垂直直线',
+        tip_laser: '激光笔 (讲题指示)',
+        tip_palette: '画笔色彩与粗细调节',
+        tip_undo: '撤销 (Ctrl+Z，移动端双指轻敲)',
+        tip_clear: '🗑️ 清空所有绘图',
+        tip_zoom_out: '缩小 (Ctrl+滚轮)', tip_zoom_reset: '重置 100%', tip_zoom_in: '放大 (Ctrl+滚轮)', tip_zoom_fit: '适应居中',
+        tip_theme: '切换白天/夜间模式 (☀️/🌙)', tip_fullscreen: '全屏沉浸创作',
+        svg_copied_toast: '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！',
+        ratios: {
+          free: '♾️ 自适应满屏 (Responsive)',
+          a4_p: '📄 A4 纵向 (Portrait 210×297)',
+          a4_l: '📄 A4 横向 (Landscape 297×210)',
+          '16_9': '💻 16:9 演示宽屏 (Presentation)',
+          '4_3': '📱 4:3 经典平板 (Tablet)',
+          '9_16': '📱 9:16 移动竖屏 (Mobile Post)',
+          '1_1': '🔲 1:1 正方形 (Square)'
+        },
+        papers: {
+          square: '5mm 数学方格纸 (5mm Grid)',
+          isometric: '3D 等轴测三角格 (Isometric)',
+          polar: '极坐标同心网格 (Polar Grid)',
+          dot: '极简点阵图 (Dot Matrix)',
+          plain: '纯白工程画板 (Plain White)'
+        }
       },
       en: {
+        site_subtitle: 'Math Coordinate Grids & Engineering Graph Paper',
         lbl_ratio: 'Ratio', lbl_paper: 'Grid', fullscreen: 'Fullscreen', exit_fullscreen: 'Exit Fullscreen',
-        export: 'Export', palette_title: 'Palette', size: 'Size', theme_light: 'Day', theme_dark: 'Night',
-        pro_title: 'Unlock Graph Paper Pro Lifetime', pro_desc: 'Price of a coffee for lifetime 4K, Transparent PNG, SVG, and PDF exports.',
-        buy_btn: 'Buy Lifetime License for $4.99 USD', has_license: 'Have a license key?', activate: 'Activate', continue_free: 'Continue with free version'
+        export: 'Export', export_title: 'Export Center', export_subtitle: 'Select output format & resolution specifications',
+        free_tag: 'Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ 1080P Standard Graph', opt_png_free_desc: 'With subtle watermark, perfect for homework', opt_free_price: '$0 Free',
+        opt_png_4k: '✨ 4K Ultra-HD Original Image', opt_png_4k_desc: '3840px crystal clear, watermark-free forever',
+        opt_png_trans: '🪟 Transparent PNG (No Grid BG)', opt_png_trans_desc: 'Strips background grid for academic paper diagrams',
+        opt_svg: '📐 Vector SVG (Editable in Canva / Figma / Illustrator)', opt_svg_desc: '100% scalable vector layers, edit freely in design tools',
+        opt_pdf: '📄 Vector PDF Printable Document', opt_pdf_desc: 'Accurately formatted to standard A4 for papers and tests',
+        pro_included_lifetime: '⭐ Included in Pro · Lifetime Access',
+        pro_bundle_badge: '$4.99 One-Time · Lifetime Access',
+        pro_bundle_desc: 'Unlock all Pro export formats and features below with no recurring fees',
+        canva_figma_title: 'Direct Pass to Canva / Figma / Illustrator',
+        canva_figma_desc: 'No download required: copy and paste (Ctrl+V) directly into design tools as editable vectors',
+        btn_copy_svg: 'Copy Vector to Clipboard', open_canva: 'Open Canva', open_figma: 'Open Figma',
+        btn_export_free: 'Export 1080P Standard (Free with Watermark)',
+        btn_export_pro_active: 'Export Now with Pro Privileges',
+        btn_export_pro_buy: '⭐ Unlock All Pro Features Forever for $4.99',
+        mobile_save_title: 'Save to Phone Album',
+        mobile_save_tip_strong: 'Long-press the image below for 1 second',
+        mobile_save_tip_text: ', then select "Save Image" or "Add to Photos" in the popup menu!',
+        mobile_save_fallback: 'Direct Download in Browser',
+        pro_title: 'Unlock Graph Paper Pro Lifetime Access',
+        pro_desc: 'One-time $4.99 payment for permanent access to 4K, Transparent PNG, SVG vectors, and all 3D geometries.',
+        pro_perk_1: '4K Ultra-HD Original Image (clean, watermark-free)',
+        pro_perk_2: 'Transparent PNG (isolated vectors, ideal for papers)',
+        pro_perk_3: 'Vector SVG (lossless scaling, direct paste to Canva/Figma)',
+        pro_perk_4: 'High-Fidelity PDF Document (standard A4 layout)',
+        buy_btn: 'Unlock Lifetime Access for $4.99 USD',
+        has_license: 'Have a license key?',
+        license_ph: 'Enter license key (e.g. EZPRO-...)',
+        activate: 'Activate',
+        continue_free: 'Continue with Free Version',
+        palette_title: 'Pen Color', size: 'Size', fit: 'Fit', theme_light: 'Day', theme_dark: 'Night',
+        tip_select: '↖️ Select & Adjust (Key V, move, scale or delete items)',
+        tip_pen: 'Pen (Precise math drawing with snap)',
+        tip_pencil: 'Pencil (Fine sketch lines)',
+        tip_highlighter: 'Highlighter (Translucent geometric fill)',
+        tip_text: '🔤 Text / Formula Tool (Key T, click anywhere to type)',
+        tip_eraser: '⚡ Stroke Eraser (Click stroke to delete instantly)',
+        tip_lasso: '⭕ Lasso Select & Move (Lasso around shapes to move)',
+        tip_image: '🖼️ Insert Image, supports Ctrl+V paste',
+        tip_geom: 'Insert 3D Geometry / Coordinate Axes',
+        tip_line: 'Draw Horizontal / Vertical Line',
+        tip_laser: 'Laser Pointer (Interactive teaching pointer)',
+        tip_palette: 'Adjust Pen Color & Thickness',
+        tip_undo: 'Undo (Ctrl+Z or two-finger tap)',
+        tip_clear: '🗑️ Clear Canvas',
+        tip_zoom_out: 'Zoom Out (Ctrl+Scroll)', tip_zoom_reset: 'Reset 100%', tip_zoom_in: 'Zoom In (Ctrl+Scroll)', tip_zoom_fit: 'Fit to Screen',
+        tip_theme: 'Toggle Day/Night Mode (☀️/🌙)', tip_fullscreen: 'Fullscreen Canvas',
+        svg_copied_toast: '🎉 Vector SVG copied to clipboard! Press Ctrl+V (Mac: Cmd+V) directly in Canva, Figma, or Illustrator to paste editable vector paths!',
+        ratios: {
+          free: '♾️ Responsive Canvas',
+          a4_p: '📄 A4 Portrait (210×297)',
+          a4_l: '📄 A4 Landscape (297×210)',
+          '16_9': '💻 16:9 Presentation',
+          '4_3': '📱 4:3 Tablet',
+          '9_16': '📱 9:16 Mobile Post',
+          '1_1': '🔲 1:1 Square'
+        },
+        papers: {
+          square: '5mm Math Graph Paper (5mm Grid)',
+          isometric: '3D Isometric Triangle Grid',
+          polar: 'Polar Concentric Grid',
+          dot: 'Minimal Dot Matrix',
+          plain: 'Plain Engineering Board'
+        }
       },
       ja: {
+        site_subtitle: '数学座標グリッド＆工学方眼紙',
         lbl_ratio: '比率', lbl_paper: 'グリッド', fullscreen: '全画面', exit_fullscreen: '全画面終了',
-        export: '保存', palette_title: 'カラー', size: '太さ', theme_light: '昼', theme_dark: '夜',
-        pro_title: 'Graph Paper Pro 永久ライセンス', pro_desc: '4K超画質、透過PNG、SVGベクター出力を永久利用。',
-        buy_btn: '$4.99 で永久購入する', has_license: 'ライセンスをお持ちですか？', activate: '有効化', continue_free: '無料版を続ける'
+        export: 'エクスポート', export_title: '保存センター', export_subtitle: '出力フォーマットと解像度を選択',
+        free_tag: '無料 Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ 1080P 標準グラフ', opt_png_free_desc: '控えめな透かし入り、課題提出に最適', opt_free_price: '$0 無料',
+        opt_png_4k: '✨ 4K Ultra-HD 超高画質', opt_png_4k_desc: '3840px超解像度、完全透かしなし',
+        opt_png_trans: '🪟 透過背景 PNG (グリッド消去)', opt_png_trans_desc: '論文やレポート用の図表切り抜きに最適',
+        opt_svg: '📐 ベクター SVG (Canva / Figma / Illustrator 編集可能)', opt_svg_desc: '完全ベクター階層、デザインツールで自在に再編集',
+        opt_pdf: '📄 ベクター PDF 印刷文書', opt_pdf_desc: 'A4規格に合わせた美しいレイアウト印刷',
+        pro_included_lifetime: '⭐ Proに含まれます · 永久使用',
+        pro_bundle_badge: '$4.99 買い切り · 永久使用',
+        pro_bundle_desc: '追加料金なしで以下のすべてのProエクスポート形式を永久利用可能',
+        canva_figma_title: 'Canva / Figma / Illustrator ダイレクト連携',
+        canva_figma_desc: 'ダウンロード不要。コピーしてデザインツールに貼り付けるだけ (Ctrl+V)',
+        btn_copy_svg: 'ベクターをクリップボードにコピー', open_canva: 'Canvaを開く', open_figma: 'Figmaを開く',
+        btn_export_free: '1080P標準画像を無料で保存 (透かし入り)',
+        btn_export_pro_active: 'Pro権限ですぐに出力',
+        btn_export_pro_buy: '⭐ $4.99 で全Pro機能を永久アンロック',
+        mobile_save_title: 'スマホの写真に保存',
+        mobile_save_tip_strong: '下の画像を1秒間長押し',
+        mobile_save_tip_text: 'して、「画像を保存」を選択してください！',
+        mobile_save_fallback: 'ブラウザから直接ダウンロード',
+        pro_title: 'Graph Paper Pro 永久使用版をアンロック',
+        pro_desc: '一度のお支払いで4K、透過PNG、SVGベクターおよび全3D幾何学ツールを永久利用。',
+        pro_perk_1: '4K Ultra-HD 超高解像度（透かしなし永久）',
+        pro_perk_2: '透過背景 PNG（レポートや論文用図表）',
+        pro_perk_3: '数学ベクター SVG（Canva/Figmaに直接ペースト）',
+        pro_perk_4: '高精細 PDF 印刷文書（A4規格レイアウト）',
+        buy_btn: '$4.99 USD で永久使用版を購入',
+        has_license: 'ライセンスキーをお持ちですか？',
+        license_ph: 'キーを入力 (例: EZPRO-...)',
+        activate: '有効化',
+        continue_free: '無料版を使い続ける',
+        palette_title: 'カラー', size: '太さ', fit: '中央', theme_light: '昼間', theme_dark: '夜間',
+        tip_select: '↖️ 選択と編集 (ショートカット V、移動・拡縮・削除)',
+        tip_pen: 'ペン (精密な数学作図・幾何スナップ)',
+        tip_pencil: '鉛筆 (細線下書き)',
+        tip_highlighter: '蛍光ペン (図形ハイライト塗り)',
+        tip_text: '🔤 テキスト/数式ツール (ショートカット T)',
+        tip_eraser: '⚡ ストローク消しゴム (線をクリックで丸ごと消去)',
+        tip_lasso: '⭕ なげなわ選択・移動 (囲んでまとめてドラッグ)',
+        tip_image: '🖼️ 画像挿入 (Ctrl+V ペースト対応)',
+        tip_geom: '3D 立体幾何 / 座標軸の挿入',
+        tip_line: '水平・垂直の直線を描く',
+        tip_laser: 'レーザーポインター (授業ポインター)',
+        tip_palette: 'ペンの色と太さの調整',
+        tip_undo: '元に戻す (Ctrl+Z / 2本指タップ)',
+        tip_clear: '🗑️ キャンバスを全消去',
+        tip_zoom_out: '縮小 (Ctrl+ホイール)', tip_zoom_reset: 'リセット 100%', tip_zoom_in: '拡大 (Ctrl+ホイール)', tip_zoom_fit: '画面に合わせる',
+        tip_theme: '昼間/夜間モード切替 (☀️/🌙)', tip_fullscreen: '全画面表示',
+        svg_copied_toast: '🎉 ベクター SVG をクリップボードにコピーしました！Canva、Figma、Illustrator で Ctrl+V (Mac: Cmd+V) を押すとパスとして直接貼り付けできます！',
+        ratios: {
+          free: '♾️ レスポンシブ全画面',
+          a4_p: '📄 A4 縦向き (210×297)',
+          a4_l: '📄 A4 横向き (297×210)',
+          '16_9': '💻 16:9 プレゼン用',
+          '4_3': '📱 4:3 タブレット',
+          '9_16': '📱 9:16 モバイル縦',
+          '1_1': '🔲 1:1 正方形'
+        },
+        papers: {
+          square: '5mm 数学方眼紙 (5mm Grid)',
+          isometric: '3D 等軸測三角グリッド',
+          polar: '極座標同心円グリッド',
+          dot: 'ミニマルドットグリッド',
+          plain: '無地エンジニアボード'
+        }
       },
       ko: {
+        site_subtitle: '수학 좌표 그리드 및 공학 방안지',
         lbl_ratio: '비율', lbl_paper: '그리드', fullscreen: '전체화면', exit_fullscreen: '전체화면 종료',
-        export: '내보내기', palette_title: '색상', size: '굵기', theme_light: '주간', theme_dark: '야간',
-        pro_title: 'Graph Paper Pro 평생 라이선스', pro_desc: '4K 초고화질, 투명 PNG, SVG 벡터 출력 영구 해제.',
-        buy_btn: '$4.99 USD 평생 구매', has_license: '인증 코드가 있으신가요?', activate: '활성화', continue_free: '무료 버전 유지'
+        export: '내보내기', export_title: '내보내기 센터', export_subtitle: '출력 파일 형식 및 해상도 선택',
+        free_tag: '무료 Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ 1080P 표준 그래프', opt_png_free_desc: '은은한 워터마크 포함, 과제 제출용', opt_free_price: '$0 무료',
+        opt_png_4k: '✨ 4K Ultra-HD 초고화질', opt_png_4k_desc: '3840px 초고해상도, 영구 워터마크 없음',
+        opt_png_trans: '🪟 투명 배경 PNG (그리드 제거)', opt_png_trans_desc: '배경 격자를 제거하여 논문/보고서 삽화에 적합',
+        opt_svg: '📐 벡터 SVG (Canva / Figma / Illustrator 편집 가능)', opt_svg_desc: '100% 벡터 레이어 분리, 디자인 툴에서 자유로운 재편집',
+        opt_pdf: '📄 벡터 PDF 인쇄 문서', opt_pdf_desc: 'A4 규격에 맞춘 깔끔한 출력 및 인쇄용',
+        pro_included_lifetime: '⭐ Pro 포함 · 영구 사용',
+        pro_bundle_badge: '$4.99 일회 결제 · 영구 사용',
+        pro_bundle_desc: '추가 비용 없이 아래 모든 Pro 내보내기 형식 영구 이용',
+        canva_figma_title: 'Canva / Figma / Illustrator 벡터 바로가기',
+        canva_figma_desc: '다운로드 없이 복사 후 디자인 툴에 바로 붙여넣기 (Ctrl+V) 가능',
+        btn_copy_svg: '벡터를 클립보드에 복사', open_canva: 'Canva 열기', open_figma: 'Figma 열기',
+        btn_export_free: '무료 1080P 표준 이미지 내보내기 (워터마크 포함)',
+        btn_export_pro_active: 'Pro 권한으로 즉시 내보내기',
+        btn_export_pro_buy: '⭐ $4.99로 모든 Pro 기능 영구 잠금 해제',
+        mobile_save_title: '휴대폰 사진첩에 저장',
+        mobile_save_tip_strong: '아래 이미지를 1초간 길게 누른 후',
+        mobile_save_tip_text: ', 메뉴에서 "이미지 저장"을 선택하세요!',
+        mobile_save_fallback: '브라우저에서 직접 다운로드',
+        pro_title: 'Graph Paper Pro 영구 사용 버전 잠금 해제',
+        pro_desc: '커피 한 잔 가격으로 4K, 투명 PNG, SVG 벡터 및 3D 기하 도구 영구 사용.',
+        pro_perk_1: '4K Ultra-HD 초고화질 (워터마크 완전 제거)',
+        pro_perk_2: '투명 배경 PNG (논문 삽화용 벡터 분리)',
+        pro_perk_3: '수학 벡터 SVG (Canva/Figma 직접 붙여넣기)',
+        pro_perk_4: '고품질 PDF 인쇄 문서 (A4 정밀 레이아웃)',
+        buy_btn: '$4.99 USD로 영구 사용권 구매',
+        has_license: '라이선스 키가 있으신가요?',
+        license_ph: '키 입력 (예: EZPRO-...)',
+        activate: '활성화',
+        continue_free: '무료 버전 계속 사용',
+        palette_title: '펜 색상', size: '굵기', fit: '맞춤', theme_light: '주간', theme_dark: '야간',
+        tip_select: '↖️ 선택 및 편집 (단축키 V, 이동·크기조절·삭제)',
+        tip_pen: '펜 (수학 정밀 작도 및 도형 자동 보정)',
+        tip_pencil: '연필 (얇은 스케치 선)',
+        tip_highlighter: '형광펜 (도형 반투명 채우기)',
+        tip_text: '🔤 텍스트/수식 도구 (단축키 T)',
+        tip_eraser: '⚡ 획 지우개 (선 클릭 시 통째로 삭제)',
+        tip_lasso: '⭕ 올가미 선택 및 이동 (둘러싸서 한꺼번에 이동)',
+        tip_image: '🖼️ 이미지 삽입 (Ctrl+V 붙여넣기 지원)',
+        tip_geom: '3D 입체 기하 / 좌표축 삽입',
+        tip_line: '수평/수직 직선 그리기',
+        tip_laser: '레이저 포인터 (수업용 포인터)',
+        tip_palette: '펜 색상 및 굵기 설정',
+        tip_undo: '실행 취소 (Ctrl+Z / 두 손가락 탭)',
+        tip_clear: '🗑️ 캔버스 전체 지우기',
+        tip_zoom_out: '축소 (Ctrl+휠)', tip_zoom_reset: '100% 초기화', tip_zoom_in: '확대 (Ctrl+휠)', tip_zoom_fit: '화면 맞춤',
+        tip_theme: '주간/야간 모드 전환 (☀️/🌙)', tip_fullscreen: '전체화면 모드',
+        svg_copied_toast: '🎉 벡터 SVG가 클립보드에 복사되었습니다! Canva, Figma, Illustrator에서 Ctrl+V (Mac: Cmd+V)를 눌러 편집 가능한 벡터 패스로 바로 붙여넣을 수 있습니다!',
+        ratios: {
+          free: '♾️ 반응형 전체화면',
+          a4_p: '📄 A4 세로 (210×297)',
+          a4_l: '📄 A4 가로 (297×210)',
+          '16_9': '💻 16:9 프레젠테이션',
+          '4_3': '📱 4:3 태블릿',
+          '9_16': '📱 9:16 모바일 세로',
+          '1_1': '🔲 1:1 정사각형'
+        },
+        papers: {
+          square: '5mm 수학 모눈종이 (5mm Grid)',
+          isometric: '3D 등각 삼각 그리드',
+          polar: '극좌표 동심원 그리드',
+          dot: '미니멀 점 그리드',
+          plain: '엔지니어 무지 보드'
+        }
       },
       de: {
+        site_subtitle: 'Mathematische Koordinatennetze & Millimeterpapier',
         lbl_ratio: 'Format', lbl_paper: 'Raster', fullscreen: 'Vollbild', exit_fullscreen: 'Vollbild beenden',
-        export: 'Export', palette_title: 'Farbe', size: 'Stärke', theme_light: 'Tag', theme_dark: 'Nacht',
-        pro_title: 'Graph Paper Pro Freischalten', pro_desc: 'Lebenslanger Export von 4K, transparentem PNG und Vektor-SVG.',
-        buy_btn: 'Lebenslang für $4.99 kaufen', has_license: 'Haben Sie einen Schlüssel?', activate: 'Aktivieren', continue_free: 'Kostenlos fortfahren'
+        export: 'Exportieren', export_title: 'Export-Zentrum', export_subtitle: 'Ausgabeformat und Auflösung wählen',
+        free_tag: 'Kostenlos Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ 1080P Standardgrafik', opt_png_free_desc: 'Mit dezentem Wasserzeichen für Aufgaben', opt_free_price: '$0 Kostenlos',
+        opt_png_4k: '✨ 4K Ultra-HD Originalgrafik', opt_png_4k_desc: '3840px gestochen scharf, dauerhaft ohne Wasserzeichen',
+        opt_png_trans: '🪟 Transparentes PNG (Ohne Raster)', opt_png_trans_desc: 'Isoliert Vektorgeometrie für wissenschaftliche Arbeiten',
+        opt_svg: '📐 Vektor-SVG (Bearbeitbar in Canva / Figma / Illustrator)', opt_svg_desc: '100% Vektorebenen, nahtlos in Design-Apps weiterbearbeiten',
+        opt_pdf: '📄 Vektor-PDF Druckdokument', opt_pdf_desc: 'Präzise auf A4 formatiert für Druck und Hausarbeiten',
+        pro_included_lifetime: '⭐ In Pro enthalten · Dauerhafte Nutzung',
+        pro_bundle_badge: '$4.99 Einmalig · Dauerhafte Nutzung',
+        pro_bundle_desc: 'Schaltet alle unten stehenden Pro-Exportformate dauerhaft ohne Folgekosten frei',
+        canva_figma_title: 'Direktverbindung zu Canva / Figma / Illustrator',
+        canva_figma_desc: 'Kein Download nötig: Kopieren und direkt mit Strg+V in Designtools als Vektoren einfügen',
+        btn_copy_svg: 'Vektor in Zwischenablage kopieren', open_canva: 'Canva öffnen', open_figma: 'Figma öffnen',
+        btn_export_free: '1080P Standard kostenlos exportieren (mit Wasserzeichen)',
+        btn_export_pro_active: 'Jetzt mit Pro-Rechten exportieren',
+        btn_export_pro_buy: '⭐ Alle Pro-Funktionen für $4.99 dauerhaft freischalten',
+        mobile_save_title: 'Auf dem Smartphone speichern',
+        mobile_save_tip_strong: 'Bild unten 1 Sekunde gedrückt halten',
+        mobile_save_tip_text: ', dann im Menü „Bild speichern“ auswählen!',
+        mobile_save_fallback: 'Direkt im Browser herunterladen',
+        pro_title: 'Graph Paper Pro Dauerhafte Nutzung freischalten',
+        pro_desc: 'Einmalig $4.99 für dauerhaften Zugriff auf 4K, transparentes PNG, Vektor-SVG und 3D-Geometrien.',
+        pro_perk_1: '4K Ultra-HD Original (dauerhaft ohne Wasserzeichen)',
+        pro_perk_2: 'Transparentes PNG (ohne Raster, perfekt für Publikationen)',
+        pro_perk_3: 'Mathematisches Vektor-SVG (direkt in Canva/Figma einfügen)',
+        pro_perk_4: 'Hochauflösendes PDF (A4 Layout)',
+        buy_btn: 'Dauerhafte Nutzung für $4.99 USD kaufen',
+        has_license: 'Haben Sie einen Lizenzschlüssel?',
+        license_ph: 'Schlüssel eingeben (z.B. EZPRO-...)',
+        activate: 'Aktivieren',
+        continue_free: 'Mit kostenloser Version fortfahren',
+        palette_title: 'Farbe', size: 'Stärke', fit: 'Einpassen', theme_light: 'Tag', theme_dark: 'Nacht',
+        tip_select: '↖️ Auswählen & Bearbeiten (Taste V, Verschieben, Skalieren, Löschen)',
+        tip_pen: 'Stift (Präzise mathematische Zeichnung)',
+        tip_pencil: 'Bleistift (Feine Skizzen)',
+        tip_highlighter: 'Textmarker (Transparente Hervorhebung)',
+        tip_text: '🔤 Text- & Formelwerkzeug (Taste T)',
+        tip_eraser: '⚡ Strichradierer (Strich anklicken zum Löschen)',
+        tip_lasso: '⭕ Lasso-Werkzeug (Einkreisen und verschieben)',
+        tip_image: '🖼️ Bild einfügen (Strg+V unterstützt)',
+        tip_geom: '3D-Körper / Koordinatensysteme einfügen',
+        tip_line: 'Horizontale/Vertikale Linien zeichnen',
+        tip_laser: 'Laserpointer (Präsentationszeiger)',
+        tip_palette: 'Stiftfarbe & Linienstärke anpassen',
+        tip_undo: 'Rückgängig (Strg+Z / Zwei-Finger-Tippen)',
+        tip_clear: '🗑️ Zeichenfläche leeren',
+        tip_zoom_out: 'Verkleinern (Strg+Mausrad)', tip_zoom_reset: '100% Reset', tip_zoom_in: 'Vergrößern (Strg+Mausrad)', tip_zoom_fit: 'An Bildschirm anpassen',
+        tip_theme: 'Tag-/Nachtmodus umschalten (☀️/🌙)', tip_fullscreen: 'Vollbildmodus',
+        svg_copied_toast: '🎉 Vektor-SVG in Zwischenablage kopiert! Direkt in Canva, Figma oder Illustrator mit Strg+V (Mac: Cmd+V) als bearbeitbare Vektorelemente einfügen!',
+        ratios: {
+          free: '♾️ Responsiv Vollbild',
+          a4_p: '📄 A4 Hochformat (210×297)',
+          a4_l: '📄 A4 Querformat (297×210)',
+          '16_9': '💻 16:9 Präsentation',
+          '4_3': '📱 4:3 Tablet',
+          '9_16': '📱 9:16 Mobilformat',
+          '1_1': '🔲 1:1 Quadrat'
+        },
+        papers: {
+          square: '5mm Mathe-Millimeterpapier (5mm Grid)',
+          isometric: '3D Isometrisches Dreiecksraster',
+          polar: 'Polares Koordinatennetz',
+          dot: 'Minimales Punktraster',
+          plain: 'Weißes Konstruktionsblatt'
+        }
       },
       es: {
+        site_subtitle: 'Cuadrículas Matemáticas y Papel Milimetrado de Ingeniería',
         lbl_ratio: 'Proporción', lbl_paper: 'Cuadrícula', fullscreen: 'Pantalla completa', exit_fullscreen: 'Salir',
-        export: 'Exportar', palette_title: 'Paleta', size: 'Grosor', theme_light: 'Día', theme_dark: 'Noche',
-        pro_title: 'Desbloquear Graph Paper Pro', pro_desc: 'Exportación 4K, PNG transparente y SVG vectorial de por vida.',
-        buy_btn: 'Comprar vitalicio por $4.99', has_license: '¿Tienes clave?', activate: 'Activar', continue_free: 'Continuar gratis'
+        export: 'Exportar', export_title: 'Centro de exportación', export_subtitle: 'Seleccione el formato y resolución de salida',
+        free_tag: 'Gratis Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ Gráfico estándar 1080P', opt_png_free_desc: 'Con marca de agua sutil, ideal para tareas', opt_free_price: '$0 Gratis',
+        opt_png_4k: '✨ 4K Ultra-HD Original', opt_png_4k_desc: '3840px nítido, sin marcas de agua de por vida',
+        opt_png_trans: '🪟 PNG de fondo transparente (sin cuadrícula)', opt_png_trans_desc: 'Elimina el fondo para diagramas de tesis y papers',
+        opt_svg: '📐 SVG vectorial (Editable en Canva / Figma / Illustrator)', opt_svg_desc: 'Capas vectoriales puras, reedite libremente en software de diseño',
+        opt_pdf: '📄 Documento PDF vectorial para imprimir', opt_pdf_desc: 'Formateado con precisión A4 para entregas y exámenes',
+        pro_included_lifetime: '⭐ Incluido en Pro · Uso permanente',
+        pro_bundle_badge: '$4.99 Pago único · Uso permanente',
+        pro_bundle_desc: 'Desbloquea todos los formatos y funciones Pro inferiores sin tarifas recurrentes',
+        canva_figma_title: 'Pase directo a Canva / Figma / Illustrator',
+        canva_figma_desc: 'Sin descargar: copie y pegue directamente (Ctrl+V) en herramientas de diseño como vectores editables',
+        btn_copy_svg: 'Copiar vector al portapapeles', open_canva: 'Abrir Canva', open_figma: 'Abrir Figma',
+        btn_export_free: 'Exportar estándar 1080P gratis (con marca de agua)',
+        btn_export_pro_active: 'Exportar ahora con privilegios Pro',
+        btn_export_pro_buy: '⭐ Desbloquea todas las funciones Pro de por vida por $4.99',
+        mobile_save_title: 'Guardar en el álbum móvil',
+        mobile_save_tip_strong: 'Mantén pulsada la imagen abajo 1 segundo',
+        mobile_save_tip_text: ' y selecciona "Guardar imagen" en el menú.',
+        mobile_save_fallback: 'Descargar archivo directamente en el navegador',
+        pro_title: 'Desbloquear Graph Paper Pro Uso Permanente',
+        pro_desc: 'Un solo pago de $4.99 para acceso permanente a 4K, PNG transparente, vectores SVG y geometrías 3D.',
+        pro_perk_1: '4K Ultra-HD Original (sin marcas de agua de por vida)',
+        pro_perk_2: 'PNG transparente (vectores limpios para tesis y papers)',
+        pro_perk_3: 'SVG vectorial (pegue directamente en Canva/Figma)',
+        pro_perk_4: 'Documento PDF de alta fidelidad (formato A4 estándar)',
+        buy_btn: 'Comprar uso permanente por $4.99 USD',
+        has_license: '¿Tienes una clave de licencia?',
+        license_ph: 'Introduce clave (ej. EZPRO-...)',
+        activate: 'Activar',
+        continue_free: 'Continuar con versión gratuita',
+        palette_title: 'Color', size: 'Grosor', fit: 'Ajustar', theme_light: 'Día', theme_dark: 'Noche',
+        tip_select: '↖️ Seleccionar y mover (Tecla V, desplazar, escalar o borrar)',
+        tip_pen: 'Pluma (Trazado matemático con ajuste geométrico)',
+        tip_pencil: 'Lápiz (Bocetos finos)',
+        tip_highlighter: 'Resaltador (Relleno semitransparente)',
+        tip_text: '🔤 Herramienta de texto y fórmulas (Tecla T)',
+        tip_eraser: '⚡ Borrador de trazos (Clic para borrar trazo entero)',
+        tip_lasso: '⭕ Selección con lazo (Rodee elementos para moverlos)',
+        tip_image: '🖼️ Insertar imagen (admite Ctrl+V)',
+        tip_geom: 'Insertar figuras 3D / ejes de coordenadas',
+        tip_line: 'Trazar líneas rectas horizontales/verticales',
+        tip_laser: 'Puntero láser (Indicador para clases)',
+        tip_palette: 'Ajustar color y grosor de trazo',
+        tip_undo: 'Deshacer (Ctrl+Z o toque con dos dedos)',
+        tip_clear: '🗑️ Borrar todo el lienzo',
+        tip_zoom_out: 'Reducir (Ctrl+Rueda)', tip_zoom_reset: 'Restablecer 100%', tip_zoom_in: 'Ampliar (Ctrl+Rueda)', tip_zoom_fit: 'Centrar en pantalla',
+        tip_theme: 'Cambiar modo día/noche (☀️/🌙)', tip_fullscreen: 'Pantalla completa',
+        svg_copied_toast: '🎉 ¡Vector SVG copiado al portapapeles! Pégalo directamente con Ctrl+V (Mac: Cmd+V) en Canva, Figma o Illustrator como trazados vectoriales editables.',
+        ratios: {
+          free: '♾️ Pantalla adaptable',
+          a4_p: '📄 A4 Vertical (210×297)',
+          a4_l: '📄 A4 Horizontal (297×210)',
+          '16_9': '💻 16:9 Presentación',
+          '4_3': '📱 4:3 Tableta',
+          '9_16': '📱 9:16 Vertical móvil',
+          '1_1': '🔲 1:1 Cuadrado'
+        },
+        papers: {
+          square: 'Papel milimetrado de 5mm (5mm Grid)',
+          isometric: 'Cuadrícula isométrica 3D',
+          polar: 'Cuadrícula polar concéntrica',
+          dot: 'Matriz de puntos minimalista',
+          plain: 'Pizarra blanca de ingeniería'
+        }
       },
       fr: {
+        site_subtitle: 'Grilles de Coordonnées Mathématiques & Papier Millimétré',
         lbl_ratio: 'Format', lbl_paper: 'Grille', fullscreen: 'Plein écran', exit_fullscreen: 'Quitter plein écran',
-        export: 'Exporter', palette_title: 'Palette', size: 'Taille', theme_light: 'Jour', theme_dark: 'Nuit',
-        pro_title: 'Débloquer Graph Paper Pro à vie', pro_desc: 'Export 4K, PNG transparent et SVG vectoriel illimités.',
-        buy_btn: 'Acheter à vie pour 4,99 $', has_license: 'Avez-vous une clé ?', activate: 'Activer', continue_free: 'Continuer gratuitement'
+        export: 'Exporter', export_title: 'Centre d\'exportation', export_subtitle: 'Choisissez le format et la résolution de sortie',
+        free_tag: 'Gratuit Free', pro_tag: '⭐ Pro',
+        opt_png_free: '🖼️ Graphique 1080P Standard', opt_png_free_desc: 'Avec filigrane discret pour devoirs et exercices', opt_free_price: '0 $ Gratuit',
+        opt_png_4k: '✨ 4K Ultra-HD Image Originale', opt_png_4k_desc: '3840px ultra-net, sans filigrane à vie',
+        opt_png_trans: '🪟 PNG transparent (sans grille)', opt_png_trans_desc: 'Isole les tracés vectoriels pour thèses et publications',
+        opt_svg: '📐 SVG vectoriel (Éditable dans Canva / Figma / Illustrator)', opt_svg_desc: '100% vectoriel, modifiable sans perte dans vos logiciels de design',
+        opt_pdf: '📄 Document PDF imprimable vectoriel', opt_pdf_desc: 'Mise en page A4 précise pour devoirs et examens',
+        pro_included_lifetime: '⭐ Inclus avec Pro · Utilisation permanente',
+        pro_bundle_badge: '4,99 $ Paiement unique · Utilisation permanente',
+        pro_bundle_desc: 'Débloque tous les formats Pro ci-dessous sans frais récurrents',
+        canva_figma_title: 'Pass direct vers Canva / Figma / Illustrator',
+        canva_figma_desc: 'Sans téléchargement : copiez et collez directement (Ctrl+V) dans vos outils de design',
+        btn_copy_svg: 'Copier le vecteur dans le presse-papiers', open_canva: 'Ouvrir Canva', open_figma: 'Ouvrir Figma',
+        btn_export_free: 'Exporter gratuitement en 1080P (avec filigrane)',
+        btn_export_pro_active: 'Exporter maintenant avec privilèges Pro',
+        btn_export_pro_buy: '⭐ Débloquez toutes les fonctionnalités Pro à vie pour 4,99 $',
+        mobile_save_title: 'Enregistrer sur le téléphone',
+        mobile_save_tip_strong: 'Appuyez longuement sur l\'image pendant 1 seconde',
+        mobile_save_tip_text: ', puis choisissez « Enregistrer l\'image » dans le menu.',
+        mobile_save_fallback: 'Télécharger directement dans le navigateur',
+        pro_title: 'Débloquer Graph Paper Pro Utilisation Permanente',
+        pro_desc: 'Un seul paiement de 4,99 $ pour un accès permanent au 4K, PNG transparent, vecteurs SVG et géométries 3D.',
+        pro_perk_1: '4K Ultra-HD original (sans aucun filigrane à vie)',
+        pro_perk_2: 'PNG transparent (vecteurs isolés pour thèses et rapports)',
+        pro_perk_3: 'SVG vectoriel (collez directement dans Canva/Figma)',
+        pro_perk_4: 'PDF haute fidélité (mise en page A4 standard)',
+        buy_btn: 'Acheter l\'accès permanent pour 4,99 $ USD',
+        has_license: 'Vous avez déjà une clé de licence ?',
+        license_ph: 'Entrez la clé (ex: EZPRO-...)',
+        activate: 'Activer',
+        continue_free: 'Continuer avec la version gratuite',
+        palette_title: 'Couleur', size: 'Épaisseur', fit: 'Centrer', theme_light: 'Jour', theme_dark: 'Nuit',
+        tip_select: '↖️ Sélectionner et ajuster (Raccourci V, déplacer, redimensionner ou supprimer)',
+        tip_pen: 'Stylo (Dessin mathématique précis avec accrochage)',
+        tip_pencil: 'Crayon (Esquisse fine)',
+        tip_highlighter: 'Surligneur (Remplissage translucide)',
+        tip_text: '🔤 Outil texte & formules (Raccourci T)',
+        tip_eraser: '⚡ Gomme de trait (Supprime le trait cliqué)',
+        tip_lasso: '⭕ Lasso (Entourez pour déplacer ensemble)',
+        tip_image: '🖼️ Insérer une image (supporte Ctrl+V)',
+        tip_geom: 'Insérer des volumes 3D / repères de coordonnées',
+        tip_line: 'Tracer une ligne horizontale / verticale',
+        tip_laser: 'Pointeur laser (Pointeur de présentation)',
+        tip_palette: 'Réglage de la couleur et de l\'épaisseur',
+        tip_undo: 'Annuler (Ctrl+Z ou toucher à deux doigts)',
+        tip_clear: '🗑️ Effacer tout le tableau',
+        tip_zoom_out: 'Dézoomer (Ctrl+Molette)', tip_zoom_reset: 'Réinitialiser 100%', tip_zoom_in: 'Zoomer (Ctrl+Molette)', tip_zoom_fit: 'Ajuster à l\'écran',
+        tip_theme: 'Basculer mode jour/nuit (☀️/🌙)', tip_fullscreen: 'Plein écran',
+        svg_copied_toast: '🎉 Tracé vectoriel SVG copié dans le presse-papiers ! Collez directement avec Ctrl+V (Mac : Cmd+V) dans Canva, Figma ou Illustrator pour obtenir des calques vectoriels éditables !',
+        ratios: {
+          free: '♾️ Plein écran réactif',
+          a4_p: '📄 A4 Portrait (210×297)',
+          a4_l: '📄 A4 Paysage (297×210)',
+          '16_9': '💻 16:9 Présentation',
+          '4_3': '📱 4:3 Tablette',
+          '9_16': '📱 9:16 Mobile vertical',
+          '1_1': '🔲 1:1 Carré'
+        },
+        papers: {
+          square: 'Papier millimétré mathématique 5mm',
+          isometric: 'Grille triangulaire isométrique 3D',
+          polar: 'Grille polaire concentrique',
+          dot: 'Matrice de points épurée',
+          plain: 'Planche de dessin vierge'
+        }
       }
     };
 
@@ -1876,6 +2354,10 @@
 
     function updateExportModalUI() {
       const fmt = getSelectedExportFormat();
+      const canvaBox = document.getElementById('canvaFigmaActions');
+      if (canvaBox) {
+        canvaBox.classList.toggle('hidden', fmt !== 'svg_vector');
+      }
       document.querySelectorAll('.export-card').forEach(card => {
         const input = card.querySelector('input');
         if (input.checked) {
@@ -1887,16 +2369,17 @@
         }
       });
 
+      const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
       if (fmt === 'png_free') {
         btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
-        lblExecuteExport.innerText = '免费导出 1080P 标准图 (带水印)';
+        lblExecuteExport.innerText = dict.btn_export_free || '免费导出 1080P 标准图 (带水印)';
       } else {
         if (appState.isPro) {
           btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
-          lblExecuteExport.innerText = '立即以 Pro 权限导出';
+          lblExecuteExport.innerText = dict.btn_export_pro_active || '立即以 Pro 权限导出';
         } else {
           btnExecuteExport.className = 'w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
-          lblExecuteExport.innerText = '⭐ 解锁此格式 ($4.99 USD 终身买断)';
+          lblExecuteExport.innerText = dict.btn_export_pro_buy || '⭐ 仅需 $4.99 永久解锁全部 Pro 特权 (包含当前格式)';
         }
       }
     }
@@ -1945,7 +2428,7 @@
       }, 'image/png');
     }
 
-    function exportVectorSVG() {
+    function generateVectorSVGString() {
       let pathsSvg = '';
       for (const s of appState.strokes) {
         if (!s.points || s.points.length === 0) continue;
@@ -1965,14 +2448,41 @@
         pathsSvg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.size}" stroke-linecap="round" stroke-linejoin="round" opacity="${opacity}" />\n`;
       }
 
-      const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+      for (const t of appState.texts) {
+        pathsSvg += `<text x="${t.x}" y="${t.y}" font-size="${t.size}" fill="${t.color}" font-weight="600" font-family="sans-serif">${t.text}</text>\n`;
+      }
+
+      return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cssWidth} ${cssHeight}" width="${cssWidth}" height="${cssHeight}">
   <rect width="100%" height="100%" fill="#f8fafc" />
   ${pathsSvg}
 </svg>`;
+    }
 
+    function exportVectorSVG() {
+      const svgContent = generateVectorSVGString();
       const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
       handleFileDownloadOrShare(blob, `Graph-${Date.now()}.svg`, 'image/svg+xml');
+    }
+
+    const btnCopySvg = document.getElementById('btnCopySvgToClipboard');
+    if (btnCopySvg) {
+      btnCopySvg.onclick = async () => {
+        const svgContent = generateVectorSVGString();
+        const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+        try {
+          await navigator.clipboard.writeText(svgContent);
+          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
+        } catch (err) {
+          const ta = document.createElement('textarea');
+          ta.value = svgContent;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
+        }
+      };
     }
 
     function exportToPDF() {
@@ -2152,8 +2662,33 @@
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.textContent = dict[key];
       });
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (dict[key]) el.title = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) el.placeholder = dict[key];
+      });
+      if (dict.ratios) {
+        const ratioSel = document.getElementById('ratioSelector');
+        if (ratioSel) {
+          Array.from(ratioSel.options).forEach(opt => {
+            if (dict.ratios[opt.value]) opt.textContent = dict.ratios[opt.value];
+          });
+        }
+      }
+      if (dict.papers) {
+        const paperSel = document.getElementById('paperSelector');
+        if (paperSel) {
+          Array.from(paperSel.options).forEach(opt => {
+            if (dict.papers[opt.value]) opt.textContent = dict.papers[opt.value];
+          });
+        }
+      }
       const isLight = document.body.classList.contains('theme-light');
       if (themeLabel) themeLabel.innerText = isLight ? (dict.theme_light || '白天') : (dict.theme_dark || '夜间');
+      if (typeof updateExportModalUI === 'function') updateExportModalUI();
     }
 
     // 白天 / 夜间模式控制 (Day/Night Theme)
@@ -2195,7 +2730,7 @@
         localStorage.setItem('eazyopc_pro_unlocked', 'true');
         appState.isPro = true;
         window.history.replaceState({}, document.title, window.location.pathname);
-        setTimeout(() => alert('🎉 恭喜！付款已确认，Graph Paper Pro 终身版权益已激活！'), 400);
+        setTimeout(() => alert('🎉 恭喜！付款已确认，Graph Paper Pro 永久使用权益已激活！'), 400);
       }
     } catch (e) {}
 
@@ -2204,7 +2739,7 @@
       if ((code.toUpperCase().startsWith('EZPRO-') && code.length >= 10) || code.length >= 8) {
         localStorage.setItem('eazyopc_pro_unlocked', 'true');
         appState.isPro = true;
-        alert('🎉 恭喜！已成功激活 Graph Paper Pro 终身版！');
+        alert('🎉 恭喜！已成功激活 Graph Paper Pro 永久使用版！');
         document.getElementById('proModal').classList.add('hidden');
       } else {
         alert('激活码无效，请核对购买收据邮件中的卡密。');
