@@ -985,6 +985,54 @@
     .measure-tool .mt-rot { cursor: grab; }
     .measure-tool .mt-close { cursor: pointer; }
 
+    /* 顶栏：次要操作为幽灵按钮，导出 = 主按钮，Pro = 金色徽章；统一 32px 高度 */
+    #topNavbar .tb-btn { height: var(--btn-h-sm); min-width: var(--btn-h-sm); justify-content: center; border-radius: 10px; background: transparent !important; border: 1px solid var(--line) !important; color: var(--text) !important; box-shadow: none; }
+    #topNavbar .tb-btn:hover { background: var(--hover) !important; }
+    body.theme-light #topNavbar .tb-btn { background: #ffffff !important; border-color: #cbd5e1 !important; color: #0f172a !important; }
+    body.theme-light #topNavbar .tb-btn:hover { background: #f1f5f9 !important; }
+    #btnExport, #btnTopProBadge { height: var(--btn-h-sm); border-radius: 10px; }
+    #btnExport { padding-left: 14px; padding-right: 14px; box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.55); }
+    #btnTopProBadge { background: linear-gradient(135deg, #fbbf24, #f59e0b) !important; color: #1f1300 !important; border-color: #f59e0b !important; font-weight: 800; }
+    #btnTopProBadge svg { color: #1f1300 !important; }
+    body.theme-light #btnTopProBadge, body.theme-light #btnTopProBadge * { color: #1f1300 !important; }
+    #topNavbar select { font-weight: 600; }
+
+    /* SEO / 介绍区排版：正文 ≤ 68ch、行高 1.7，统一标题层级 */
+    .seo-prose p, .seo-prose details > div { line-height: 1.7; max-width: 68ch; }
+    .seo-prose header p { margin-left: auto; margin-right: auto; }
+    .seo-prose .seo-h2 { line-height: 1.3; letter-spacing: -0.02em; }
+    .seo-prose .seo-h3 { font-size: 16px; letter-spacing: -0.01em; }
+    .seo-prose details summary { list-style: none; }
+    .seo-prose details summary::-webkit-details-marker { display: none; }
+    .seo-prose details summary::before { content: '＋'; display: inline-block; width: 1.4em; color: var(--accent-2); font-weight: 800; }
+    .seo-prose details[open] summary::before { content: '－'; }
+    body.theme-light .seo-prose .feature-card h4 { color: #0f172a !important; }
+
+    body.theme-light #shortcutsModal .border-slate-800 { border-color: #e2e8f0 !important; }
+    body.theme-light #proModal > div #btnCloseProModalX,
+    body.theme-light #proModal > div #btnCloseProModal { background: transparent !important; border-color: transparent !important; color: #0f172a !important; }
+    body.theme-light #proModal > div #btnCloseProModalX:hover, body.theme-light #proModal > div #btnCloseProModal:hover { background: #e2e8f0 !important; }
+    #btnCloseProModal { border-radius: 10px; min-height: 32px; }
+    .seo-prose .seo-h2 { text-wrap: balance; }
+
+    /* 画布内控件反向缩放：--inv = 1 / (适配缩放 × 缩放)，在纸张画幅缩小显示时仍保持正常可点击大小 */
+    .selection-box { border-width: calc(1.5px * var(--inv, 1)); }
+    .selection-handle { width: calc(10px * var(--inv, 1)); height: calc(10px * var(--inv, 1)); border-width: calc(1.5px * var(--inv, 1)); }
+    .selection-handle-nw { top: calc(-5px * var(--inv, 1)); left: calc(-5px * var(--inv, 1)); }
+    .selection-handle-ne { top: calc(-5px * var(--inv, 1)); right: calc(-5px * var(--inv, 1)); }
+    .selection-handle-se { bottom: calc(-5px * var(--inv, 1)); right: calc(-5px * var(--inv, 1)); }
+    .selection-handle-sw { bottom: calc(-5px * var(--inv, 1)); left: calc(-5px * var(--inv, 1)); }
+    .selection-handle-n { top: calc(-5px * var(--inv, 1)); }
+    .selection-handle-s { bottom: calc(-5px * var(--inv, 1)); }
+    .selection-handle-w { left: calc(-5px * var(--inv, 1)); }
+    .selection-handle-e { right: calc(-5px * var(--inv, 1)); }
+    .selection-rot-stem { top: calc(-24px * var(--inv, 1)); height: calc(24px * var(--inv, 1)); width: calc(1px * var(--inv, 1)); }
+    .selection-rot-handle { top: calc(-30px * var(--inv, 1)); width: calc(12px * var(--inv, 1)); height: calc(12px * var(--inv, 1)); border-width: calc(2px * var(--inv, 1)); }
+    .selection-action-pill { bottom: auto; top: calc(100% + 8px * var(--inv, 1)); transform: translateX(-50%) scale(var(--inv, 1)); transform-origin: top center; }
+    #leftPageBadge, #rightPageBadge { font-size: calc(10px * var(--inv, 1)); padding: calc(2px * var(--inv, 1)) calc(8px * var(--inv, 1)); bottom: calc(8px * var(--inv, 1)); border-radius: calc(6px * var(--inv, 1)); }
+    .inline-text-toolbar { transform: scale(var(--inv, 1)); transform-origin: left bottom; }
+    .laser-dot { width: calc(16px * var(--inv, 1)) !important; height: calc(16px * var(--inv, 1)) !important; }
+
     /* 打印：只打印页面本身，100% 真实尺寸 */
     #printRoot { display: none; }
     @media print {
@@ -1225,22 +1273,22 @@
     <!-- 右侧动作按钮组 -->
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
       <!-- 📁 作品文件：保存 / 打开 (.eazyopc) -->
-      <button id="btnOpenDoc" class="hidden md:flex p-1.5 lg:px-2.5 lg:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs items-center gap-1.5 transition" data-i18n-title="tip_open_doc" title="打开作品 (Ctrl/Cmd+O)">
+      <button id="btnOpenDoc" class="tb-btn hidden md:flex p-1.5 lg:px-2.5 lg:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs items-center gap-1.5 transition" data-i18n-title="tip_open_doc" title="打开作品 (Ctrl/Cmd+O)">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
         <span class="hidden lg:inline" data-i18n="open_doc">打开作品</span>
       </button>
-      <button id="btnSaveDoc" class="hidden md:flex p-1.5 lg:px-2.5 lg:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs items-center gap-1.5 transition" data-i18n-title="tip_save_doc" title="保存作品 (Ctrl/Cmd+S)">
+      <button id="btnSaveDoc" class="tb-btn hidden md:flex p-1.5 lg:px-2.5 lg:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs items-center gap-1.5 transition" data-i18n-title="tip_save_doc" title="保存作品 (Ctrl/Cmd+S)">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3"/><path d="M7 21v-7h10v7"/></svg>
         <span class="hidden lg:inline" data-i18n="save_doc">保存作品</span>
       </button>
       <input type="file" id="docFileInput" accept=".eazyopc,application/json" class="hidden" />
 
       <!-- 白天/黑夜模式切换 -->
-      <button id="btnThemeToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)" data-i18n-title="tip_theme">
+      <button id="btnThemeToggle" class="tb-btn p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)" data-i18n-title="tip_theme">
         <span id="themeIcon">🌙</span> <span id="themeLabel" class="hidden sm:inline">夜间</span>
       </button>
 
-      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1.5 transition" title="全屏沉浸创作">
+      <button id="btnToggleFullscreen" class="tb-btn p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1.5 transition" title="全屏沉浸创作">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
         <span class="hidden sm:inline" data-i18n="fullscreen">全屏</span>
       </button>
@@ -1251,7 +1299,7 @@
       </button>
 
       <div class="relative">
-        <button id="btnLangDropdown" class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs cursor-pointer border border-slate-700">
+        <button id="btnLangDropdown" class="tb-btn flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs cursor-pointer border border-slate-700">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
           <span id="currentLangLabel">中</span> <span class="hidden sm:inline">▾</span>
         </button>
@@ -1274,7 +1322,7 @@
   </header>
 
   <!-- ================= 2. 核心工作台区域 (SaaS 级绘图舞台) ================= -->
-  <main id="workbenchWrapper" class="relative w-full bg-[#0b1120] flex items-center justify-center p-2 pl-[54px] pb-14 sm:p-4 sm:pb-16 overflow-hidden h-[72vh] min-h-[520px] max-h-[920px] transition-all">
+  <main id="workbenchWrapper" class="relative w-full bg-[#0b1120] flex items-center justify-center p-2 pl-[54px] pb-14 sm:p-4 sm:pl-[76px] sm:pb-16 overflow-hidden h-[72vh] min-h-[520px] max-h-[920px] transition-all">
     
     <button id="exitFullscreenBtn" class="hidden absolute top-4 right-5 z-40 items-center gap-1.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs font-medium shadow-2xl backdrop-blur-md transition">
       <span>✕</span> <span data-i18n="exit_fullscreen">退出全屏</span>
@@ -1355,10 +1403,20 @@
     </aside>
 
     <!-- 🗄️ PS 式「更多工具」二级收拢抽屉 -->
-    <div id="moreToolsDrawer" class="hidden absolute left-14 sm:left-18 top-16 sm:top-20 z-40 bg-white/95 dark:bg-slate-900/95 border border-stone-200 dark:border-slate-700 backdrop-blur-md rounded-2xl p-2.5 shadow-2xl space-y-2 w-56 text-stone-800 dark:text-white transition-all">
+    <div id="moreToolsDrawer" class="hidden absolute left-14 sm:left-18 top-16 sm:top-20 z-40 bg-white/95 dark:bg-slate-900/95 border border-stone-200 dark:border-slate-700 backdrop-blur-md rounded-2xl p-2.5 shadow-2xl space-y-2 w-64 max-w-[calc(100vw-4.5rem)] max-h-[calc(100%-5.5rem)] overflow-y-auto no-scrollbar text-stone-800 dark:text-white transition-all">
       <div class="flex items-center justify-between pb-1.5 border-b border-stone-200 dark:border-slate-800 text-xs font-bold text-stone-700 dark:text-slate-300">
         <span class="flex items-center gap-1"><span>🧰</span> <span data-i18n="more_tools_title">更多制图工具</span></span>
         <button id="btnCloseMoreTools" class="text-stone-400 hover:text-stone-700 dark:hover:text-white text-xs">✕</button>
+      </div>
+      <div class="grid grid-cols-2 gap-1.5">
+        <button id="btnOpenDocDrawer" class="panel-btn" data-i18n-title="tip_open_doc" title="打开作品 (Ctrl/Cmd+O)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <span data-i18n="open_doc">打开作品</span>
+        </button>
+        <button id="btnSaveDocDrawer" class="panel-btn" data-i18n-title="tip_save_doc" title="保存作品 (Ctrl/Cmd+S)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3"/><path d="M7 21v-7h10v7"/></svg>
+          <span data-i18n="save_doc">保存作品</span>
+        </button>
       </div>
       <div class="grid grid-cols-2 gap-1.5 text-xs">
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-stone-100 dark:hover:bg-slate-800 border border-transparent transition text-left" data-tool="ballpoint">
@@ -1430,16 +1488,6 @@
         </button>
         <button id="btnToolProtractor" class="flex items-center gap-1.5 p-1.5 rounded-xl hover:bg-amber-50 dark:hover:bg-slate-800 border border-stone-200 dark:border-slate-700 transition text-left" data-i18n-title="tip_protractor" title="量角器：可拖动、旋转，拖动指针读角度">
           <span>◠</span> <span class="text-[11px] font-medium" data-i18n="tool_protractor">量角器</span>
-        </button>
-      </div>
-      <div class="pt-1.5 border-t border-stone-200 dark:border-slate-800 grid grid-cols-2 gap-1.5">
-        <button id="btnOpenDocDrawer" class="panel-btn" data-i18n-title="tip_open_doc" title="打开作品 (Ctrl/Cmd+O)">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-          <span data-i18n="open_doc">打开作品</span>
-        </button>
-        <button id="btnSaveDocDrawer" class="panel-btn" data-i18n-title="tip_save_doc" title="保存作品 (Ctrl/Cmd+S)">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3"/><path d="M7 21v-7h10v7"/></svg>
-          <span data-i18n="save_doc">保存作品</span>
         </button>
       </div>
       <div class="pt-1.5 border-t border-stone-200 dark:border-slate-800 flex justify-between">
@@ -1850,7 +1898,7 @@
 
     <!-- 📍 左下角实时物理坐标探针 (Coordinate Inspector) -->
     <div id="coordInspector" class="hidden sm:flex absolute bottom-3 left-4 z-30 items-center gap-1.5 bg-white/95 dark:bg-slate-900/90 backdrop-blur-md border border-stone-200 dark:border-slate-700/80 px-2.5 py-1 rounded-xl shadow-xl text-[11px] font-mono text-stone-700 dark:text-slate-300 select-none">
-      <span class="text-blue-500 font-bold">📍</span> <span id="coordDisplay">X: +0.00 | Y: +0.00</span>
+      <span class="text-blue-500 font-bold">📍</span> <span id="coordDisplay">x 0  y 0 · 0, 0 mm</span>
     </div>
 
     <!-- 右下角画布缩放与导航坞 (Pan & Zoom Dock - 安全居右，杜绝与左侧工具栏重叠) -->
@@ -1860,6 +1908,8 @@
       <button id="btnZoomIn" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="放大 (Ctrl+滚轮)" data-i18n-title="tip_zoom_in">+</button>
       <span class="text-slate-600">|</span>
       <button id="btnZoomFit" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg text-[11px]" title="适应居中" data-i18n-title="tip_zoom_fit">📐 <span data-i18n="fit">适中</span></button>
+      <span class="text-slate-600">|</span>
+      <button id="btnOpenShortcuts" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold text-[12px]" title="快捷键 (?)" data-i18n-title="tip_shortcuts">?</button>
     </div>
 
         <!-- 漫画分镜与无限纸张多页管理器 (Page Manager Dock) -->
@@ -1891,6 +1941,7 @@
         <div id="stickyLayer" class="absolute inset-0 pointer-events-none"></div>
         <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
         <div id="measureToolLayer" class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:25"></div>
+        <div id="emptyCanvasHint" data-i18n="empty_hint">拿起画笔开始画吧 · 按 ? 查看快捷键</div>
         <div id="rightPageBadge" class="hidden absolute bottom-2 right-3 px-2 py-0.5 rounded-md bg-stone-900/60 text-[10px] text-blue-300 font-mono select-none pointer-events-none border border-slate-700/50 backdrop-blur-sm">第 2 页</div>
       </div>
     </div>
@@ -2404,7 +2455,7 @@
     <!-- ================= 6. 现代专业导出中心模态弹窗 ================= -->
   <!-- ================= 6. 导出作品模态弹窗 (极简商业双卡片二选一架构) ================= -->
   <!-- ================= 6. 导出作品模态弹窗 (极简专业双卡片架构) ================= -->
-  <div id="exportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div id="exportModal" class="modal-anim hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div class="flex items-center gap-2.5">
@@ -2542,7 +2593,7 @@
   <!-- ================= 7. 跨设备与换浏览器恢复购买弹窗 ================= -->
   <!-- ================= 7. 输入卡密或邮箱直接使用 (跨设备授权绑定指南) ================= -->
   <!-- ================= 7. 输入卡密或邮箱直接使用 (极简免教学直达验证) ================= -->
-  <div id="restoreModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div id="restoreModal" class="modal-anim hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
       <!-- 头部 -->
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -2588,7 +2639,7 @@
   </div>
 
   <!-- ================= 7. 用户邮件留言与改进建议弹窗 ================= -->
-  <div id="feedbackModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div id="feedbackModal" class="modal-anim hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
       <!-- 头部 -->
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -2661,12 +2712,26 @@
       </form>
     </div>
   </div>
+  <!-- ⌨️ 快捷键面板 (按 ? 打开) -->
+  <div id="shortcutsModal" class="modal-anim hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-5 shadow-2xl text-white space-y-4 max-h-[88vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-sm">⌨️</div>
+          <h3 id="shortcutsTitle" class="text-base font-bold" data-i18n="shortcuts_title">键盘快捷键</h3>
+        </div>
+        <button id="btnCloseShortcuts" type="button" class="panel-close" aria-label="Close">✕</button>
+      </div>
+      <div id="shortcutsList" class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs"></div>
+    </div>
+  </div>
+
   <!-- 🍞 独立开发者反馈与交互吐司提示 -->
   <div id="creatorToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900/95 text-white text-xs border border-slate-700 shadow-2xl flex items-center gap-2 transition-all duration-300 pointer-events-none opacity-0 translate-y-4"></div>
 
 
   <!-- ================= 7. 手机端原生存图模态弹窗 ================= -->
-  <div id="mobileSaveModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+  <div id="mobileSaveModal" class="modal-anim hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-3xl p-5 shadow-2xl text-white text-center space-y-3">
       <div class="flex justify-between items-center">
         <h4 class="text-sm font-bold flex items-center gap-1">📸 <span data-i18n="mobile_save_title">手机保存到相册</span></h4>
@@ -2686,8 +2751,9 @@
 
   <!-- ================= 8. Creem $4.99 终身授权结账弹窗 ================= -->
   <!-- ================= 8. Creem $4.99 永久使用授权结账弹窗 ================= -->
-  <div id="proModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4">
+  <div id="proModal" class="modal-anim hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div class="relative bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
+      <button id="btnCloseProModalX" type="button" class="panel-close absolute top-3 right-3" aria-label="Close">✕</button>
       <div class="text-center space-y-1.5">
         <div class="inline-flex p-3 bg-amber-500/15 text-amber-400 rounded-2xl mb-1 items-center justify-center">
           <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -3470,6 +3536,12 @@
         tip_ruler: '直尺 (Pro)：拖动移动，拖右端圆点旋转 (Shift 或吸附时按 15°)，贴着刻度边画线自动成直线',
         tip_protractor: '量角器 (Pro)：拖动移动，拖蓝点旋转，拖红色指针读角度',
         tip_add_page: '新建一页',
+        shortcuts_title: '键盘快捷键', tip_shortcuts: '快捷键 (?)', empty_hint: '拿起画笔开始画吧 · 按 ? 查看快捷键',
+        sc_select: '选择 / 移动', sc_hand: '抓手平移', sc_pen: '钢笔', sc_eraser: '橡皮擦', sc_line: '直线', sc_rect: '矩形', sc_ellipse: '圆 / 椭圆',
+        sc_text: '文字', sc_lasso: '套索', sc_snap: '开关网格吸附', sc_shift: '拖动时锁定 15° / 正方形 / 正圆', sc_delete: '删除选中',
+        sc_undo: '撤销', sc_redo: '重做', sc_save: '保存作品', sc_open: '打开作品', sc_zoom: '缩放画布', sc_help: '显示本面板', sc_esc: '关闭弹窗 / 面板',
+        tip_pen: '钢笔 (P) · 停顿 420ms 规整为直线 / 矩形 / 圆', tip_eraser: '橡皮擦 (E) · 点中笔画整根擦除', tip_select: '选择与调整 (V) · 点选或框选后可移动、缩放、旋转', tip_hand: '抓手平移 (H，或按住空格拖动)',
+        tip_media: '插入图片 / 视频', tip_layers: '图层', tip_palette: '颜色与粗细', tip_more_tools: '更多工具 (矩形、圆、立体几何、尺规、保存/打开)',
         ratios: { manga_b5: '📓 B5 笔记本 (182×257)', webtoon: '📜 9:20 竖长图', comic_4koma: '📜 1:2 竖条', a3_l: '📄 A3 横向 (420×297)', letter_p: '📄 US Letter (8.5×11 in)' },
         save_doc: '保存作品', open_doc: '打开作品', tip_save_doc: '保存作品文件 .eazyopc（含全部页面与图片，Ctrl/Cmd+S）', tip_open_doc: '打开作品文件 .eazyopc（Ctrl/Cmd+O，也可直接拖到画布上）',
         toast_doc_saved: '✅ 作品已保存为 .eazyopc 文件，下次用「打开作品」即可继续编辑', toast_doc_save_failed: '保存失败，请重试',
@@ -3572,6 +3644,12 @@
         tip_ruler: 'Ruler (Pro): drag to move, drag the right dot to rotate (15° steps with Shift or snap); drawing along the edge makes a straight line',
         tip_protractor: 'Protractor (Pro): drag to move, drag the blue dot to rotate, drag the red arm to read an angle',
         tip_add_page: 'Add a page',
+        shortcuts_title: 'Keyboard shortcuts', tip_shortcuts: 'Shortcuts (?)', empty_hint: 'Pick up the pen and start drawing · press ? for shortcuts',
+        sc_select: 'Select / move', sc_hand: 'Hand (pan)', sc_pen: 'Pen', sc_eraser: 'Eraser', sc_line: 'Line', sc_rect: 'Rectangle', sc_ellipse: 'Circle / ellipse',
+        sc_text: 'Text', sc_lasso: 'Lasso', sc_snap: 'Toggle grid snap', sc_shift: 'While dragging: 15° / square / circle', sc_delete: 'Delete selection',
+        sc_undo: 'Undo', sc_redo: 'Redo', sc_save: 'Save work', sc_open: 'Open work', sc_zoom: 'Zoom canvas', sc_help: 'Show this panel', sc_esc: 'Close dialog / panel',
+        tip_pen: 'Pen (P) · hold 420 ms to straighten into a line / rectangle / circle', tip_eraser: 'Eraser (E) · removes whole strokes', tip_select: 'Select (V) · click or box-select, then move, scale or rotate', tip_hand: 'Hand (H, or hold Space and drag)',
+        tip_media: 'Insert image / video', tip_layers: 'Layers', tip_palette: 'Colour & size', tip_more_tools: 'More tools (rectangle, circle, solids, ruler, save/open)',
         ratios: { manga_b5: '📓 B5 notebook (182×257)', webtoon: '📜 9:20 tall', comic_4koma: '📜 1:2 strip', a3_l: '📄 A3 landscape (420×297)', letter_p: '📄 US Letter (8.5×11 in)', '16_10': '💻 16:10', '3_4': '📱 3:4' },
         save_doc: 'Save work', open_doc: 'Open work', tip_save_doc: 'Save a .eazyopc work file (all pages and images, Ctrl/Cmd+S)', tip_open_doc: 'Open a .eazyopc work file (Ctrl/Cmd+O, or drop it on the canvas)',
         toast_doc_saved: '✅ Saved as a .eazyopc file — use "Open work" to keep editing later', toast_doc_save_failed: 'Save failed, please try again',
@@ -4133,6 +4211,15 @@
       }
       const zr = document.getElementById('btnZoomReset');
       if (zr) zr.innerText = `${Math.round(appState.zoom * 100)}%`;
+      // 画布内的交互控件 (选择手柄、页码徽章、文字工具栏、尺规手柄) 反向缩放，保持屏幕上的可点击尺寸
+      const vis = Math.max(0.05, fit * (appState.zoom || 1));
+      const inv = Math.max(0.4, Math.min(6, 1 / vis));
+      if (stage) stage.style.setProperty('--inv', String(inv));
+      if (appState._lastInv !== inv) {
+        appState._lastInv = inv;
+        if (typeof refreshMeasureTools === 'function' && (measureTools.ruler || measureTools.protractor)) refreshMeasureTools();
+        if (typeof updateEmptyHint === 'function') updateEmptyHint();
+      }
     }
 
     function resizeCanvas() {
@@ -4426,6 +4513,7 @@
       }
 
       targetCtx.restore();
+      if (targetCtx === ctx && typeof updateEmptyHint === 'function') updateEmptyHint();
     }
 
 
@@ -4562,6 +4650,7 @@
       const r = canvasCard.getBoundingClientRect();
       return r.width ? cssWidth / r.width : 1;
     }
+    function mtInv() { return Math.max(1, Math.min(3, appState._lastInv || 1)); }
     function snapAngleDeg(deg, shift) {
       const step = (shift || appState.snap) ? 15 : 0.5;
       return Math.round(deg / step) * step;
@@ -4650,10 +4739,10 @@
       }
       svg.appendChild(svgEl('text', { x: W / 2, y: H - 1.6 * ppm, 'font-size': fs * 0.95, 'text-anchor': 'middle', fill: '#92400e', 'font-weight': 700, 'pointer-events': 'none' }, `${R.lengthMm} mm · ∠ ${fmtNum(R.angle, 1)}°`));
       // 旋转手柄 (右端) 与关闭按钮 (左端)
-      const rot = svgEl('circle', { class: 'mt-rot', cx: W + pad * 0.45, cy: H / 2, r: Math.max(7, 2.6 * ppm), fill: '#f59e0b', stroke: '#fff', 'stroke-width': 1.5 });
+      const rot = svgEl('circle', { class: 'mt-rot', cx: W + pad * 0.45, cy: H / 2, r: Math.max(7, 2.6 * ppm) * mtInv(), fill: '#f59e0b', stroke: '#fff', 'stroke-width': 1.5 });
       svg.appendChild(rot);
       const close = svgEl('g', { class: 'mt-close' });
-      close.appendChild(svgEl('circle', { cx: -pad * 0.5, cy: H / 2, r: Math.max(7, 2.4 * ppm), fill: '#0f172a' }));
+      close.appendChild(svgEl('circle', { cx: -pad * 0.5, cy: H / 2, r: Math.max(7, 2.4 * ppm) * mtInv(), fill: '#0f172a' }));
       close.appendChild(svgEl('text', { x: -pad * 0.5, y: H / 2 + Math.max(3, 1 * ppm), 'font-size': Math.max(9, 3 * ppm), 'text-anchor': 'middle', fill: '#fff', 'pointer-events': 'none' }, '✕'));
       svg.appendChild(close);
       wrap.appendChild(svg);
@@ -4700,16 +4789,16 @@
       const armA = P.arm * Math.PI / 180;
       const arm = svgEl('line', { x1: 0, y1: 0, x2: Math.cos(armA) * (R + pad * 0.55), y2: -Math.sin(armA) * (R + pad * 0.55), stroke: '#dc2626', 'stroke-width': 1.2, 'pointer-events': 'none' });
       svg.appendChild(arm);
-      const knob = svgEl('circle', { class: 'mt-rot', cx: Math.cos(armA) * (R + pad * 0.55), cy: -Math.sin(armA) * (R + pad * 0.55), r: Math.max(7, 2.4 * ppm), fill: '#dc2626', stroke: '#fff', 'stroke-width': 1.5 });
+      const knob = svgEl('circle', { class: 'mt-rot', cx: Math.cos(armA) * (R + pad * 0.55), cy: -Math.sin(armA) * (R + pad * 0.55), r: Math.max(7, 2.4 * ppm) * mtInv(), fill: '#dc2626', stroke: '#fff', 'stroke-width': 1.5 });
       svg.appendChild(knob);
       const readout = svgEl('text', { x: 0, y: -R * 0.32, 'font-size': fs * 1.5, 'text-anchor': 'middle', fill: '#991b1b', 'font-weight': 800, 'pointer-events': 'none' }, `${fmtNum(P.arm, 1)}°`);
       svg.appendChild(readout);
       svg.appendChild(svgEl('circle', { cx: 0, cy: 0, r: 1.2 * ppm, fill: '#1e3a8a', 'pointer-events': 'none' }));
       // 旋转手柄 (底边右端) 与关闭按钮 (底边左端)
-      const rot = svgEl('circle', { class: 'mt-rot', cx: R + pad * 0.5, cy: 1.5 * ppm, r: Math.max(7, 2.4 * ppm), fill: '#3b82f6', stroke: '#fff', 'stroke-width': 1.5 });
+      const rot = svgEl('circle', { class: 'mt-rot', cx: R + pad * 0.5, cy: 1.5 * ppm, r: Math.max(7, 2.4 * ppm) * mtInv(), fill: '#3b82f6', stroke: '#fff', 'stroke-width': 1.5 });
       svg.appendChild(rot);
       const close = svgEl('g', { class: 'mt-close' });
-      close.appendChild(svgEl('circle', { cx: -R - pad * 0.5, cy: 1.5 * ppm, r: Math.max(7, 2.4 * ppm), fill: '#0f172a' }));
+      close.appendChild(svgEl('circle', { cx: -R - pad * 0.5, cy: 1.5 * ppm, r: Math.max(7, 2.4 * ppm) * mtInv(), fill: '#0f172a' }));
       close.appendChild(svgEl('text', { x: -R - pad * 0.5, y: 1.5 * ppm + Math.max(3, 1 * ppm), 'font-size': Math.max(9, 3 * ppm), 'text-anchor': 'middle', fill: '#fff', 'pointer-events': 'none' }, '✕'));
       svg.appendChild(close);
       wrap.appendChild(svg);
@@ -6057,6 +6146,7 @@
 
     canvas.addEventListener('pointerdown', (e) => {
       closeAllFlyouts();
+      { const eh = document.getElementById('emptyCanvasHint'); if (eh && isStrokeTool(appState.tool)) eh.style.display = 'none'; }
       // 已有其他手指/笔正在书写：忽略第二根手指
       if (activePointerId !== null && e.pointerId !== activePointerId && (isDrawing || isRefDrawing || isLaserActive)) return;
       appState.lastActiveBoard = 'right';
@@ -6761,6 +6851,7 @@
     }
 
     function scheduleAutosave() {
+      if (typeof updateEmptyHint === 'function') updateEmptyHint();
       clearTimeout(autosaveTimer);
       autosaveTimer = setTimeout(flushAutosave, 800);
     }
@@ -8519,6 +8610,75 @@ ${body}</g>
 
     document.getElementById('btnTopProBadge').onclick = () => document.getElementById('proModal').classList.remove('hidden');
     document.getElementById('btnCloseProModal').onclick = () => document.getElementById('proModal').classList.add('hidden');
+    const btnCloseProModalX = document.getElementById('btnCloseProModalX');
+    if (btnCloseProModalX) btnCloseProModalX.onclick = () => document.getElementById('proModal').classList.add('hidden');
+
+    // ⌨️ 快捷键面板
+    const SHORTCUTS = [
+      ['V', 'sc_select'], ['H / Space', 'sc_hand'], ['P', 'sc_pen'], ['E', 'sc_eraser'], ['N', 'sc_line'], ['R', 'sc_rect'], ['O', 'sc_ellipse'],
+      ['T', 'sc_text'], ['L', 'sc_lasso'], ['G', 'sc_snap'], ['Shift', 'sc_shift'], ['Delete', 'sc_delete'],
+      ['Ctrl/⌘ Z', 'sc_undo'], ['Ctrl/⌘ ⇧ Z', 'sc_redo'], ['Ctrl/⌘ S', 'sc_save'], ['Ctrl/⌘ O', 'sc_open'], ['Ctrl/⌘ + Wheel', 'sc_zoom'], ['?', 'sc_help'], ['Esc', 'sc_esc']
+    ];
+    function renderShortcutsList() {
+      const list = document.getElementById('shortcutsList');
+      if (!list) return;
+      list.innerHTML = '';
+      for (const [keys, labelKey] of SHORTCUTS) {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between gap-3 py-1';
+        const lab = document.createElement('span');
+        lab.className = 'text-slate-300';
+        lab.textContent = tr(labelKey);
+        const kb = document.createElement('span');
+        kb.className = 'flex items-center gap-1 shrink-0';
+        for (const part of keys.split(' ')) {
+          const k = document.createElement('span');
+          k.className = (part === '/' || part === '+') ? 'text-slate-500 font-bold' : 'kbd';
+          k.textContent = part;
+          kb.appendChild(k);
+        }
+        row.appendChild(lab); row.appendChild(kb);
+        list.appendChild(row);
+      }
+    }
+    function openShortcutsModal() {
+      renderShortcutsList();
+      const m = document.getElementById('shortcutsModal');
+      if (m) m.classList.remove('hidden');
+    }
+    (function bindShortcutsModal() {
+      const m = document.getElementById('shortcutsModal');
+      const close = () => m && m.classList.add('hidden');
+      const b = document.getElementById('btnCloseShortcuts'); if (b) b.onclick = close;
+      if (m) m.onclick = (e) => { if (e.target === m) close(); };
+      const o = document.getElementById('btnOpenShortcuts'); if (o) o.onclick = (e) => { e.stopPropagation(); openShortcutsModal(); };
+      // Esc 关闭最上层弹窗 / 面板
+      window.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        const modals = ['shortcutsModal', 'exportModal', 'restoreModal', 'feedbackModal', 'mobileSaveModal', 'proModal'];
+        for (const id of modals) {
+          const el = document.getElementById(id);
+          if (el && !el.classList.contains('hidden')) { el.classList.add('hidden'); return; }
+        }
+        ['gridSelectorMenu', 'functionPlotterMenu', 'moreToolsDrawer', 'mediaMenu', 'layersPanel', 'paletteFlyout', 'brushStudioFlyout'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.classList.add('hidden');
+        });
+      });
+    })();
+
+    // 空画布提示：当前画板没有任何内容时显示，画下第一笔后消失
+    function updateEmptyHint() {
+      const el = document.getElementById('emptyCanvasHint');
+      if (!el) return;
+      const empty = !boardHasContent(appState) && !(appState.isDualSpread && boardHasContent(appState.pages[0]));
+      el.style.display = empty ? '' : 'none';
+      if (empty) {
+        const vis = Math.max(0.2, (appState.fitScale || 1) * (appState.zoom || 1));
+        el.style.fontSize = `${12 / vis}px`;
+        el.style.padding = `${6 / vis}px ${14 / vis}px`;
+        el.style.borderWidth = `${1 / vis}px`;
+      }
+    }
 
     window.addEventListener('resize', resizeCanvas);
 
@@ -9660,6 +9820,9 @@ ${body}</g>
           size: options.size || appState.brushSize,
           points: points.map(p => ({ x: p.x, y: p.y, pressure: p.pressure ?? 0.5 }))
         };
+        if (options.shape) stroke.shape = options.shape;
+        if (options.poly) stroke.poly = true;
+        if (options.dashed) stroke.isDashed = true;
         appState.strokes.push(stroke);
         if (typeof redrawAllStrokes === 'function') redrawAllStrokes();
         return stroke;
@@ -9686,11 +9849,13 @@ ${body}</g>
           { x, y: y + h },
           { x, y }
         ];
-        return window.EazyBoard.addStroke(pts, options);
+        return window.EazyBoard.addStroke(pts, Object.assign({ shape: 'rect' }, options));
       },
       drawLine: (x1, y1, x2, y2, options = {}) => {
-        return window.EazyBoard.addStroke([{ x: x1, y: y1 }, { x: x2, y: y2 }], options);
+        return window.EazyBoard.addStroke([{ x: x1, y: y1 }, { x: x2, y: y2 }], Object.assign({ shape: 'line' }, options));
       },
+      // 网格信息与毫米换算 (1 mm = pxPerMm 逻辑像素)
+      getGrid: () => ({ paper: appState.paper, grid: Object.assign({}, appState.grid), snap: appState.snap, spacingMm: getGridSpacingMm(), pxPerMm: getPxPerMm(), origin: getGridOrigin(), pageMm: GridMath.pageSizeMm(appState.ratio, cssWidth, cssHeight) }),
       clear: () => {
         if (typeof saveHistory === 'function') saveHistory();
         appState.strokes = [];
