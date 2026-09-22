@@ -5978,7 +5978,11 @@
         if (committed) return;
         committed = true;
         const val = textarea.value.trim();
-        saveHistory();
+        // 没有任何改动 (空白新建框 / 原样关闭) 时不写撤销记录，避免「撤销一次没反应」
+        const changed = targetText
+          ? (!val || targetText.text !== textarea.value || Number(targetText.size) !== currentSize || (targetText.fontFamily || "'Noto Sans SC', sans-serif") !== currentFont || (targetText.color || '#18181b') !== currentColor || !!targetText.bold !== isBold)
+          : !!val;
+        if (changed) saveHistory();
         if (targetText) {
           delete targetText._editing;
           if (val) {
