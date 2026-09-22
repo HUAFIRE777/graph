@@ -6002,10 +6002,19 @@
           appState.selectedStrokes = [];
           appState.selectedImages = [];
         }
+        document.removeEventListener('pointerdown', onOutsidePointer, true);
         wrapper.remove();
         redrawAllStrokes();
         updateSelectionBoxUI();
       }
+
+      // 点击编辑框以外的任何地方 (画布、换工具、翻页、双板…) 都先提交文字，避免编辑框悬空、文字丢失
+      function onOutsidePointer(ev) {
+        if (!wrapper.isConnected) { document.removeEventListener('pointerdown', onOutsidePointer, true); return; }
+        if (wrapper.contains(ev.target)) return;
+        commitAndClose();
+      }
+      setTimeout(() => { if (!committed) document.addEventListener('pointerdown', onOutsidePointer, true); }, 0);
 
       btnDone.onclick = (e) => {
         e.stopPropagation();
