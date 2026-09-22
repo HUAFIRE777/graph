@@ -5387,7 +5387,7 @@
       return {
         v: 1,
         savedAt: Date.now(),
-        currentPageIndex: appState.currentPageIndex,
+        currentPageIndex: appState.isDualSpread ? 0 : appState.currentPageIndex, // 双板状态下刷新回到第 1 页
         paper: appState.paper,
         ratio: appState.ratio,
         pages
