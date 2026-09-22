@@ -8755,7 +8755,7 @@ ${body}</g>
       const s = getGridSpacingPx();
       const mm = getGridSpacingMm();
       const gx = (pt.x - O.x) / s, gy = -(pt.y - O.y) / s;
-      const sg = (v) => (v > 0 ? '+' : '') + fmtNum(v, 1);
+      const sg = (v) => { const t = fmtNum(v, 1); return (v > 0 && t !== '0' ? '+' : '') + t; };
       coordDisplay.textContent = `x ${sg(gx)}  y ${sg(gy)} ${tr('unit_cells')}  ·  ${sg(gx * mm)}, ${sg(gy * mm)} mm`;
     }
 
