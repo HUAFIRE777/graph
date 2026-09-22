@@ -431,17 +431,22 @@
     }
     body.theme-light #feedbackModal .bg-slate-900 {
       background: #ffffff !important;
-      border-color: #e2d9cd !important;
-      color: #1e293b !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
     }
-    body.theme-light #feedbackModal input,
-    body.theme-light #feedbackModal textarea,
     body.theme-light #feedbackModal .bg-slate-800\/80,
     body.theme-light #feedbackModal .bg-slate-800\/90,
     body.theme-light #feedbackModal .bg-slate-800 {
-      background: #f8f6f0 !important;
-      border-color: #e2d9cd !important;
-      color: #1e293b !important;
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #feedbackModal input,
+    body.theme-light #feedbackModal textarea {
+      background: #ffffff !important;
+      border: 1.5px solid #64748b !important;
+      color: #0f172a !important;
+      font-weight: 600 !important;
     }
     body.theme-light #creatorToast {
       background: #ffffff !important;
@@ -596,13 +601,15 @@
     body.theme-light #exportModal input,
     body.theme-light #restoreModal input {
       background: #ffffff !important;
-      border: 1.5px solid #cbd5e1 !important;
+      border: 1.5px solid #64748b !important;
       color: #0f172a !important;
       font-weight: 600 !important;
     }
     body.theme-light #proModal input::placeholder,
-    body.theme-light #restoreModal input::placeholder {
-      color: #64748b !important;
+    body.theme-light #restoreModal input::placeholder,
+    body.theme-light #feedbackModal input::placeholder,
+    body.theme-light #feedbackModal textarea::placeholder {
+      color: #475569 !important;
     }
     body.theme-light #proModal #btnVerifyLicense,
     body.theme-light #restoreModal #btnConfirmRestore {
@@ -614,13 +621,9 @@
     body.theme-light #restoreModal #btnConfirmRestore:hover {
       background: #334155 !important;
     }
-    body.theme-light #proModal #btnCloseProModal,
     body.theme-light #restoreModal #btnCloseRestoreModal {
-      color: #475569 !important;
-      font-weight: 600 !important;
-    }
-    body.theme-light #proModal #btnCloseProModal:hover {
       color: #0f172a !important;
+      font-weight: 700 !important;
     }
     body.theme-light #zoomDock button,
     body.theme-light #pageManagerDock button {
@@ -763,6 +766,98 @@
     body.theme-light #pageManagerDock #btnAddPage * {
       color: #ffffff !important;
       font-weight: 700 !important;
+    }
+
+    /* ================= ☀️ 规则 2：白天模式四大弹窗统一高对比 (白底 / #0f172a 粗体字 / 黑底白字按钮) ================= */
+    body.theme-light #proModal > div,
+    body.theme-light #exportModal > div,
+    body.theme-light #restoreModal > div,
+    body.theme-light #feedbackModal > div {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    /* 内部卡片与磁贴 (含 bg-slate-950 / bg-slate-900/90 / 半透明彩色底) */
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div :is([class*="bg-slate-7"], [class*="bg-slate-8"], [class*="bg-slate-9"], [class*="bg-indigo-500/"], [class*="bg-amber-500/"], [class*="bg-emerald-500/"]):not(button):not(a):not(input):not(textarea) {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+    /* 所有文字：深色粗体 */
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div :is(h1, h2, h3, h4, h5, p, span, label, strong, b, small, li, div) {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div :is(h1, h2, h3, h4) {
+      font-weight: 800 !important;
+    }
+    /* 按钮：黑底白字 */
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div button {
+      background: #0f172a !important;
+      border-color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div button,
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div button * {
+      color: #ffffff !important;
+    }
+    body.theme-light :is(#proModal, #exportModal, #restoreModal, #feedbackModal) > div button:hover {
+      background: #334155 !important;
+    }
+    /* 链接型按钮 (Creem 购买 / Canva / Figma)：同样黑底白字 */
+    body.theme-light #proModal #creemCheckoutBtn,
+    body.theme-light #exportModal #btnOpenCanva,
+    body.theme-light #exportModal #btnOpenFigma {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light #exportModal #btnOpenCanva *,
+    body.theme-light #exportModal #btnOpenFigma * {
+      color: #ffffff !important;
+    }
+    /* 右上角 ✕ 图标按钮：透明底深色字 */
+    body.theme-light #exportModal > div #btnCloseExportModal,
+    body.theme-light #restoreModal > div #btnCloseRestoreModal,
+    body.theme-light #feedbackModal > div #btnCloseFeedbackModal {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #exportModal > div #btnCloseExportModal:hover,
+    body.theme-light #restoreModal > div #btnCloseRestoreModal:hover,
+    body.theme-light #feedbackModal > div #btnCloseFeedbackModal:hover {
+      background: #e2e8f0 !important;
+    }
+    /* Pro 格式切换：未选中白底深色描边，选中黑底白字 */
+    body.theme-light #exportModal > div .btn-pro-fmt:not(.bg-amber-500) {
+      background: #ffffff !important;
+      border: 1.5px solid #0f172a !important;
+      color: #0f172a !important;
+    }
+    /* 导出卡片选中态边框保持可见 */
+    body.theme-light #exportModal .export-tier-card {
+      border: 2px solid #e2e8f0 !important;
+    }
+    body.theme-light #exportModal .export-tier-card.border-emerald-500,
+    body.theme-light #exportModal .export-tier-card.border-amber-500 {
+      border: 2px solid #0f172a !important;
+    }
+    /* 页码坞双板按钮：白天模式清晰可读 */
+    body.theme-light #pageManagerDock button#btnToggleDualView {
+      background: #ffffff !important;
+      border: 1.5px solid #0f172a !important;
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light #pageManagerDock button#btnToggleDualView * {
+      color: #0f172a !important;
+    }
+    body.theme-light #pageManagerDock button#btnToggleDualView.dual-active {
+      background: #0f172a !important;
+      color: #ffffff !important;
+    }
+    body.theme-light #pageManagerDock button#btnToggleDualView.dual-active * {
+      color: #ffffff !important;
     }
     
 </style>
