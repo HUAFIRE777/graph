@@ -1443,39 +1443,66 @@
     </div>
 
     <!-- 📈 常用函数曲线绘制引擎浮动面板 (Function Plotter) -->
-    <div id="functionPlotterMenu" class="hidden absolute left-14 sm:left-18 top-28 z-40 bg-white/95 dark:bg-slate-900/95 border border-stone-200 dark:border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-3 w-72 text-stone-800 dark:text-white transition-all">
-      <div class="flex items-center justify-between pb-1.5 border-b border-stone-200 dark:border-slate-800 text-xs font-bold">
-        <span class="flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-          <span>📈</span> <span data-i18n="plotter_title">常用数学函数绘制引擎</span>
+    <div id="functionPlotterMenu" class="ui-panel hidden absolute left-14 sm:left-18 top-20 z-40 rounded-2xl p-3 shadow-2xl space-y-2.5 w-80 max-w-[calc(100vw-4.5rem)] max-h-[calc(100%-6rem)] overflow-y-auto no-scrollbar transition-all">
+      <div class="panel-head flex items-center justify-between pb-1.5 text-xs font-bold">
+        <span class="flex items-center gap-1.5">
+          <span>📈</span> <span data-i18n="plotter_title">函数绘图</span>
         </span>
-        <button id="btnCloseFunctionPlotter" class="text-stone-400 hover:text-stone-700 dark:hover:text-white text-xs">✕</button>
+        <button id="btnCloseFunctionPlotter" class="panel-close" aria-label="Close">✕</button>
       </div>
-      <div class="text-[10px] text-stone-500 dark:text-slate-400">点击一键在坐标平面绘制高精度矢量函数曲线：</div>
+      <div class="panel-note" data-i18n="plotter_presets_hint">常用函数一键画在网格上（以网格原点为原点）：</div>
       <div class="grid grid-cols-2 gap-1.5 text-xs">
-        <button class="fn-btn p-2 rounded-xl bg-blue-50/70 dark:bg-slate-800 hover:bg-blue-100 border border-blue-200 dark:border-slate-700 text-left transition" data-fn="linear">
-          <span class="font-bold text-blue-700 dark:text-blue-300 block text-[11px]">一次线性函数</span>
-          <span class="font-mono text-[10px] text-stone-500">y = 0.5x + 1</span>
+        <button class="fn-btn p-2 rounded-xl bg-blue-50/70 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-slate-700 border border-blue-200 dark:border-slate-700 text-left transition" data-fn="linear">
+          <span class="font-bold text-blue-700 dark:text-blue-300 block text-[11px]" data-i18n="fn_linear">一次函数</span>
+          <span class="font-mono text-[10px] text-stone-500 dark:text-slate-400">y = 0.5x + 1</span>
         </button>
-        <button class="fn-btn p-2 rounded-xl bg-indigo-50/70 dark:bg-slate-800 hover:bg-indigo-100 border border-indigo-200 dark:border-slate-700 text-left transition" data-fn="quadratic">
-          <span class="font-bold text-indigo-700 dark:text-indigo-300 block text-[11px]">二次抛物线</span>
-          <span class="font-mono text-[10px] text-stone-500">y = 0.2x² - 2</span>
+        <button class="fn-btn p-2 rounded-xl bg-indigo-50/70 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-slate-700 border border-indigo-200 dark:border-slate-700 text-left transition" data-fn="quadratic">
+          <span class="font-bold text-indigo-700 dark:text-indigo-300 block text-[11px]" data-i18n="fn_quadratic">二次抛物线</span>
+          <span class="font-mono text-[10px] text-stone-500 dark:text-slate-400">y = 0.2x² − 2</span>
         </button>
-        <button class="fn-btn p-2 rounded-xl bg-teal-50/70 dark:bg-slate-800 hover:bg-teal-100 border border-teal-200 dark:border-slate-700 text-left transition" data-fn="sin">
-          <span class="font-bold text-teal-700 dark:text-teal-300 block text-[11px]">正弦三角函数</span>
-          <span class="font-mono text-[10px] text-stone-500">y = 2·sin(x)</span>
+        <button class="fn-btn p-2 rounded-xl bg-teal-50/70 dark:bg-slate-800 hover:bg-teal-100 dark:hover:bg-slate-700 border border-teal-200 dark:border-slate-700 text-left transition" data-fn="sin">
+          <span class="font-bold text-teal-700 dark:text-teal-300 block text-[11px]" data-i18n="fn_sin">正弦函数</span>
+          <span class="font-mono text-[10px] text-stone-500 dark:text-slate-400">y = 2·sin(x)</span>
         </button>
-        <button class="fn-btn p-2 rounded-xl bg-cyan-50/70 dark:bg-slate-800 hover:bg-cyan-100 border border-cyan-200 dark:border-slate-700 text-left transition" data-fn="cos">
-          <span class="font-bold text-cyan-700 dark:text-cyan-300 block text-[11px]">余弦三角函数</span>
-          <span class="font-mono text-[10px] text-stone-500">y = 2·cos(x)</span>
+        <button class="fn-btn p-2 rounded-xl bg-cyan-50/70 dark:bg-slate-800 hover:bg-cyan-100 dark:hover:bg-slate-700 border border-cyan-200 dark:border-slate-700 text-left transition" data-fn="cos">
+          <span class="font-bold text-cyan-700 dark:text-cyan-300 block text-[11px]" data-i18n="fn_cos">余弦函数</span>
+          <span class="font-mono text-[10px] text-stone-500 dark:text-slate-400">y = 2·cos(x)</span>
         </button>
-        <button class="fn-btn p-2 rounded-xl bg-amber-50/70 dark:bg-slate-800 hover:bg-amber-100 border border-amber-200 dark:border-slate-700 text-left transition" data-fn="reciprocal">
-          <span class="font-bold text-amber-700 dark:text-amber-300 block text-[11px]">反比例双曲线</span>
-          <span class="font-mono text-[10px] text-stone-500">y = 4 / x</span>
+        <button class="fn-btn p-2 rounded-xl bg-amber-50/70 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 border border-amber-200 dark:border-slate-700 text-left transition" data-fn="reciprocal">
+          <span class="font-bold text-amber-700 dark:text-amber-300 block text-[11px]" data-i18n="fn_reciprocal">反比例函数</span>
+          <span class="font-mono text-[10px] text-stone-500 dark:text-slate-400">y = 4 / x</span>
         </button>
-        <button class="fn-btn p-2 rounded-xl bg-rose-50/70 dark:bg-slate-800 hover:bg-rose-100 border border-rose-200 dark:border-slate-700 text-left transition" data-fn="exp">
-          <span class="font-bold text-rose-700 dark:text-rose-300 block text-[11px]">指数增长曲线</span>
-          <span class="font-mono text-[10px] text-stone-500">y = e^(0.3x) - 2</span>
+        <button class="fn-btn p-2 rounded-xl bg-rose-50/70 dark:bg-slate-800 hover:bg-rose-100 dark:hover:bg-slate-700 border border-rose-200 dark:border-slate-700 text-left transition" data-fn="exp">
+          <span class="font-bold text-rose-700 dark:text-rose-300 block text-[11px]" data-i18n="fn_exp">指数函数</span>
+          <span class="font-mono text-[10px] text-stone-500 dark:text-slate-400">y = e^(0.3x) − 2</span>
         </button>
+      </div>
+      <div class="pt-2 space-y-2" style="border-top:1px solid var(--line)">
+        <div class="flex items-center justify-between text-xs font-bold">
+          <span data-i18n="fn_custom_title">自定义函数 y = f(x)</span>
+          <span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-500 font-bold">PRO</span>
+        </div>
+        <label class="flex items-center gap-1.5">
+          <span class="font-mono text-xs font-bold shrink-0">y =</span>
+          <input id="fnExprInput" type="text" autocomplete="off" spellcheck="false" maxlength="200" value="x^2/4 - 2" class="panel-input flex-1 min-w-0 font-mono" aria-label="f(x)" />
+        </label>
+        <div class="grid grid-cols-2 gap-1.5">
+          <label class="panel-row"><span data-i18n="fn_xmin">x 从</span><input id="fnXMin" type="number" step="0.5" value="-8" class="panel-input w-20 text-right" /></label>
+          <label class="panel-row"><span data-i18n="fn_xmax">到</span><input id="fnXMax" type="number" step="0.5" value="8" class="panel-input w-20 text-right" /></label>
+        </div>
+        <label class="panel-row">
+          <span data-i18n="fn_unit">1 个单位 =</span>
+          <select id="fnUnitCells" class="panel-input">
+            <option value="1">1</option><option value="2" selected>2</option><option value="4">4</option><option value="5">5</option><option value="10">10</option>
+          </select>
+        </label>
+        <label class="panel-row cursor-pointer">
+          <span data-i18n="fn_axes">同时画坐标轴与刻度</span>
+          <input id="fnDrawAxes" type="checkbox" class="w-4 h-4 accent-blue-600" />
+        </label>
+        <p id="fnPreview" class="panel-note font-mono"></p>
+        <button id="btnPlotCustomFn" class="panel-btn panel-btn-primary w-full" data-i18n="fn_plot_btn">绘制到网格上</button>
+        <p class="panel-note" data-i18n="fn_help">可用：+ − × ÷ ^ ( )、sin cos tan sqrt abs log ln exp、pi e，支持 2x、3sin(x) 这类写法。曲线是普通笔画，可选中移动、改色或删除。</p>
       </div>
     </div>
 
@@ -3369,6 +3396,12 @@
         tip_line_tool: '直线 (N) · Shift 锁定 15° · 拖动时显示长度与角度', tip_snap: '🧲 吸附到网格交点 (G)',
         unit_cells: '格',
         tool_rect: '矩形 (R)', tool_ellipse: '圆 / 椭圆 (O)', tip_rect_tool: '矩形 (R) · Shift 画正方形 · 显示宽 × 高', tip_ellipse_tool: '圆 / 椭圆 (O) · Shift 画正圆 · 显示直径',
+        plotter_title: '函数绘图', tip_plotter: '📈 函数绘图：6 个常用函数 + 自定义 y = f(x) (Pro)', plotter_presets_hint: '常用函数一键画在网格上（以网格原点为原点）：',
+        fn_linear: '一次函数', fn_quadratic: '二次函数', fn_sin: '正弦函数', fn_cos: '余弦函数', fn_reciprocal: '反比例函数', fn_exp: '指数函数',
+        fn_custom_title: '自定义函数 y = f(x)', fn_xmin: 'x 从', fn_xmax: '到', fn_unit: '1 个单位 =', fn_axes: '同时画坐标轴与刻度（也作用于上面的常用函数）',
+        fn_plot_btn: '绘制到网格上', fn_help: '可用：+ − × ÷ ^ ( )、sin cos tan sqrt abs log ln exp、pi e，支持 2x、3sin(x) 这类写法。曲线是普通笔画，可选中移动、改色或删除。',
+        fn_nothing_visible: '这个函数在当前页面范围内没有可见的部分', fn_plotted: '✅ 已绘制，可用选择工具移动或删除', fn_undefined: '无定义',
+        fn_err_empty: '请输入函数表达式', fn_err_char: '不支持的字符「{d}」', fn_err_ident: '不认识的名称「{d}」', fn_err_paren: '括号不匹配', fn_err_syntax: '表达式不完整或写法有误', fn_err_too_long: '表达式太长或嵌套太深',
         save_doc: '保存作品', open_doc: '打开作品', tip_save_doc: '保存作品文件 .eazyopc（含全部页面与图片，Ctrl/Cmd+S）', tip_open_doc: '打开作品文件 .eazyopc（Ctrl/Cmd+O，也可直接拖到画布上）',
         toast_doc_saved: '✅ 作品已保存为 .eazyopc 文件，下次用「打开作品」即可继续编辑', toast_doc_save_failed: '保存失败，请重试',
         toast_doc_invalid: '这不是有效的 EazyOPC 作品文件 (.eazyopc)', toast_doc_opened: '✅ 已打开作品（{n} 页）',
@@ -3414,6 +3447,12 @@
         tip_line_tool: 'Line (N) · Shift locks 15° · shows length & angle while dragging', tip_snap: '🧲 Snap to grid intersections (G)',
         unit_cells: 'cells',
         tool_rect: 'Rectangle (R)', tool_ellipse: 'Circle / ellipse (O)', tip_rect_tool: 'Rectangle (R) · Shift for square · shows width × height', tip_ellipse_tool: 'Circle / ellipse (O) · Shift for circle · shows diameter',
+        plotter_title: 'Function plot', tip_plotter: '📈 Function plot: 6 presets + custom y = f(x) (Pro)', plotter_presets_hint: 'Plot a common function on the grid (origin = grid origin):',
+        fn_linear: 'Linear', fn_quadratic: 'Quadratic', fn_sin: 'Sine', fn_cos: 'Cosine', fn_reciprocal: 'Reciprocal', fn_exp: 'Exponential',
+        fn_custom_title: 'Custom function y = f(x)', fn_xmin: 'x from', fn_xmax: 'to', fn_unit: '1 unit =', fn_axes: 'Also draw axes with ticks (applies to presets too)',
+        fn_plot_btn: 'Plot on the grid', fn_help: 'Allowed: + − × ÷ ^ ( ), sin cos tan sqrt abs log ln exp, pi e; implicit products like 2x or 3sin(x). The curve is a normal stroke you can move, recolour or delete.',
+        fn_nothing_visible: 'No part of this function is visible on the current page', fn_plotted: '✅ Plotted — use the select tool to move or delete it', fn_undefined: 'undefined',
+        fn_err_empty: 'Enter a function', fn_err_char: 'Unsupported character "{d}"', fn_err_ident: 'Unknown name "{d}"', fn_err_paren: 'Unbalanced parentheses', fn_err_syntax: 'The expression is incomplete or malformed', fn_err_too_long: 'Expression too long or nested too deeply',
         save_doc: 'Save work', open_doc: 'Open work', tip_save_doc: 'Save a .eazyopc work file (all pages and images, Ctrl/Cmd+S)', tip_open_doc: 'Open a .eazyopc work file (Ctrl/Cmd+O, or drop it on the canvas)',
         toast_doc_saved: '✅ Saved as a .eazyopc file — use "Open work" to keep editing later', toast_doc_save_failed: 'Save failed, please try again',
         toast_doc_invalid: 'This is not a valid EazyOPC work file (.eazyopc)', toast_doc_opened: '✅ Work opened ({n} pages)',
@@ -3697,6 +3736,145 @@
       return { PX_PER_MM_96, PAPER_SIZES_MM, SPACING_PRESETS_MM, DEFAULT_GRID, paperSizeMm, isPaperRatio, isFixedRatio, logicalPageSize, pxPerMm, pageSizeMm, normalizeGrid, spacingMm, origin, snapPoint, geometry, hexToRgba };
     })();
     // </gridmath>
+
+    // <fnparser> —— 安全的函数表达式解析器 (绝不使用 eval / new Function)
+    // 支持：数字、x、+ - * / ^、括号、sin cos tan sqrt abs log(以10为底) ln exp、常数 pi e、隐式乘法 (2x、3sin(x)、(x+1)(x-1))
+    const FnParser = (function () {
+      const FUNCS = { sqrt: Math.sqrt, sin: Math.sin, cos: Math.cos, tan: Math.tan, abs: Math.abs, log: Math.log10, exp: Math.exp, ln: Math.log };
+      const CONSTS = { pi: Math.PI, e: Math.E };
+      const NAMES = ['sqrt', 'sin', 'cos', 'tan', 'abs', 'log', 'exp', 'ln', 'pi', 'x', 'e'];
+      const MAX_LEN = 200, MAX_DEPTH = 64;
+      function fail(code, detail) { const e = new Error(code); e.code = code; e.detail = detail; return e; }
+      function tokenize(src) {
+        let s = String(src == null ? '' : src).toLowerCase()
+          .replace(/π/g, 'pi').replace(/[×·∙]/g, '*').replace(/÷/g, '/').replace(/[−–]/g, '-')
+          .replace(/²/g, '^2').replace(/³/g, '^3').replace(/\s+/g, '');
+        s = s.replace(/^y=/, '').replace(/^f\(x\)=/, '');
+        if (!s) throw fail('empty');
+        if (s.length > MAX_LEN) throw fail('too_long');
+        const toks = [];
+        let i = 0;
+        while (i < s.length) {
+          const c = s[i];
+          if ((c >= '0' && c <= '9') || c === '.') {
+            const m = /^(\d+(\.\d*)?|\.\d+)/.exec(s.slice(i));
+            if (!m) throw fail('char', c);
+            toks.push({ t: 'num', v: parseFloat(m[0]) });
+            i += m[0].length;
+          } else if (c >= 'a' && c <= 'z') {
+            let j = i;
+            while (j < s.length && s[j] >= 'a' && s[j] <= 'z') j++;
+            const run = s.slice(i, j);
+            let k = 0;
+            while (k < run.length) {
+              const name = NAMES.find(n => run.startsWith(n, k));
+              if (!name) throw fail('ident', run.slice(k));
+              if (FUNCS[name]) toks.push({ t: 'fn', v: name });
+              else if (name === 'x') toks.push({ t: 'x' });
+              else toks.push({ t: 'num', v: CONSTS[name], c: name });
+              k += name.length;
+            }
+            i = j;
+          } else if ('+-*/^'.includes(c)) {
+            toks.push({ t: 'op', v: c }); i++;
+          } else if (c === '(' || c === ')') {
+            toks.push({ t: c }); i++;
+          } else {
+            throw fail('char', c);
+          }
+        }
+        // 隐式乘法：值 (数/x/常数/右括号) 后面紧跟 值开头 (数/x/函数/左括号)
+        const out = [];
+        for (let n = 0; n < toks.length; n++) {
+          const a = out[out.length - 1], b = toks[n];
+          const aVal = a && (a.t === 'num' || a.t === 'x' || a.t === ')');
+          const bVal = b.t === 'num' || b.t === 'x' || b.t === 'fn' || b.t === '(';
+          if (aVal && bVal) out.push({ t: 'op', v: '*' });
+          out.push(b);
+        }
+        return out;
+      }
+      // 递归下降：expr = term (±term)* ; term = unary (*|/ unary)* ; unary = (±)unary | power ; power = primary (^ unary)?
+      function parseTokens(toks) {
+        let pos = 0, depth = 0;
+        const peek = () => toks[pos];
+        const enter = () => { if (++depth > MAX_DEPTH) throw fail('too_long'); };
+        function expr() {
+          enter();
+          let node = term();
+          while (peek() && peek().t === 'op' && (peek().v === '+' || peek().v === '-')) {
+            const op = toks[pos++].v; const rhs = term();
+            node = { k: op, a: node, b: rhs };
+          }
+          depth--; return node;
+        }
+        function term() {
+          let node = unary();
+          while (peek() && peek().t === 'op' && (peek().v === '*' || peek().v === '/')) {
+            const op = toks[pos++].v; const rhs = unary();
+            node = { k: op, a: node, b: rhs };
+          }
+          return node;
+        }
+        function unary() {
+          enter();
+          const t = peek();
+          let node;
+          if (t && t.t === 'op' && (t.v === '-' || t.v === '+')) { pos++; const inner = unary(); node = t.v === '-' ? { k: 'neg', a: inner } : inner; }
+          else node = power();
+          depth--; return node;
+        }
+        function power() {
+          const base = primary();
+          if (peek() && peek().t === 'op' && peek().v === '^') { pos++; return { k: '^', a: base, b: unary() }; }
+          return base;
+        }
+        function primary() {
+          const t = toks[pos++];
+          if (!t) throw fail('syntax');
+          if (t.t === 'num') return { k: 'num', v: t.v };
+          if (t.t === 'x') return { k: 'x' };
+          if (t.t === '(') {
+            const node = expr();
+            if (!peek() || peek().t !== ')') throw fail('paren');
+            pos++; return node;
+          }
+          if (t.t === 'fn') {
+            if (peek() && peek().t === '(') {
+              pos++; const arg = expr();
+              if (!peek() || peek().t !== ')') throw fail('paren');
+              pos++; return { k: 'fn', f: t.v, a: arg };
+            }
+            return { k: 'fn', f: t.v, a: power() }; // sin x → sin(x)
+          }
+          if (t.t === ')') throw fail('paren');
+          throw fail('syntax', t.v);
+        }
+        const tree = expr();
+        if (pos < toks.length) throw fail(toks[pos].t === ')' ? 'paren' : 'syntax', toks[pos].v);
+        return tree;
+      }
+      function compile(n) {
+        switch (n.k) {
+          case 'num': { const v = n.v; return () => v; }
+          case 'x': return (x) => x;
+          case 'neg': { const a = compile(n.a); return (x) => -a(x); }
+          case '+': { const a = compile(n.a), b = compile(n.b); return (x) => a(x) + b(x); }
+          case '-': { const a = compile(n.a), b = compile(n.b); return (x) => a(x) - b(x); }
+          case '*': { const a = compile(n.a), b = compile(n.b); return (x) => a(x) * b(x); }
+          case '/': { const a = compile(n.a), b = compile(n.b); return (x) => a(x) / b(x); }
+          case '^': { const a = compile(n.a), b = compile(n.b); return (x) => Math.pow(a(x), b(x)); }
+          case 'fn': { const f = FUNCS[n.f], a = compile(n.a); return (x) => f(a(x)); }
+        }
+        throw fail('syntax');
+      }
+      function parse(src) {
+        const tree = parseTokens(tokenize(src));
+        return compile(tree);
+      }
+      return { parse, tokenize };
+    })();
+    // </fnparser>
 
     // —— 与当前文档状态绑定的便捷函数 ——
     function getPxPerMm() { return GridMath.pxPerMm(appState.ratio, cssWidth); }
@@ -8036,55 +8214,160 @@ ${body}</g>
       if (btnCloseFunctionPlotter) btnCloseFunctionPlotter.onclick = () => functionPlotterMenu.classList.add('hidden');
     }
 
+    // 6 个常用预设 (免费)：统一用安全解析器求值，并按网格单位绘制
+    const PRESET_FUNCTIONS = {
+      linear: '0.5x + 1', quadratic: '0.2x^2 - 2', sin: '2sin(x)', cos: '2cos(x)', reciprocal: '4/x', exp: 'e^(0.3x) - 2'
+    };
     document.querySelectorAll('.fn-btn').forEach(btn => {
       btn.onclick = () => {
-        const fnType = btn.dataset.fn;
-        plotFunctionCurve(fnType);
+        plotFunctionCurve(btn.dataset.fn);
         functionPlotterMenu.classList.add('hidden');
       };
     });
 
+    function getFnUnitCells() {
+      const sel = document.getElementById('fnUnitCells');
+      const v = Number(sel && sel.value);
+      return v > 0 ? v : 2;
+    }
+    function fnAxesChecked() {
+      const cb = document.getElementById('fnDrawAxes');
+      return !!(cb && cb.checked);
+    }
+    // 当前页面可见的 x 范围 (单位)
+    function visibleXRange(unitPx) {
+      const O = getGridOrigin();
+      return [(0 - O.x) / unitPx, (cssWidth - O.x) / unitPx];
+    }
+
     function plotFunctionCurve(type) {
-      saveHistory();
-      const cx = cssWidth / 2;
-      const cy = cssHeight / 2;
-      const unit = 50; // 50px = 1 math unit
-      const pts = [];
-      const step = 2; // pixel step for ultra-smooth curve
+      const expr = PRESET_FUNCTIONS[type];
+      if (!expr) return;
+      const unitCells = getFnUnitCells();
+      const unitPx = getGridSpacingPx() * unitCells;
+      const [a, b] = visibleXRange(unitPx);
+      plotExpression(FnParser.parse(expr), { expr, xmin: a, xmax: b, unitCells, axes: fnAxesChecked() });
+    }
 
-      for (let px = 20; px <= cssWidth - 20; px += step) {
-        const x = (px - cx) / unit;
-        let y = 0;
-
-        if (type === 'linear') y = 0.5 * x + 1;
-        else if (type === 'quadratic') y = 0.2 * x * x - 2;
-        else if (type === 'sin') y = 2 * Math.sin(x);
-        else if (type === 'cos') y = 2 * Math.cos(x);
-        else if (type === 'reciprocal') {
-          if (Math.abs(x) < 0.1) continue;
-          y = 4 / x;
-        } else if (type === 'exp') {
-          y = Math.exp(0.3 * x) - 2;
-        }
-
-        const py = cy - y * unit;
-        if (py >= 0 && py <= cssHeight) {
-          pts.push({ x: px, y: py });
-        }
+    // 在网格上绘制 y = f(x)：原点 = 网格原点，1 单位 = unitCells 格；遇到间断点 / 超出页面时自动分段
+    function samplePlotSegments(fn, O, unitPx, xmin, xmax, w, h) {
+      const pxA = Math.max(0, O.x + Math.min(xmin, xmax) * unitPx);
+      const pxB = Math.min(w, O.x + Math.max(xmin, xmax) * unitPx);
+      const segs = [];
+      let cur = [];
+      let prevY = null;
+      const lo = -h * 0.5, hi = h * 1.5;
+      const flush = () => { if (cur.length >= 2) segs.push(cur); cur = []; };
+      for (let px = pxA; px <= pxB + 1e-9; px += 1) {
+        const x = (px - O.x) / unitPx;
+        let y;
+        try { y = fn(x); } catch (e) { y = NaN; }
+        const py = O.y - y * unitPx;
+        const ok = typeof y === 'number' && isFinite(y) && py >= lo && py <= hi;
+        if (!ok) { flush(); prevY = null; continue; }
+        if (prevY !== null && Math.abs(py - prevY) > h * 0.9) flush(); // 渐近线跳变 (tan、1/x)
+        cur.push({ x: Math.round(px * 100) / 100, y: Math.round(py * 100) / 100 });
+        prevY = py;
       }
+      flush();
+      return segs;
+    }
 
-      if (pts.length > 2) {
-        appState.strokes.push({
-          id: Date.now() + Math.random(),
-          tool: 'pen',
-          color: appState.currentColor || '#2563eb',
-          size: 2.5,
-          points: pts
-        });
-        redrawAllStrokes();
-        renderLayersUI();
+    function plotExpression(fn, opts) {
+      const O = getGridOrigin();
+      const unitPx = getGridSpacingPx() * (opts.unitCells || 2);
+      const segs = samplePlotSegments(fn, O, unitPx, opts.xmin, opts.xmax, cssWidth, cssHeight);
+      if (!segs.length) { showToast(tr('fn_nothing_visible'), 3500); return 0; }
+      saveHistory();
+      if (opts.axes) addGridAxes(O, unitPx);
+      const color = appState.currentColor || '#2563eb';
+      const meta = { expr: String(opts.expr || ''), xmin: opts.xmin, xmax: opts.xmax, unitCells: opts.unitCells || 2 };
+      for (const pts of segs) {
+        appState.strokes.push({ id: Date.now() + Math.random(), tool: 'pen', color, size: 2.5, fn: meta, points: pts });
+      }
+      redrawAllStrokes();
+      renderLayersUI();
+      if (typeof updateEmptyHint === 'function') updateEmptyHint();
+      scheduleAutosave();
+      return segs.length;
+    }
+
+    // 沿网格原点画 x / y 轴：箭头 + 每单位刻度 + 数字标注 (普通笔画与文字，可编辑)
+    function addGridAxes(O, unitPx) {
+      const col = isDarkPaper(appState.paper) ? '#e2e8f0' : '#0f172a';
+      const W = cssWidth, H = cssHeight, m = 6;
+      const push = (pts, size = 1.4) => appState.strokes.push({ id: Date.now() + Math.random(), tool: 'pen', color: col, size, poly: true, points: pts });
+      if (O.y >= 0 && O.y <= H) push([{ x: m, y: O.y }, { x: W - m, y: O.y }, { x: W - m - 9, y: O.y - 4 }, { x: W - m, y: O.y }, { x: W - m - 9, y: O.y + 4 }]);
+      if (O.x >= 0 && O.x <= W) push([{ x: O.x, y: H - m }, { x: O.x, y: m }, { x: O.x - 4, y: m + 9 }, { x: O.x, y: m }, { x: O.x + 4, y: m + 9 }]);
+      const labelEvery = unitPx >= 26 ? 1 : (unitPx >= 11 ? 5 : 10);
+      const fs = Math.max(9, Math.min(13, unitPx * 0.42));
+      const kx0 = Math.ceil((m + 12 - O.x) / unitPx), kx1 = Math.floor((W - m - 14 - O.x) / unitPx);
+      for (let k = kx0; k <= kx1; k++) {
+        if (k === 0) continue;
+        const x = O.x + k * unitPx;
+        push([{ x, y: O.y - 3 }, { x, y: O.y + 3 }], 1.1);
+        if (k % labelEvery === 0) appState.texts.push({ id: Date.now() + Math.random(), text: String(k), x: x - fs * 0.3 * String(k).length, y: O.y + fs + 4, size: fs, color: col });
+      }
+      const ky0 = Math.ceil((O.y - (H - m - 12)) / unitPx), ky1 = Math.floor((O.y - (m + 14)) / unitPx);
+      for (let k = ky0; k <= ky1; k++) {
+        if (k === 0) continue;
+        const y = O.y - k * unitPx;
+        push([{ x: O.x - 3, y }, { x: O.x + 3, y }], 1.1);
+        if (k % labelEvery === 0) appState.texts.push({ id: Date.now() + Math.random(), text: String(k), x: O.x - 6 - fs * 0.6 * String(k).length, y: y + fs * 0.35, size: fs, color: col });
+      }
+      appState.texts.push({ id: Date.now() + Math.random(), text: 'O', x: O.x - fs - 2, y: O.y + fs + 4, size: fs, color: col });
+      appState.texts.push({ id: Date.now() + Math.random(), text: 'x', x: W - m - fs, y: O.y - 8, size: fs + 3, color: col, bold: true });
+      appState.texts.push({ id: Date.now() + Math.random(), text: 'y', x: O.x + 8, y: m + fs + 4, size: fs + 3, color: col, bold: true });
+    }
+
+    function fnErrorMessage(err) {
+      const code = (err && err.code) || 'syntax';
+      return tr('fn_err_' + code).replace('{d}', err && err.detail != null ? String(err.detail) : '');
+    }
+    function updateFnPreview() {
+      const input = document.getElementById('fnExprInput');
+      const out = document.getElementById('fnPreview');
+      if (!input || !out) return null;
+      try {
+        const fn = FnParser.parse(input.value);
+        const x0 = 1, y0 = fn(x0);
+        out.textContent = `✓ f(1) = ${isFinite(y0) ? fmtNum(y0, 4) : tr('fn_undefined')}`;
+        out.style.color = '';
+        return fn;
+      } catch (err) {
+        out.textContent = '✗ ' + fnErrorMessage(err);
+        out.style.color = '#ef4444';
+        return null;
       }
     }
+    function syncFnUnitOptions() {
+      const sel = document.getElementById('fnUnitCells');
+      if (!sel) return;
+      const mm = getGridSpacingMm();
+      Array.from(sel.options).forEach(o => { const n = Number(o.value); o.textContent = `${n} ${tr('unit_cells')} (${fmtNum(n * mm, 2)} mm)`; });
+    }
+    (function bindCustomFn() {
+      const input = document.getElementById('fnExprInput');
+      if (input) {
+        input.addEventListener('input', updateFnPreview);
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); const b = document.getElementById('btnPlotCustomFn'); if (b) b.click(); } });
+      }
+      const btn = document.getElementById('btnPlotCustomFn');
+      if (btn) btn.onclick = (e) => {
+        e.stopPropagation();
+        if (!appState.isPro) { document.getElementById('proModal').classList.remove('hidden'); return; }
+        const fn = updateFnPreview();
+        if (!fn) return;
+        let xmin = Number(document.getElementById('fnXMin').value), xmax = Number(document.getElementById('fnXMax').value);
+        const unitCells = getFnUnitCells();
+        if (!isFinite(xmin) || !isFinite(xmax) || xmin === xmax) {
+          [xmin, xmax] = visibleXRange(getGridSpacingPx() * unitCells);
+        }
+        const n = plotExpression(fn, { expr: input.value.trim(), xmin: Math.min(xmin, xmax), xmax: Math.max(xmin, xmax), unitCells, axes: fnAxesChecked() });
+        if (n) { functionPlotterMenu.classList.add('hidden'); showToast(tr('fn_plotted'), 2600); }
+      };
+      updateFnPreview();
+    })();
 
     // ==========================================
     // 📐 四大工程专业网格切换 (Grid Selector)
@@ -8145,6 +8428,7 @@ ${body}</g>
       const snapCb = document.getElementById('gridSnapCheckbox'); if (snapCb) snapCb.checked = !!appState.snap;
       const snapBtn = document.getElementById('btnToggleSnap');
       if (snapBtn) { snapBtn.classList.toggle('tool-toggle-on', !!appState.snap); snapBtn.setAttribute('aria-pressed', appState.snap ? 'true' : 'false'); }
+      if (typeof syncFnUnitOptions === 'function') syncFnUnitOptions();
       const note = document.getElementById('gridScaleNote');
       if (note) {
         const mm = getGridSpacingMm();
@@ -8156,6 +8440,13 @@ ${body}</g>
           : tr('grid_note_free'));
         note.textContent = txt;
       }
+    }
+    // 语言切换后需要重新生成的动态文案
+    function refreshDynamicI18n() {
+      if (typeof syncFnUnitOptions === 'function') syncFnUnitOptions();
+      if (typeof updateFnPreview === 'function') updateFnPreview();
+      if (typeof updateEmptyHint === 'function') updateEmptyHint();
+      if (typeof refreshMeasureTools === 'function') refreshMeasureTools();
     }
     function setSnapEnabled(on) {
       appState.snap = !!on;
