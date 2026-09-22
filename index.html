@@ -5158,9 +5158,14 @@
         if (e.target.dataset.handle || e.target.dataset.rot || e.target.closest('.selection-action-pill')) return;
         e.stopPropagation();
         e.preventDefault();
+        const bpos = getCanvasCoordinates(e);
+        if (appState.tool === 'select' && handleTextDoubleClick(bpos)) return;
+        appState._dragMoved = false;
+        appState._dragHistLen = (appState.history || []).length;
+        appState._dragRedo = (appState.redoStack || []).slice();
         saveHistory();
         appState.isDraggingSelection = true;
-        appState.dragStartPos = getCanvasCoordinates(e);
+        appState.dragStartPos = bpos;
       };
 
       // 🌟 8 方向手柄缩放 (手绘笔迹线条 + 图片 + 文本 完整缩放拉伸)
@@ -6141,6 +6146,24 @@
     }
 
     // 🌟 标杆级 Photoshop / Figma 矩形拉框多选 (Marquee Selection)
+    // 选择工具下双击文字进入编辑：画布与选区框两处的按下都会调用；返回 true 表示已打开编辑器
+    function handleTextDoubleClick(pos) {
+      let hit = null;
+      for (let i = appState.texts.length - 1; i >= 0; i--) {
+        const tb = getTextBounds(appState.texts[i]);
+        if (pos.x >= tb.x - 6 && pos.x <= tb.x + tb.width + 6 && pos.y >= tb.y - 6 && pos.y <= tb.y + tb.height + 6) { hit = appState.texts[i]; break; }
+      }
+      const now = performance.now();
+      if (hit && appState._lastClickedText === hit && (now - (appState._lastTextClickTime || 0)) < 400) {
+        appState._lastClickedText = null;
+        openRichTextEditor(hit);
+        return true;
+      }
+      appState._lastClickedText = hit;
+      appState._lastTextClickTime = now;
+      return false;
+    }
+
     function getNormalizedRect(p1, p2) {
       const x = Math.min(p1.x, p2.x);
       const y = Math.min(p1.y, p2.y);
@@ -6187,6 +6210,10 @@
 
       e.preventDefault();
       const pos = getCanvasCoordinates(e);
+      // 点选但没有拖动时不留下空的撤销记录 (也不清空重做栈)
+      appState._dragMoved = false;
+      appState._dragHistLen = (appState.history || []).length;
+      appState._dragRedo = (appState.redoStack || []).slice();
 
       if (appState.tool === 'text') {
         let hitText = null;
@@ -6210,6 +6237,8 @@
         canvasCard.style.cursor = 'grab';
         canvas.classList.remove('cursor-pen-nib');
       } else if (appState.tool === 'select') {
+        // 双击文字 (无论是否已选中) 进入编辑
+        if (handleTextDoubleClick(pos)) return;
         if (appState.selectionBounds &&
             pos.x >= appState.selectionBounds.x &&
             pos.x <= appState.selectionBounds.x + appState.selectionBounds.width &&
@@ -6245,22 +6274,13 @@
         let hitText = null;
         for (let i = appState.texts.length - 1; i >= 0; i--) {
           const t = appState.texts[i];
-          const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
-          if (pos.x >= t.x && pos.x <= t.x + estW && pos.y >= t.y - t.size && pos.y <= t.y + 6) {
+          const tb = getTextBounds(t);
+          if (pos.x >= tb.x - 6 && pos.x <= tb.x + tb.width + 6 && pos.y >= tb.y - 6 && pos.y <= tb.y + tb.height + 6) {
             hitText = t;
             break;
           }
         }
         if (hitText) {
-          const now = performance.now();
-          if (appState._lastClickedText === hitText && (now - (appState._lastTextClickTime || 0)) < 380) {
-            openRichTextEditor(hitText);
-            appState._lastClickedText = null;
-            return;
-          }
-          appState._lastClickedText = hitText;
-          appState._lastTextClickTime = now;
-
           saveHistory();
           appState.selectedTexts = [hitText];
           appState.selectedImages = [];
@@ -6509,6 +6529,7 @@
         const dy = pos.y - appState.dragStartPos.y;
         if (dx === 0 && dy === 0) return;
         appState.dragStartPos = pos;
+        appState._dragMoved = true;
 
         for (const s of (appState.selectedStrokes || [])) {
           for (const pt of s.points) { pt.x += dx; pt.y += dy; }
@@ -6585,6 +6606,10 @@
 
       if (appState.isDraggingSelection) {
         appState.isDraggingSelection = false;
+        if (!appState._dragMoved && appState.history && appState.history.length === appState._dragHistLen + 1) {
+          appState.history.pop();
+          appState.redoStack = appState._dragRedo || [];
+        }
         updateSelectionBoxUI();
         if (typeof scheduleAutosave === 'function') scheduleAutosave();
         return;
