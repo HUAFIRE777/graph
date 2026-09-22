@@ -335,7 +335,6 @@
     }
     body.theme-light #zoomDock,
     body.theme-light #paletteFlyout,
-    body.theme-light #geomMenu,
     body.theme-light #pageManagerDock {
       background-color: rgba(255, 255, 255, 0.96) !important;
       border-color: #e5e0d8 !important;
@@ -1130,22 +1129,6 @@
       </div>
       <div class="pt-1.5 border-t border-stone-200 dark:border-slate-800 flex justify-between text-[11px] text-stone-500 dark:text-slate-400">
         <span data-i18n="layer_hint">支持显示/隐藏、锁定与透明度</span>
-      </div>
-    </div>
-
-    <!-- 几何图形弹窗面板 -->
-    <div id="geomMenu" class="hidden absolute left-16 sm:left-20 top-1/2 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2 w-52 text-white text-xs">
-      <div class="font-bold text-slate-300 pb-1 border-b border-slate-800 flex justify-between items-center">
-        <span>📐 常用空间几何</span>
-        <button id="btnCloseGeom" class="text-slate-400 hover:text-white">✕</button>
-      </div>
-      <div class="grid grid-cols-2 gap-1.5">
-        <button class="geom-item p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-left transition" data-geom="axis2d">➕ 2D坐标系</button>
-        <button class="geom-item p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-left transition" data-geom="axis3d">🌐 3D空间轴</button>
-        <button class="geom-item p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-left transition" data-geom="cube">🎲 立方体</button>
-        <button class="geom-item p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-left transition" data-geom="cylinder">🥫 圆柱体</button>
-        <button class="geom-item p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-left transition" data-geom="pyramid">🔺 正四棱锥</button>
-        <button class="geom-item p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-left transition" data-geom="sphere">⚽ 空间球体</button>
       </div>
     </div>
 
@@ -5407,58 +5390,7 @@
       renderReferenceBoard();
     };
 
-    // 几何模型与坐标系绘制
-    const geomMenu = document.getElementById('geomMenu');
-    const btnToggleGeom = document.getElementById('btnToggleGeom');
-    const btnCloseGeom = document.getElementById('btnCloseGeom');
-    if (btnToggleGeom && geomMenu) {
-      btnToggleGeom.onclick = (e) => {
-        e.stopPropagation();
-        geomMenu.classList.toggle('hidden');
-      };
-    }
-    if (btnCloseGeom && geomMenu) {
-      btnCloseGeom.onclick = () => geomMenu.classList.add('hidden');
-    }
-    document.addEventListener('click', (e) => {
-      if (geomMenu && !geomMenu.contains(e.target) && (!btnToggleGeom || !btnToggleGeom.contains(e.target))) {
-        geomMenu.classList.add('hidden');
-      }
-    });
-
-    document.querySelectorAll('.geom-item').forEach(btn => {
-      btn.onclick = () => {
-        const type = btn.dataset.geom;
-        geomMenu.classList.add('hidden');
-        saveHistory();
-        const cx = cssWidth / 2, cy = cssHeight / 2;
-
-        if (type === 'axis2d') {
-          const ptsX = [{x: cx - 180, y: cy}, {x: cx + 180, y: cy}, {x: cx + 165, y: cy - 6}, {x: cx + 180, y: cy}, {x: cx + 165, y: cy + 6}];
-          const ptsY = [{x: cx, y: cy + 140}, {x: cx, y: cy - 140}, {x: cx - 6, y: cy - 125}, {x: cx, y: cy - 140}, {x: cx + 6, y: cy - 125}];
-          appState.strokes.push({ id: Date.now(), tool: 'pen', color: appState.currentColor, size: 2.2, points: ptsX });
-          appState.strokes.push({ id: Date.now()+1, tool: 'pen', color: appState.currentColor, size: 2.2, points: ptsY });
-        } else if (type === 'axis3d') {
-          const len = 140;
-          const ptsZ = [{x: cx, y: cy}, {x: cx, y: cy - len}, {x: cx - 6, y: cy - len + 12}, {x: cx, y: cy - len}, {x: cx + 6, y: cy - len + 12}];
-          const xEnd = { x: cx - len * Math.cos(Math.PI / 6), y: cy + len * Math.sin(Math.PI / 6) };
-          const yEnd = { x: cx + len * Math.cos(Math.PI / 6), y: cy + len * Math.sin(Math.PI / 6) };
-          appState.strokes.push({ id: Date.now(), tool: 'pen', color: appState.currentColor, size: 2.2, points: ptsZ });
-          appState.strokes.push({ id: Date.now()+1, tool: 'pen', color: appState.currentColor, size: 2.2, points: [{x: cx, y: cy}, xEnd] });
-          appState.strokes.push({ id: Date.now()+2, tool: 'pen', color: appState.currentColor, size: 2.2, points: [{x: cx, y: cy}, yEnd] });
-        } else if (type === 'cube') {
-          const s = 60;
-          const cos = Math.cos(Math.PI / 6) * s, sin = Math.sin(Math.PI / 6) * s;
-          const topFace = [{x: cx, y: cy - s}, {x: cx + cos, y: cy - s + sin}, {x: cx, y: cy - s + sin*2}, {x: cx - cos, y: cy - s + sin}, {x: cx, y: cy - s}];
-          const leftP = [{x: cx - cos, y: cy - s + sin}, {x: cx - cos, y: cy + sin}, {x: cx, y: cy + sin*2}, {x: cx, y: cy - s + sin*2}];
-          const rightP = [{x: cx, y: cy - s + sin*2}, {x: cx, y: cy + sin*2}, {x: cx + cos, y: cy + sin}, {x: cx + cos, y: cy - s + sin}];
-          appState.strokes.push({ id: Date.now(), tool: 'pen', color: appState.currentColor, size: 2, points: topFace });
-          appState.strokes.push({ id: Date.now()+1, tool: 'pen', color: appState.currentColor, size: 2, points: leftP });
-          appState.strokes.push({ id: Date.now()+2, tool: 'pen', color: appState.currentColor, size: 2, points: rightP });
-        }
-        redrawAllStrokes();
-      };
-    });
+    // (旧版 #geomMenu 弹窗没有任何打开按钮，已移除；立体几何与坐标轴统一由「更多工具」抽屉插入)
 
     const btnToolStraightLine = document.getElementById('btnToolStraightLine');
     if (btnToolStraightLine) {
@@ -6642,9 +6574,13 @@
     // 📍 实时坐标探针 (Coordinate Inspector)
     // ==========================================
     const coordDisplay = document.getElementById('coordDisplay');
+    const refCanvasForCoords = document.getElementById('referenceCanvas');
     workbenchWrapper.addEventListener('pointermove', (e) => {
       if (!coordDisplay) return;
-      const pt = getCanvasPoint(e);
+      // 双板模式下在左板上移动时，按左板坐标换算
+      const pt = (appState.isDualSpread && refCanvasForCoords && e.target === refCanvasForCoords)
+        ? getRefCanvasCoordinates(e)
+        : getCanvasCoordinates(e);
       const cx = cssWidth / 2;
       const cy = cssHeight / 2;
       // 假设网格以画布中心为原点 (0,0)，50px 为 1.0 数学单位
