@@ -6065,6 +6065,15 @@
       }, 'image/png');
     }
 
+    function escapeXml(v) {
+      return String(v == null ? '' : v)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+    }
+
     function generateVectorSVGString() {
       let pathsSvg = '';
       for (const s of appState.strokes) {
@@ -6086,7 +6095,7 @@
       }
 
       for (const t of appState.texts) {
-        pathsSvg += `<text x="${t.x}" y="${t.y}" font-size="${t.size}" fill="${t.color}" font-weight="600" font-family="sans-serif">${t.text}</text>\n`;
+        pathsSvg += `<text x="${Number(t.x) || 0}" y="${Number(t.y) || 0}" font-size="${Number(t.size) || 24}" fill="${escapeXml(t.color || '#18181b')}" font-weight="600" font-family="sans-serif">${escapeXml(t.text)}</text>\n`;
       }
 
       return `<?xml version="1.0" encoding="UTF-8"?>
@@ -6127,33 +6136,27 @@
         alert('PDF 渲染组件加载中，请稍后再试');
         return;
       }
-      syncCurrentPageToState();
       const { jsPDF } = window.jspdf;
       const isLandscape = cssWidth >= cssHeight;
       const pdf = new jsPDF({ orientation: isLandscape ? 'l' : 'p', unit: 'pt', format: 'a4' });
       const pdfW = pdf.internal.pageSize.getWidth();
       const pdfH = pdf.internal.pageSize.getHeight();
 
-      const origIndex = appState.currentPageIndex;
       const offCanvas = document.createElement('canvas');
       offCanvas.width = Math.round(cssWidth * 2);
       offCanvas.height = Math.round(cssHeight * 2);
       const offCtx = offCanvas.getContext('2d');
 
-      // 逐页绘制并打包多页 PDF（漫画分镜本）
+      // 逐页绘制并打包多页 PDF：只读渲染每一页，绝不改写 appState / pages
       appState.pages.forEach((p, idx) => {
         if (idx > 0) pdf.addPage();
-        appState.strokes = p.strokes || [];
-        appState.texts = p.texts || [];
-        appState.images = p.images || [];
+        const board = (idx === appState.currentPageIndex) ? appState : p; // 当前页取实时数据
         offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
-        redrawAllStrokes(offCtx, 2, false);
+        redrawAllStrokes(offCtx, 2, false, board);
         const imgData = offCanvas.toDataURL('image/jpeg', 0.95);
         pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
       });
 
-      // 恢复原激活页
-      loadPage(origIndex);
       pdf.save(`Graph-Story-${Date.now()}.pdf`);
     }
 
