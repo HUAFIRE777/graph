@@ -5247,6 +5247,137 @@
     const btnRedoDrawerEl = document.getElementById('btnRedoDrawer');
     if (btnRedoDrawerEl) btnRedoDrawerEl.onclick = () => redo();
 
+    // ================= 💾 本地自动保存 (Autosave → localStorage) =================
+    // 保存全部页面 (笔画/文字/图片 dataURL)、当前页、底纹与画幅；不保存撤销/重做栈。
+    const AUTOSAVE_KEY = 'eazyopc_graph_doc_v1';
+    let autosaveTimer = null;
+
+    function serializeImageForSave(im) {
+      const out = {};
+      for (const k in im) {
+        if (k === 'img') continue;
+        const v = im[k];
+        if (v === null || ['string', 'number', 'boolean'].includes(typeof v)) out[k] = v;
+      }
+      out.src = im.img.src;
+      return out;
+    }
+
+    function serializeBoardForSave(board, withImages) {
+      return {
+        id: board.id,
+        strokes: board.strokes || [],
+        texts: (board.texts || []).map(t => { const c = Object.assign({}, t); delete c._editing; return c; }),
+        images: withImages
+          ? (board.images || []).filter(im => im && im.img && im.img.src).map(serializeImageForSave)
+          : []
+      };
+    }
+
+    function buildAutosaveDoc(withImages) {
+      const pages = appState.pages.map((p, i) => {
+        // 当前右板/单板页的实时数据在 appState 上；其余页 (含双板左板 pages[0]) 直接取 pages[i]
+        const live = (i === appState.currentPageIndex)
+          ? { id: p.id, strokes: appState.strokes, texts: appState.texts, images: appState.images }
+          : p;
+        return serializeBoardForSave(live, withImages);
+      });
+      return {
+        v: 1,
+        savedAt: Date.now(),
+        currentPageIndex: appState.currentPageIndex,
+        paper: appState.paper,
+        ratio: appState.ratio,
+        pages
+      };
+    }
+
+    function flushAutosave() {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = null;
+      try {
+        localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildAutosaveDoc(true)));
+        return true;
+      } catch (e) {
+        // 多半是图片过大超出配额：退而求其次，只保存笔画与文字
+        try {
+          localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildAutosaveDoc(false)));
+          return true;
+        } catch (e2) {
+          return false;
+        }
+      }
+    }
+
+    function scheduleAutosave() {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(flushAutosave, 800);
+    }
+
+    function restoreAutosave() {
+      let doc = null;
+      try {
+        const raw = localStorage.getItem(AUTOSAVE_KEY);
+        if (!raw) return false;
+        doc = JSON.parse(raw);
+      } catch (e) {
+        return false;
+      }
+      if (!doc || !Array.isArray(doc.pages) || doc.pages.length === 0) return false;
+
+      const onImgLoad = () => {
+        redrawAllStrokes();
+        if (appState.isDualSpread) renderReferenceBoard();
+      };
+      const pages = doc.pages.map(p => {
+        p = p || {};
+        const images = (Array.isArray(p.images) ? p.images : []).filter(d => d && typeof d.src === 'string').map(d => {
+          const img = new Image();
+          if (!d.src.startsWith('data:')) img.crossOrigin = 'anonymous';
+          img.onload = onImgLoad;
+          img.src = d.src;
+          const o = Object.assign({}, d);
+          delete o.src;
+          o.img = img;
+          return o;
+        });
+        return {
+          id: p.id || (Date.now() + Math.random()),
+          strokes: Array.isArray(p.strokes) ? p.strokes.filter(st => st && Array.isArray(st.points)) : [],
+          texts: Array.isArray(p.texts) ? p.texts.filter(t => t && typeof t.text === 'string') : [],
+          images,
+          history: [],
+          redoStack: []
+        };
+      });
+
+      appState.pages = pages;
+      const idx = Math.max(0, Math.min(pages.length - 1, Number(doc.currentPageIndex) || 0));
+      appState.currentPageIndex = idx;
+      appState.strokes = pages[idx].strokes.slice();
+      appState.texts = pages[idx].texts.slice();
+      appState.images = pages[idx].images.slice();
+      appState.history = [];
+      appState.redoStack = [];
+
+      const paperSel = document.getElementById('paperSelector');
+      if (typeof doc.paper === 'string' && paperSel && Array.from(paperSel.options).some(o => o.value === doc.paper)) {
+        appState.paper = doc.paper;
+        paperSel.value = doc.paper;
+      }
+      const ratioSel = document.getElementById('ratioSelector');
+      if (typeof doc.ratio === 'string' && ratioSel && Array.from(ratioSel.options).some(o => o.value === doc.ratio)) {
+        appState.ratio = doc.ratio;
+        ratioSel.value = doc.ratio;
+      }
+      return true;
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') flushAutosave();
+    });
+    window.addEventListener('pagehide', () => flushAutosave());
+
     // 键盘快捷键 (V/P/E/L/T/Ctrl+Z/Ctrl+Shift+Z/Ctrl+Y/Delete/Space)
     window.addEventListener('keydown', (e) => {
       const tgt = e.target;
@@ -6427,6 +6558,7 @@
     document.getElementById('ratioSelector').onchange = (e) => {
       appState.ratio = e.target.value;
       resizeCanvas();
+      scheduleAutosave();
     };
     document.getElementById('paperSelector').onchange = (e) => {
       const prevPaper = appState.paper;
@@ -6434,6 +6566,8 @@
       adaptPaperContrast(prevPaper, newPaper);
       appState.paper = newPaper;
       redrawAllStrokes();
+      if (appState.isDualSpread) renderReferenceBoard();
+      scheduleAutosave();
     };
 
     const btnToggleFullscreen = document.getElementById('btnToggleFullscreen');
@@ -6686,7 +6820,9 @@
         const paperSel = document.getElementById('paperSelector');
         if (paperSel) paperSel.value = grid;
         redrawAllStrokes();
+        if (appState.isDualSpread) renderReferenceBoard();
         gridSelectorMenu.classList.add('hidden');
+        scheduleAutosave();
       };
     });
 
@@ -7072,6 +7208,9 @@
           brushStudioFlyout.classList.add('hidden');
         }
       });
+
+      // 恢复上次自动保存的文档 (在首次渲染之前)
+      restoreAutosave();
 
       // 语言优先级：?lang=xx (受支持时) > localStorage > 默认 zh
       let savedLang = 'zh';
