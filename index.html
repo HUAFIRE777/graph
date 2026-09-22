@@ -107,7 +107,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     // Tailwind 的 dark: 变体跟随站内主题 (html.dark)，而不是操作系统主题
-    tailwind.config = { darkMode: 'class' };
+    if (window.tailwind) window.tailwind.config = { darkMode: 'class' };
     try { if ((localStorage.getItem('eazyopc_theme') || 'dark') !== 'light') document.documentElement.classList.add('dark'); } catch (e) { document.documentElement.classList.add('dark'); }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1389,7 +1389,7 @@
         <button id="btnTogglePalette" class="p-2 rounded-xl text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 text-xs transition flex items-center justify-center relative" data-i18n-title="tip_palette" title="画笔色彩与 RGB 精密调色">
         <span id="activeColorDot" class="w-4 h-4 rounded-full block border border-white/80 bg-zinc-900 shadow-sm"></span>
       </button>
-        <button id="btnToolbarSize" class="px-1 py-0.5 rounded-md text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-slate-800 text-[9px] font-mono font-bold leading-none transition" title="调整笔刷粗细">
+        <button id="btnToolbarSize" data-i18n-title="tip_brush_size" class="px-1 py-0.5 rounded-md text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-slate-800 text-[9px] font-mono font-bold leading-none transition" title="调整笔刷粗细">
           <span id="toolbarSizeDisplay">4px</span>
         </button>
       </div>
@@ -3535,7 +3535,7 @@
         measure_tools_title: '📏 测量工具', tool_ruler: '直尺', tool_protractor: '量角器',
         tip_ruler: '直尺 (Pro)：拖动移动，拖右端圆点旋转 (Shift 或吸附时按 15°)，贴着刻度边画线自动成直线',
         tip_protractor: '量角器 (Pro)：拖动移动，拖蓝点旋转，拖红色指针读角度',
-        tip_add_page: '新建一页',
+        tip_add_page: '新建一页', tip_brush_size: '调整笔刷粗细',
         shortcuts_title: '键盘快捷键', tip_shortcuts: '快捷键 (?)', empty_hint: '拿起画笔开始画吧 · 按 ? 查看快捷键',
         sc_select: '选择 / 移动', sc_hand: '抓手平移', sc_pen: '钢笔', sc_eraser: '橡皮擦', sc_line: '直线', sc_rect: '矩形', sc_ellipse: '圆 / 椭圆',
         sc_text: '文字', sc_lasso: '套索', sc_snap: '开关网格吸附', sc_shift: '拖动时锁定 15° / 正方形 / 正圆', sc_delete: '删除选中',
@@ -3643,7 +3643,7 @@
         measure_tools_title: '📏 Measuring tools', tool_ruler: 'Ruler', tool_protractor: 'Protractor',
         tip_ruler: 'Ruler (Pro): drag to move, drag the right dot to rotate (15° steps with Shift or snap); drawing along the edge makes a straight line',
         tip_protractor: 'Protractor (Pro): drag to move, drag the blue dot to rotate, drag the red arm to read an angle',
-        tip_add_page: 'Add a page',
+        tip_add_page: 'Add a page', tip_brush_size: 'Brush size',
         shortcuts_title: 'Keyboard shortcuts', tip_shortcuts: 'Shortcuts (?)', empty_hint: 'Pick up the pen and start drawing · press ? for shortcuts',
         sc_select: 'Select / move', sc_hand: 'Hand (pan)', sc_pen: 'Pen', sc_eraser: 'Eraser', sc_line: 'Line', sc_rect: 'Rectangle', sc_ellipse: 'Circle / ellipse',
         sc_text: 'Text', sc_lasso: 'Lasso', sc_snap: 'Toggle grid snap', sc_shift: 'While dragging: 15° / square / circle', sc_delete: 'Delete selection',
