@@ -105,6 +105,11 @@
 
   <!-- Tailwind CSS & jsPDF CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind 的 dark: 变体跟随站内主题 (html.dark)，而不是操作系统主题
+    tailwind.config = { darkMode: 'class' };
+    try { if ((localStorage.getItem('eazyopc_theme') || 'dark') !== 'light') document.documentElement.classList.add('dark'); } catch (e) { document.documentElement.classList.add('dark'); }
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   
   <style>
@@ -861,7 +866,134 @@
     body.theme-light #pageManagerDock button#btnToggleDualView.dual-active * {
       color: #ffffff !important;
     }
-    
+
+    /* ================= 🎛️ Round 4 设计系统：间距 / 圆角 / 阴影 / 表面色 (两套主题共用变量) ================= */
+    :root {
+      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px;
+      --sh-sm: 0 1px 2px rgba(2, 6, 23, 0.18);
+      --sh-md: 0 6px 18px -6px rgba(2, 6, 23, 0.35);
+      --sh-lg: 0 18px 44px -12px rgba(2, 6, 23, 0.55);
+      --accent: #2563eb; --accent-2: #3b82f6; --accent-ring: rgba(59, 130, 246, 0.55);
+      --surface: rgba(15, 23, 42, 0.86);
+      --surface-solid: #0f172a;
+      --surface-2: rgba(30, 41, 59, 0.85);
+      --line: rgba(148, 163, 184, 0.2);
+      --text: #e2e8f0; --text-dim: #94a3b8;
+      --hover: rgba(148, 163, 184, 0.14);
+      --input-bg: #0b1220; --input-line: #334155;
+      --btn-h-sm: 32px; --btn-h: 36px; --btn-h-lg: 40px;
+    }
+    body.theme-light {
+      --sh-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+      --sh-md: 0 6px 18px -8px rgba(15, 23, 42, 0.18);
+      --sh-lg: 0 18px 44px -16px rgba(15, 23, 42, 0.22);
+      --surface: rgba(255, 255, 255, 0.94);
+      --surface-solid: #ffffff;
+      --surface-2: #f8fafc;
+      --line: #d9dee7;
+      --text: #0f172a; --text-dim: #475569;
+      --hover: #eef2f7;
+      --input-bg: #ffffff; --input-line: #64748b;
+    }
+
+    /* 浮动坞与面板：暗色 = 深色毛玻璃，白天 = 白色毛玻璃 (覆盖 Tailwind 固定色) */
+    #leftSidebar, #zoomDock, #pageManagerDock, #coordInspector, .ui-panel,
+    #moreToolsDrawer, #functionPlotterMenu, #mediaMenu, #layersPanel, #brushStudioFlyout, #paletteFlyout, #gridSelectorMenu {
+      background: var(--surface) !important;
+      border: 1px solid var(--line) !important;
+      color: var(--text) !important;
+      -webkit-backdrop-filter: blur(14px) saturate(1.3);
+      backdrop-filter: blur(14px) saturate(1.3);
+      box-shadow: var(--sh-lg) !important;
+    }
+    #zoomDock, #pageManagerDock, #coordInspector { box-shadow: var(--sh-md) !important; }
+    body:not(.theme-light) #leftSidebar button:not(.tool-btn-active),
+    body:not(.theme-light) #zoomDock button,
+    body:not(.theme-light) #pageManagerDock button:not(#btnAddPage):not(.dual-active) { color: #cbd5e1; }
+    body:not(.theme-light) #leftSidebar button:not(.tool-btn-active):hover,
+    body:not(.theme-light) #zoomDock button:hover,
+    body:not(.theme-light) #pageManagerDock button:not(#btnAddPage):hover { background: var(--hover) !important; color: #ffffff; }
+    body:not(.theme-light) #coordInspector, body:not(.theme-light) #coordInspector * { color: #cbd5e1; }
+    #leftSidebar .tool-btn, #leftSidebar > button, #leftSidebar > div > button:first-child {
+      min-width: 34px; min-height: 34px; border-radius: 10px;
+    }
+    .tool-btn-active { background: var(--accent) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important; }
+    body.theme-light #leftSidebar .tool-btn-active, body.theme-light #leftSidebar .tool-toggle-on { background: var(--accent) !important; color: #ffffff !important; }
+    .tool-toggle-on { background: rgba(37, 99, 235, 0.16) !important; color: #3b82f6 !important; box-shadow: inset 0 0 0 1.5px rgba(59, 130, 246, 0.7); }
+    body.theme-light #leftSidebar .tool-toggle-on { background: #dbeafe !important; color: #1d4ed8 !important; }
+    .dock-sep { width: 22px; height: 1px; background: var(--line); margin: 2px 0; }
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--accent-ring); outline-offset: 2px;
+    }
+    @media (max-width: 640px) {
+      #leftSidebar .tool-btn, #leftSidebar > button { min-width: 36px; min-height: 36px; }
+    }
+
+    /* 面板内部通用排版 */
+    .ui-panel .panel-head { border-bottom: 1px solid var(--line); }
+    .panel-close { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 12px; }
+    .panel-close:hover { background: var(--hover); color: var(--text); }
+    .panel-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); font-size: 12px; font-weight: 600; color: var(--text); }
+    .panel-input { background: var(--input-bg); border: 1px solid var(--input-line); color: var(--text); border-radius: var(--r-sm); font-size: 12px; padding: 4px 8px; min-height: 30px; font-weight: 600; outline: none; }
+    .panel-input:focus { border-color: var(--accent-2); }
+    .panel-note { font-size: 11px; line-height: 1.5; color: var(--text-dim); margin: 0; }
+    .panel-btn { min-height: var(--btn-h-sm); padding: 0 12px; border-radius: var(--r-sm); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line); color: var(--text); background: var(--surface-2); transition: background .15s, border-color .15s; }
+    .panel-btn:hover { background: var(--hover); }
+    .panel-btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .panel-btn-primary:hover { background: var(--accent-2); }
+    body.theme-light .panel-btn-primary { background: #0f172a; border-color: #0f172a; color: #fff; }
+    body.theme-light .panel-btn-primary:hover { background: #334155; }
+    .seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 2px; gap: 2px; }
+    .seg-btn { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; color: var(--text-dim); }
+    .seg-btn.active { background: var(--accent); color: #fff; }
+    body.theme-light .seg-btn.active { background: #0f172a; color: #fff; }
+    .grid-opt-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font-size: 11px; font-weight: 700; transition: border-color .15s, background .15s; }
+    .grid-opt-btn span:first-child { font-size: 16px; line-height: 1; }
+    .grid-opt-btn:hover { background: var(--hover); }
+    .grid-opt-btn.active { border-color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--accent-2); background: rgba(37, 99, 235, 0.14); }
+    body.theme-light .ui-panel, body.theme-light .ui-panel .panel-row, body.theme-light .ui-panel label { color: #0f172a; font-weight: 700; }
+    body.theme-light .ui-panel .panel-note { color: #334155; font-weight: 600; }
+    body.theme-light .grid-opt-btn.active { border-color: #0f172a; box-shadow: inset 0 0 0 1px #0f172a; background: #eef2ff; }
+
+    /* 测量读数 (直线长度 / 角度) */
+    #measureBadge { position: fixed; z-index: 60; pointer-events: none; padding: 4px 8px; border-radius: 8px; font: 700 11px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(15, 23, 42, 0.92); color: #f8fafc; border: 1px solid rgba(148, 163, 184, 0.3); box-shadow: var(--sh-md); white-space: nowrap; transform: translate(14px, -130%); }
+    body.theme-light #measureBadge { background: #ffffff; color: #0f172a; border-color: #94a3b8; }
+
+    /* 空画布提示 */
+    #emptyCanvasHint { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 5; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #475569; background: rgba(255, 255, 255, 0.82); border: 1px solid #e2e8f0; white-space: nowrap; transition: opacity .2s; }
+    body.theme-light #emptyCanvasHint { color: #0f172a; font-weight: 700; }
+
+    /* 弹窗统一进场动画 (尊重减少动态效果) */
+    .modal-anim > div { animation: modalIn 150ms ease-out; }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+    @media (prefers-reduced-motion: reduce) {
+      .modal-anim > div { animation: none; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    /* 快捷键面板 */
+    .kbd { display: inline-flex; min-width: 22px; height: 22px; padding: 0 6px; align-items: center; justify-content: center; border-radius: 6px; font: 700 11px ui-monospace, Menlo, monospace; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); }
+    body.theme-light #shortcutsModal > div, body.theme-light #fnPlotModal > div { background: #ffffff !important; border-color: #cbd5e1 !important; color: #0f172a !important; }
+    body.theme-light #shortcutsModal > div *, body.theme-light #fnPlotModal > div :is(h3, p, span, label, li, div, td, th) { color: #0f172a; font-weight: 700; }
+
+    /* 尺规 / 量角器 (Pro) */
+    .measure-tool { position: absolute; left: 0; top: 0; transform-origin: 0 0; z-index: 25; touch-action: none; user-select: none; -webkit-user-select: none; }
+    .measure-tool svg { display: block; overflow: visible; }
+    .measure-tool .mt-body { cursor: move; }
+    .measure-tool .mt-rot { cursor: grab; }
+    .measure-tool .mt-close { cursor: pointer; }
+
+    /* 打印：只打印页面本身，100% 真实尺寸 */
+    #printRoot { display: none; }
+    @media print {
+      html, body { background: #ffffff !important; min-height: 0 !important; height: auto !important; overflow: visible !important; }
+      body > *:not(#printRoot) { display: none !important; }
+      #printRoot { display: block !important; }
+      #printRoot img { display: block; margin: 0; padding: 0; page-break-after: always; break-after: page; }
+      #printRoot img:last-child { page-break-after: auto; break-after: auto; }
+    }
+
 </style>
   <!-- Open-Source Typography (Google Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1079,11 +1211,12 @@
       <div class="flex items-center gap-1 bg-slate-800/90 border border-slate-700/80 rounded-xl px-2 py-1 flex-shrink-0">
         <span class="text-[11px] text-slate-400 font-medium">📄 <span class="hidden md:inline" data-i18n="lbl_paper">网格</span>:</span>
         <select id="paperSelector" class="bg-transparent text-slate-200 text-xs outline-none cursor-pointer">
-          <option value="square" selected>5mm 数学方格纸 (5mm Grid)</option>
-          <option value="isometric">3D 等轴测三角格 (Isometric)</option>
-          <option value="polar">极坐标同心网格 (Polar Grid)</option>
-          <option value="dot">极简点阵图 (Dot Matrix)</option>
-          <option value="plain">纯白工程画板 (Plain White)</option>
+          <option value="square" selected>直角方格纸 (Square Grid)</option>
+          <option value="dot">点阵纸 (Dot Grid)</option>
+          <option value="isometric">等轴测三角格 (Isometric)</option>
+          <option value="polar">极坐标网格 (Polar Grid)</option>
+          <option value="blueprint">蓝图方格纸 (Blueprint)</option>
+          <option value="plain">空白纸 (Plain)</option>
         </select>
       </div>
     </div>
@@ -1129,7 +1262,7 @@
   </header>
 
   <!-- ================= 2. 核心工作台区域 (SaaS 级绘图舞台) ================= -->
-  <main id="workbenchWrapper" class="relative w-full bg-[#0b1120] flex items-center justify-center p-2 pl-[54px] sm:p-4 overflow-hidden h-[72vh] min-h-[520px] max-h-[920px] transition-all">
+  <main id="workbenchWrapper" class="relative w-full bg-[#0b1120] flex items-center justify-center p-2 pl-[54px] pb-14 sm:p-4 sm:pb-16 overflow-hidden h-[72vh] min-h-[520px] max-h-[920px] transition-all">
     
     <button id="exitFullscreenBtn" class="hidden absolute top-4 right-5 z-40 items-center gap-1.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs font-medium shadow-2xl backdrop-blur-md transition">
       <span>✕</span> <span data-i18n="exit_fullscreen">退出全屏</span>
@@ -1157,6 +1290,16 @@
       <!-- 4. 智能笔迹橡皮擦 (Eraser - E) -->
       <button class="tool-btn p-2 rounded-xl text-amber-600 hover:bg-amber-100 dark:hover:bg-amber-500/20 text-xs transition flex items-center justify-center" data-tool="eraser" data-i18n-title="tip_eraser" title="⚡ 智能笔迹橡皮擦 (快捷键 E)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
+      </button>
+
+      <!-- 直线工具 (N)：端点可吸附网格交点，拖动时显示长度与角度 -->
+      <button class="tool-btn p-2 rounded-xl text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="line" data-i18n-title="tip_line_tool" title="直线 (N) · 按住 Shift 锁定 15° 角">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5"/><circle cx="5" cy="19" r="1.6" fill="currentColor"/><circle cx="19" cy="5" r="1.6" fill="currentColor"/></svg>
+      </button>
+
+      <!-- 🧲 吸附到网格 (G) -->
+      <button id="btnToggleSnap" class="p-2 rounded-xl text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 text-xs transition flex items-center justify-center" aria-pressed="false" data-i18n-title="tip_snap" title="吸附到网格交点 (G)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4v8a3 3 0 0 0 6 0V3h4v8a7 7 0 0 1-14 0z"/><path d="M5 7h4M15 7h4"/></svg>
       </button>
 
       <div class="w-6 h-px bg-stone-200 dark:bg-slate-700 my-0.5"></div>
@@ -1229,6 +1372,12 @@
         </button>
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-stone-100 dark:hover:bg-slate-800 border border-transparent transition text-left" data-tool="laser">
           <span>🔴</span> <span class="text-[11px] font-medium" data-i18n="tool_laser">激光教鞭</span>
+        </button>
+        <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-stone-100 dark:hover:bg-slate-800 border border-transparent transition text-left" data-tool="rect" data-i18n-title="tip_rect_tool" title="矩形 (R) · Shift 画正方形">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="16" height="12" rx="0.5"/></svg> <span class="text-[11px] font-medium" data-i18n="tool_rect">矩形 (R)</span>
+        </button>
+        <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-stone-100 dark:hover:bg-slate-800 border border-transparent transition text-left" data-tool="ellipse" data-i18n-title="tip_ellipse_tool" title="圆 / 椭圆 (O) · Shift 画正圆">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="8" ry="6"/></svg> <span class="text-[11px] font-medium" data-i18n="tool_ellipse">圆 / 椭圆 (O)</span>
         </button>
         <!-- 📐 理工科数理平面与空间三维几何工具组 -->
         <div class="col-span-2 pt-1 pb-0.5 border-t border-stone-200 dark:border-slate-800 text-[10px] font-bold text-indigo-500 dark:text-indigo-400">
@@ -1309,23 +1458,64 @@
     </div>
 
     <!-- 📐 四大工程网格切换菜单 -->
-    <div id="gridSelectorMenu" class="hidden absolute left-14 sm:left-18 top-32 z-40 bg-white/95 dark:bg-slate-900/95 border border-stone-200 dark:border-slate-700 backdrop-blur-md rounded-2xl p-2.5 shadow-2xl space-y-1.5 w-60 text-stone-800 dark:text-white transition-all">
-      <div class="flex items-center justify-between pb-1 border-b border-stone-200 dark:border-slate-800 text-xs font-bold text-stone-700 dark:text-slate-300">
-        <span class="flex items-center gap-1"><span>📐</span> <span data-i18n="grid_menu_title">四大工程专业网格</span></span>
-        <button id="btnCloseGridMenu" class="text-stone-400 hover:text-stone-700 dark:hover:text-white text-xs">✕</button>
+    <div id="gridSelectorMenu" class="ui-panel hidden absolute left-14 sm:left-18 top-24 z-40 rounded-2xl p-3 shadow-2xl space-y-2.5 w-72 max-h-[calc(100%-7rem)] overflow-y-auto no-scrollbar transition-all">
+      <div class="panel-head flex items-center justify-between pb-1.5 text-xs font-bold">
+        <span class="flex items-center gap-1.5"><span>📐</span> <span data-i18n="grid_menu_title">网格设置</span></span>
+        <button id="btnCloseGridMenu" class="panel-close" aria-label="Close">✕</button>
       </div>
-      <button class="grid-opt-btn w-full flex items-center gap-2 p-2 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 text-left transition" data-grid="square">
-        <span>📊</span> <div><div class="text-xs font-bold">5mm 直角数学网格</div><div class="text-[10px] text-stone-400">Cartesian 平面直角坐标</div></div>
-      </button>
-      <button class="grid-opt-btn w-full flex items-center gap-2 p-2 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 text-left transition" data-grid="polar">
-        <span>🎯</span> <div><div class="text-xs font-bold">极坐标同心圆网格</div><div class="text-[10px] text-stone-400">Polar Grid 角度与半径</div></div>
-      </button>
-      <button class="grid-opt-btn w-full flex items-center gap-2 p-2 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 text-left transition" data-grid="isometric">
-        <span>🧊</span> <div><div class="text-xs font-bold">3D 等轴测三角网格</div><div class="text-[10px] text-stone-400">Isometric 立体工程图</div></div>
-      </button>
-      <button class="grid-opt-btn w-full flex items-center gap-2 p-2 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 text-left transition" data-grid="blueprint">
-        <span>💙</span> <div><div class="text-xs font-bold">毫米高精工程蓝图纸</div><div class="text-[10px] text-stone-400">Blueprint 经典冷蓝工程底图</div></div>
-      </button>
+      <div class="grid grid-cols-3 gap-1">
+        <button class="grid-opt-btn" data-grid="square"><span>▦</span><span data-i18n="grid_square">方格</span></button>
+        <button class="grid-opt-btn" data-grid="dot"><span>⁘</span><span data-i18n="grid_dot">点阵</span></button>
+        <button class="grid-opt-btn" data-grid="isometric"><span>⟁</span><span data-i18n="grid_iso">等轴测</span></button>
+        <button class="grid-opt-btn" data-grid="polar"><span>◎</span><span data-i18n="grid_polar">极坐标</span></button>
+        <button class="grid-opt-btn" data-grid="blueprint"><span>▩</span><span data-i18n="grid_blueprint">蓝图纸</span></button>
+        <button class="grid-opt-btn" data-grid="plain"><span>□</span><span data-i18n="grid_plain">空白</span></button>
+      </div>
+      <label class="panel-row">
+        <span data-i18n="grid_spacing">格子间距</span>
+        <select id="gridSpacingSelect" class="panel-input">
+          <option value="1mm">1 mm</option>
+          <option value="2mm">2 mm</option>
+          <option value="5mm">5 mm</option>
+          <option value="10mm">10 mm (1 cm)</option>
+          <option value="in4">1/4 inch</option>
+          <option value="in5">1/5 inch</option>
+          <option value="custom" data-i18n="grid_custom">自定义…</option>
+        </select>
+      </label>
+      <label id="gridCustomRow" class="panel-row hidden">
+        <span data-i18n="grid_custom_mm">自定义 (mm)</span>
+        <input id="gridCustomMm" type="number" min="0.5" max="100" step="0.5" value="5" class="panel-input w-20 text-right" />
+      </label>
+      <label class="panel-row">
+        <span data-i18n="grid_major">粗线间隔</span>
+        <select id="gridMajorSelect" class="panel-input">
+          <option value="1" data-i18n="grid_major_none">不加粗</option>
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select>
+      </label>
+      <div class="panel-row">
+        <span data-i18n="grid_color">线条颜色</span>
+        <span class="flex items-center gap-2">
+          <input id="gridColorInput" type="color" value="#94a3b8" class="w-7 h-7 rounded-lg border border-slate-400/40 bg-transparent cursor-pointer" />
+          <input id="gridOpacityInput" type="range" min="0.1" max="1" step="0.05" value="0.75" class="w-24 accent-blue-500" aria-label="opacity" />
+        </span>
+      </div>
+      <div class="panel-row">
+        <span data-i18n="grid_origin">坐标原点</span>
+        <span class="seg">
+          <button type="button" class="seg-btn" data-origin="center" data-i18n="grid_origin_center">纸张中心</button>
+          <button type="button" class="seg-btn" data-origin="topleft" data-i18n="grid_origin_topleft">左上角</button>
+        </span>
+      </div>
+      <label class="panel-row cursor-pointer">
+        <span class="flex items-center gap-1.5"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4v8a3 3 0 0 0 6 0V3h4v8a7 7 0 0 1-14 0z"/><path d="M5 7h4M15 7h4"/></svg><span data-i18n="grid_snap">吸附到网格交点 (G)</span></span>
+        <input id="gridSnapCheckbox" type="checkbox" class="w-4 h-4 accent-blue-600" />
+      </label>
+      <p id="gridScaleNote" class="panel-note"></p>
     </div>
 
     <!-- 🎬 媒体插入菜单 (本地视频 / 蓝图图片) -->
@@ -3137,11 +3327,60 @@
       }
     };
 
+    // ================= 🌐 Round 4 新增词条 (zh / en 必备，其他语言缺省回退到英文) =================
+    const TRANSLATIONS_R4 = {
+      zh: {
+        grid_menu_title: '网格设置', tip_grids: '📐 网格设置 (类型 / 间距 / 粗线 / 颜色 / 原点)',
+        grid_square: '方格', grid_dot: '点阵', grid_iso: '等轴测', grid_polar: '极坐标', grid_blueprint: '蓝图纸', grid_plain: '空白',
+        grid_spacing: '格子间距', grid_custom: '自定义…', grid_custom_mm: '自定义间距 (mm)', grid_major: '每几格一条粗线', grid_major_none: '不加粗',
+        grid_color: '线条颜色 / 深浅', grid_origin: '坐标原点', grid_origin_center: '纸张中心', grid_origin_topleft: '左上角', grid_snap: '吸附到网格交点 (G)',
+        grid_note_scale: '1 格 = {mm} mm，粗线每 {major} mm（1 mm = {px} px）。',
+        grid_note_paper: '纸张 {w}×{h} mm：打印 / PDF 按 1:1 真实尺寸输出。',
+        grid_note_free: '当前为屏幕画幅，打印时按长边 297 mm 等比输出；需要 1:1 精确毫米请选择 A4 / A3 / Letter / B5 画幅。',
+        toast_snap_on: '🧲 已开启网格吸附：直线、矩形、圆的端点会落在网格交点上', toast_snap_off: '已关闭网格吸附',
+        tip_line_tool: '直线 (N) · Shift 锁定 15° · 拖动时显示长度与角度', tip_snap: '🧲 吸附到网格交点 (G)',
+        unit_cells: '格',
+        tool_rect: '矩形 (R)', tool_ellipse: '圆 / 椭圆 (O)', tip_rect_tool: '矩形 (R) · Shift 画正方形 · 显示宽 × 高', tip_ellipse_tool: '圆 / 椭圆 (O) · Shift 画正圆 · 显示直径',
+        papers: { square: '直角方格纸 (Square Grid)', dot: '点阵纸 (Dot Grid)', isometric: '等轴测三角格 (Isometric)', polar: '极坐标网格 (Polar Grid)', blueprint: '蓝图方格纸 (Blueprint)', plain: '空白纸 (Plain)' }
+      },
+      en: {
+        grid_menu_title: 'Grid settings', tip_grids: '📐 Grid settings (type / spacing / major lines / colour / origin)',
+        grid_square: 'Square', grid_dot: 'Dots', grid_iso: 'Isometric', grid_polar: 'Polar', grid_blueprint: 'Blueprint', grid_plain: 'Plain',
+        grid_spacing: 'Grid spacing', grid_custom: 'Custom…', grid_custom_mm: 'Custom spacing (mm)', grid_major: 'Major line every', grid_major_none: 'None',
+        grid_color: 'Line colour / opacity', grid_origin: 'Origin', grid_origin_center: 'Page centre', grid_origin_topleft: 'Top-left', grid_snap: 'Snap to grid intersections (G)',
+        grid_note_scale: '1 cell = {mm} mm, major line every {major} mm (1 mm = {px} px).',
+        grid_note_paper: 'Paper {w}×{h} mm: print / PDF output is true 1:1 size.',
+        grid_note_free: 'Screen-sized canvas: prints scaled to a 297 mm long side. For exact 1:1 millimetres choose an A4 / A3 / Letter / B5 page.',
+        toast_snap_on: '🧲 Grid snap on: line, rectangle and circle points land on grid intersections', toast_snap_off: 'Grid snap off',
+        tip_line_tool: 'Line (N) · Shift locks 15° · shows length & angle while dragging', tip_snap: '🧲 Snap to grid intersections (G)',
+        unit_cells: 'cells',
+        tool_rect: 'Rectangle (R)', tool_ellipse: 'Circle / ellipse (O)', tip_rect_tool: 'Rectangle (R) · Shift for square · shows width × height', tip_ellipse_tool: 'Circle / ellipse (O) · Shift for circle · shows diameter',
+        papers: { square: 'Square grid paper', dot: 'Dot grid paper', isometric: 'Isometric triangle grid', polar: 'Polar grid', blueprint: 'Blueprint grid', plain: 'Plain paper' }
+      },
+      ja: { papers: { square: '方眼紙 (Square)', dot: 'ドット方眼', isometric: '等角三角グリッド', polar: '極座標グリッド', blueprint: 'ブループリント方眼', plain: '白紙' } },
+      ko: { papers: { square: '모눈종이 (Square)', dot: '도트 그리드', isometric: '등각 삼각 그리드', polar: '극좌표 그리드', blueprint: '청사진 모눈', plain: '빈 종이' } },
+      de: { papers: { square: 'Karopapier (Square)', dot: 'Punktraster', isometric: 'Isometrisches Dreiecksraster', polar: 'Polarraster', blueprint: 'Blaupausen-Raster', plain: 'Blanko' } },
+      es: { papers: { square: 'Papel cuadriculado', dot: 'Cuadrícula de puntos', isometric: 'Cuadrícula isométrica', polar: 'Cuadrícula polar', blueprint: 'Cuadrícula plano azul', plain: 'Papel en blanco' } },
+      fr: { papers: { square: 'Papier quadrillé', dot: 'Grille de points', isometric: 'Grille isométrique', polar: 'Grille polaire', blueprint: 'Grille bleue (plan)', plain: 'Papier blanc' } }
+    };
+    for (const lang in TRANSLATIONS_R4) {
+      if (!TRANSLATIONS[lang]) continue;
+      const add = TRANSLATIONS_R4[lang];
+      for (const k in add) {
+        if (k === 'papers' || k === 'ratios') TRANSLATIONS[lang][k] = Object.assign({}, TRANSLATIONS[lang][k] || {}, add[k]);
+        else TRANSLATIONS[lang][k] = add[k];
+      }
+    }
+
     const appState = {
       lang: 'zh',
       tool: 'pen',        // 'select' | 'pen' | 'ballpoint' | 'pencil' | 'brush' | 'crayon' | 'highlighter' | 'spray' | 'text' | 'eraser' | 'lasso' | 'laser'
       paper: 'square',    // 与 #paperSelector 默认选项保持一致
       ratio: 'free',
+      // 网格设置：间距 (5mm 默认)、每 N 格一条粗线、线色与透明度、坐标原点
+      grid: { spacing: '5mm', customMm: 5, major: 2, color: '#94a3b8', opacity: 0.75, origin: 'center' },
+      snap: false,        // 吸附到网格交点 (G)
+      fitScale: 1,        // 仅显示用的适配缩放 (逻辑坐标不变)
       currentColor: '#2563eb',
       brushSize: 3,
       isPro: !!(window.EazyPro && EazyPro.isPro()),
@@ -3174,6 +3413,20 @@
     };
     window.appState = appState;
 
+    // 🍞 统一的轻量提示 (纯文本，不解析 HTML)
+    function showToast(text, duration = 2600) {
+      const toast = document.getElementById('creatorToast');
+      if (!toast) return;
+      toast.textContent = String(text == null ? '' : text);
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(window.__creatorToastTimer);
+      window.__creatorToastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-4');
+      }, duration);
+    }
+
     // i18n 取词：当前语言 → (zh 用 zh / 其他语言用 en) → zh
     function tr(key) {
       const lang = appState.lang || 'zh';
@@ -3198,10 +3451,182 @@
     let cssHeight = 600;
     let dpr = 1;
 
-    
+    // ================= 📏 真实毫米比例尺与网格几何 (Physical mm scale & grid geometry) =================
+    // 纸张画幅 (A4/A3/Letter/B5) 的逻辑画布尺寸固定为「纸张毫米 × 96DPI」，因此 1 mm = cssWidth / 纸宽mm 恒定，
+    // 窗口缩放只改变显示比例 (appState.fitScale)，不改变内容坐标，网格与笔迹始终对齐。
+    // <gridmath> —— 纯函数区 (无 DOM 依赖，可在 node 中单测)
+    const GridMath = (function () {
+      const PX_PER_MM_96 = 96 / 25.4; // 3.7795 px = 1 mm
+      const PAPER_SIZES_MM = {
+        a4_p: [210, 297], a4_l: [297, 210], a3_l: [420, 297],
+        letter_p: [215.9, 279.4], manga_b5: [182, 257]
+      };
+      const RATIO_ASPECTS = { webtoon: 9 / 20, comic_4koma: 1 / 2, '16_9': 16 / 9, '16_10': 16 / 10, '4_3': 4 / 3, '1_1': 1, '9_16': 9 / 16, '3_4': 3 / 4 };
+      const SPACING_PRESETS_MM = { '1mm': 1, '2mm': 2, '5mm': 5, '10mm': 10, in4: 25.4 / 4, in5: 25.4 / 5 };
+      const FIXED_LONG_SIDE_MM = 297;
+      const DEFAULT_GRID = { spacing: '5mm', customMm: 5, major: 2, color: '#94a3b8', opacity: 0.75, origin: 'center' };
+
+      function paperSizeMm(ratio) { return PAPER_SIZES_MM[ratio] ? PAPER_SIZES_MM[ratio].slice() : null; }
+      function isPaperRatio(ratio) { return !!PAPER_SIZES_MM[ratio]; }
+      function isFixedRatio(ratio) { return !!(PAPER_SIZES_MM[ratio] || RATIO_ASPECTS[ratio]); }
+      // 逻辑页面尺寸 (px)：纸张 = 毫米 × 96DPI；其他固定比例 = 长边 297mm；自适应 = 容器尺寸
+      function logicalPageSize(ratio, availW, availH) {
+        const paper = PAPER_SIZES_MM[ratio];
+        if (paper) return { w: Math.round(paper[0] * PX_PER_MM_96), h: Math.round(paper[1] * PX_PER_MM_96) };
+        const asp = RATIO_ASPECTS[ratio];
+        if (asp) {
+          const L = Math.round(FIXED_LONG_SIDE_MM * PX_PER_MM_96);
+          return asp >= 1 ? { w: L, h: Math.round(L / asp) } : { w: Math.round(L * asp), h: L };
+        }
+        return { w: Math.max(1, Math.round(availW)), h: Math.max(1, Math.round(availH)) };
+      }
+      // 1 mm 对应多少逻辑 px
+      function pxPerMm(ratio, cssW) {
+        const p = PAPER_SIZES_MM[ratio];
+        return p ? cssW / p[0] : PX_PER_MM_96;
+      }
+      // 导出/打印页面的物理尺寸 (mm)：纸张画幅 = 真实纸张；其他 = 画布比例、长边 297mm
+      function pageSizeMm(ratio, cssW, cssH) {
+        const p = PAPER_SIZES_MM[ratio];
+        if (p) return p.slice();
+        const L = FIXED_LONG_SIDE_MM;
+        return cssW >= cssH ? [L, L * cssH / cssW] : [L * cssW / cssH, L];
+      }
+      function normalizeGrid(g) {
+        const o = Object.assign({}, DEFAULT_GRID, g || {});
+        if (o.spacing !== 'custom' && !SPACING_PRESETS_MM[o.spacing]) o.spacing = '5mm';
+        const c = Number(o.customMm); o.customMm = (isFinite(c) && c >= 0.5 && c <= 100) ? c : 5;
+        const m = Math.round(Number(o.major)); o.major = (m >= 1 && m <= 20) ? m : 2;
+        const op = Number(o.opacity); o.opacity = (isFinite(op) && op >= 0.05 && op <= 1) ? op : 0.75;
+        if (!/^#[0-9a-f]{6}$/i.test(String(o.color))) o.color = DEFAULT_GRID.color;
+        o.origin = o.origin === 'topleft' ? 'topleft' : 'center';
+        return o;
+      }
+      function spacingMm(g) {
+        g = normalizeGrid(g);
+        return g.spacing === 'custom' ? g.customMm : SPACING_PRESETS_MM[g.spacing];
+      }
+      // 网格原点 (逻辑 px)。自适应画幅下「中心」吸附到粗线格点，保证窗口变化时网格线不相对内容漂移。
+      function origin(g, ratio, w, h, spacingPx) {
+        g = normalizeGrid(g);
+        if (g.origin === 'topleft') return { x: 0, y: 0 };
+        if (isFixedRatio(ratio)) return { x: w / 2, y: h / 2 };
+        const M = spacingPx * g.major;
+        return { x: Math.round(w / 2 / M) * M, y: Math.round(h / 2 / M) * M };
+      }
+      // 吸附到网格交点 (直角/点阵/蓝图/纯白 = 方格点；等轴测 = 三角格点；极坐标 = 圆环 × 15° 射线)
+      function snapPoint(p, paper, O, s) {
+        if (!(s > 0)) return { x: p.x, y: p.y };
+        if (paper === 'isometric') {
+          const hh = s * Math.sqrt(3) / 2;
+          const j0 = Math.round((p.y - O.y) / hh);
+          let best = null, bd = Infinity;
+          for (let j = j0 - 1; j <= j0 + 1; j++) {
+            const i = Math.round((p.x - O.x - j * s / 2) / s);
+            for (let di = -1; di <= 1; di++) {
+              const c = { x: O.x + (i + di) * s + j * s / 2, y: O.y + j * hh };
+              const d = (c.x - p.x) ** 2 + (c.y - p.y) ** 2;
+              if (d < bd) { bd = d; best = c; }
+            }
+          }
+          return best;
+        }
+        if (paper === 'polar') {
+          const dx = p.x - O.x, dy = p.y - O.y;
+          const rr = Math.round(Math.hypot(dx, dy) / s) * s;
+          if (rr === 0) return { x: O.x, y: O.y };
+          const step = Math.PI / 12;
+          const aa = Math.round(Math.atan2(dy, dx) / step) * step;
+          return { x: O.x + Math.cos(aa) * rr, y: O.y + Math.sin(aa) * rr };
+        }
+        return { x: O.x + Math.round((p.x - O.x) / s) * s, y: O.y + Math.round((p.y - O.y) / s) * s };
+      }
+      function hexToRgba(hex, a) {
+        const n = parseInt(String(hex).slice(1), 16);
+        return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${Math.round(a * 1000) / 1000})`;
+      }
+      // 统一的网格几何：画布 / SVG / 矢量 PDF 共用同一份线段数据，保证三者完全一致
+      function geometry(opts) {
+        const { paper, w, h } = opts;
+        const g = normalizeGrid(opts.grid);
+        const s = opts.spacingPx;
+        const O = opts.origin;
+        const M = g.major;
+        const out = { bg: '#f8fafc', color: g.color, minorAlpha: g.opacity * 0.55, majorAlpha: Math.min(1, g.opacity * 1.05), lwMinor: 0.6, lwMajor: 1.1, lines: [], dots: [], circles: [] };
+        if (paper === 'dot') out.bg = '#ffffff';
+        if (paper === 'plain') { out.bg = '#ffffff'; return out; }
+        if (paper === 'blueprint') { out.bg = '#173a74'; out.color = '#e0f2fe'; out.minorAlpha = g.opacity * 0.32; out.majorAlpha = Math.min(1, g.opacity * 0.7); }
+        if (!(s > 0.5)) return out;
+        const isMajor = (k) => M > 1 && ((k % M) + M) % M === 0;
+        if (paper === 'square' || paper === 'blueprint' || paper === 'dot') {
+          const kx0 = Math.ceil((0 - O.x) / s), kx1 = Math.floor((w - O.x) / s);
+          const ky0 = Math.ceil((0 - O.y) / s), ky1 = Math.floor((h - O.y) / s);
+          if (paper === 'dot') {
+            const total = (kx1 - kx0 + 1) * (ky1 - ky0 + 1);
+            const onlyMajor = total > 60000;
+            for (let i = kx0; i <= kx1; i++) {
+              for (let j = ky0; j <= ky1; j++) {
+                const mj = isMajor(i) && isMajor(j);
+                if (onlyMajor && !mj) continue;
+                out.dots.push({ x: O.x + i * s, y: O.y + j * s, major: mj });
+              }
+            }
+            out.dotR = Math.max(0.6, Math.min(1.6, s * 0.09));
+            return out;
+          }
+          for (let i = kx0; i <= kx1; i++) { const x = O.x + i * s; out.lines.push({ x1: x, y1: 0, x2: x, y2: h, major: isMajor(i) }); }
+          for (let j = ky0; j <= ky1; j++) { const y = O.y + j * s; out.lines.push({ x1: 0, y1: y, x2: w, y2: y, major: isMajor(j) }); }
+          return out;
+        }
+        if (paper === 'isometric') {
+          const hh = s * Math.sqrt(3) / 2, t = 1 / Math.sqrt(3);
+          const j0 = Math.ceil((0 - O.y) / hh), j1 = Math.floor((h - O.y) / hh);
+          for (let j = j0; j <= j1; j++) { const y = O.y + j * hh; out.lines.push({ x1: 0, y1: y, x2: w, y2: y, major: isMajor(j) }); }
+          // 60° 族：x(y) = Ox + i·s + (y − Oy)/√3 ；120° 族：x(y) = Ox + k·s − (y − Oy)/√3
+          const a0 = Math.floor((0 - O.x - (h - O.y) * t) / s) - 1, a1 = Math.ceil((w - O.x + O.y * t) / s) + 1;
+          for (let i = a0; i <= a1; i++) {
+            out.lines.push({ x1: O.x + i * s + (0 - O.y) * t, y1: 0, x2: O.x + i * s + (h - O.y) * t, y2: h, major: isMajor(i) });
+          }
+          const b0 = Math.floor((0 - O.x - O.y * t) / s) - 1, b1 = Math.ceil((w - O.x + (h - O.y) * t) / s) + 1;
+          for (let k = b0; k <= b1; k++) {
+            out.lines.push({ x1: O.x + k * s - (0 - O.y) * t, y1: 0, x2: O.x + k * s - (h - O.y) * t, y2: h, major: isMajor(k) });
+          }
+          return out;
+        }
+        if (paper === 'polar') {
+          const far = Math.max(Math.hypot(O.x, O.y), Math.hypot(w - O.x, O.y), Math.hypot(O.x, h - O.y), Math.hypot(w - O.x, h - O.y));
+          for (let k = 1; k * s <= far; k++) out.circles.push({ cx: O.x, cy: O.y, r: k * s, major: isMajor(k) });
+          for (let d = 0; d < 360; d += 15) {
+            const a = d * Math.PI / 180;
+            out.lines.push({ x1: O.x, y1: O.y, x2: O.x + Math.cos(a) * far, y2: O.y + Math.sin(a) * far, major: d % 90 === 0 });
+          }
+          return out;
+        }
+        return out;
+      }
+      return { PX_PER_MM_96, PAPER_SIZES_MM, SPACING_PRESETS_MM, DEFAULT_GRID, paperSizeMm, isPaperRatio, isFixedRatio, logicalPageSize, pxPerMm, pageSizeMm, normalizeGrid, spacingMm, origin, snapPoint, geometry, hexToRgba };
+    })();
+    // </gridmath>
+
+    // —— 与当前文档状态绑定的便捷函数 ——
+    function getPxPerMm() { return GridMath.pxPerMm(appState.ratio, cssWidth); }
+    function getGridSpacingMm() { return GridMath.spacingMm(appState.grid); }
+    function getGridSpacingPx() { return getGridSpacingMm() * getPxPerMm(); }
+    function getGridOrigin() { return GridMath.origin(appState.grid, appState.ratio, cssWidth, cssHeight, getGridSpacingPx()); }
+    function getGridGeometry(w = cssWidth, h = cssHeight) {
+      return GridMath.geometry({ paper: appState.paper, w, h, grid: appState.grid, spacingPx: getGridSpacingPx(), origin: getGridOrigin() });
+    }
+    function snapToGrid(p) {
+      const q = GridMath.snapPoint(p, appState.paper, getGridOrigin(), getGridSpacingPx());
+      return { x: Math.max(0, Math.min(cssWidth, q.x)), y: Math.max(0, Math.min(cssHeight, q.y)) };
+    }
+    function maybeSnap(p) { return appState.snap ? snapToGrid(p) : { x: p.x, y: p.y }; }
+
+
     // 🌓 智能底纹对比度保护系统 (Auto Contrast Protection)
     function isDarkPaper(p) {
       if (!p) return false;
+      if (p === 'blueprint') return true;
       return p === 'green_chalk' || p === 'black_chalk' || p === 'chalk_green' || p === 'chalk_black' || p === 'chalk_slate' || p.includes('black') || p.includes('chalk');
     }
 
@@ -3310,7 +3735,7 @@
     // 双板模式保持页面逻辑尺寸不变，仅通过 dualFitScale 缩小显示尺寸 (避免单板内容被裁切)。
     function applyZoomAndPan() {
       const stage = document.getElementById('artboardStage');
-      const fit = appState.isDualSpread ? (appState.dualFitScale || 1) : 1;
+      const fit = appState.fitScale || 1;
       if (stage) {
         stage.style.transition = appState.isPanning ? 'none' : '';
         stage.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom * fit})`;
@@ -3330,48 +3755,33 @@
         const wcs = getComputedStyle(workbenchWrapper);
         padX = (parseFloat(wcs.paddingLeft) || 0) + (parseFloat(wcs.paddingRight) || 0) + 8;
       }
+      // 可用区域 = 容器减去内边距 (底部内边距为页码坞预留，避免画布被遮挡)
+      const wcs0 = getComputedStyle(workbenchWrapper);
+      const padY = document.body.classList.contains('is-fullscreen') ? 0 : ((parseFloat(wcs0.paddingTop) || 0) + (parseFloat(wcs0.paddingBottom) || 0) + 8);
+      if (padX && window.innerWidth >= 640) padX = (parseFloat(wcs0.paddingLeft) || 0) + (parseFloat(wcs0.paddingRight) || 0) + 8;
       let maxW = Math.max(240, containerRect.width - padX);
-      let maxH = Math.max(300, containerRect.height - (document.body.classList.contains('is-fullscreen') ? 0 : 32));
+      let maxH = Math.max(300, containerRect.height - padY);
       // 注意：双板模式不再把逻辑宽度减半 (否则单板模式下画在右半边的内容会被裁掉)，
       // 而是保持同样的逻辑尺寸，下方计算 dualFitScale 只缩小显示。
 
-      let targetRatio = null;
-      if (appState.ratio === 'a4_p') targetRatio = 210 / 297;
-      else if (appState.ratio === 'a4_l') targetRatio = 297 / 210;
-      else if (appState.ratio === 'a3_l') targetRatio = 420 / 297;
-      else if (appState.ratio === 'letter_p') targetRatio = 8.5 / 11;
-      else if (appState.ratio === 'manga_b5') targetRatio = 182 / 257;
-      else if (appState.ratio === 'webtoon') targetRatio = 9 / 20;
-      else if (appState.ratio === 'comic_4koma') targetRatio = 1 / 2;
-      else if (appState.ratio === '16_9') targetRatio = 16 / 9;
-      else if (appState.ratio === '16_10') targetRatio = 16 / 10;
-      else if (appState.ratio === '4_3') targetRatio = 4 / 3;
-      else if (appState.ratio === '1_1') targetRatio = 1;
-      else if (appState.ratio === '9_16') targetRatio = 9 / 16;
-      else if (appState.ratio === '3_4') targetRatio = 3 / 4;
+      // 逻辑画布尺寸：纸张画幅 = 真实毫米 × 96DPI (A4 = 794×1123)，其他固定比例长边 = 297mm；
+      // 自适应画幅 = 容器尺寸 (1 mm = 3.78 px)。窗口变化只影响 fitScale (显示缩放)。
+      const logical = GridMath.logicalPageSize(appState.ratio, maxW, maxH);
+      cssWidth = logical.w;
+      cssHeight = logical.h;
 
-      if (!targetRatio) {
-        cssWidth = maxW;
-        cssHeight = maxH;
-      } else {
-        if (maxW / maxH > targetRatio) {
-          cssHeight = maxH;
-          cssWidth = maxH * targetRatio;
-        } else {
-          cssWidth = maxW;
-          cssHeight = maxW / targetRatio;
-        }
-      }
+      const stageGap = 16; // #artboardStage gap-4
+      const needW = appState.isDualSpread ? (cssWidth * 2 + stageGap) : cssWidth;
+      let fit = Math.min(maxW / needW, maxH / cssHeight);
+      if (!GridMath.isFixedRatio(appState.ratio)) fit = Math.min(1, fit); // 自适应画幅不放大
+      appState.fitScale = Math.max(0.05, Math.min(1.6, fit));
+      appState.dualFitScale = appState.fitScale; // 兼容旧字段
 
-      cssWidth = Math.round(cssWidth);
-      cssHeight = Math.round(cssHeight);
-
-      if (appState.isDualSpread) {
-        const stageGap = 16; // #artboardStage gap-4
-        appState.dualFitScale = Math.min(1, maxW / (cssWidth * 2 + stageGap), maxH / cssHeight);
-      } else {
-        appState.dualFitScale = 1;
-      }
+      // 画布像素密度：设备像素比 (≤3)；放大显示时相应提高，并限制总像素避免内存暴涨
+      const devDpr = Math.min(window.devicePixelRatio || 1, 3);
+      dpr = Math.min(3, devDpr * Math.max(1, appState.fitScale));
+      const maxSide = 4096;
+      if (Math.max(cssWidth, cssHeight) * dpr > maxSide) dpr = Math.max(1, maxSide / Math.max(cssWidth, cssHeight));
 
       canvasCard.style.width = `${cssWidth}px`;
       canvasCard.style.height = `${cssHeight}px`;
@@ -3396,6 +3806,8 @@
       redrawAllStrokes();
       updateSelectionBoxUI();
       if (appState.isDualSpread) renderReferenceBoard();
+      if (typeof syncGridPanelUI === 'function') syncGridPanelUI();
+      if (typeof refreshMeasureTools === 'function') refreshMeasureTools();
     }
 
     function renderBackgroundOnContext(targetCtx, w, h, scaleFactor = 1, transparent = false) {
@@ -3409,62 +3821,44 @@
       }
 
       targetCtx.scale(scaleFactor, scaleFactor);
+      const geo = getGridGeometry(w, h);
+      targetCtx.fillStyle = geo.bg;
+      targetCtx.fillRect(0, 0, w, h);
 
-      if (appState.paper === 'square') {
-        targetCtx.fillStyle = '#f8fafc';
-        targetCtx.fillRect(0, 0, w, h);
-        const sqStep = 24;
-        for (let x = 0; x < w; x += sqStep) {
+      // 屏幕显示时保证细线至少约 0.7 个 CSS 像素可见；导出/打印使用真实线宽 (细线 0.16mm)
+      const isScreen = targetCtx.canvas === canvas || targetCtx.canvas.id === 'referenceCanvas';
+      const vis = isScreen ? Math.max(0.1, appState.fitScale || 1) : 1;
+      const lwMinor = isScreen ? Math.max(geo.lwMinor, 0.7 / vis) : geo.lwMinor;
+      const lwMajor = isScreen ? Math.max(geo.lwMajor, 1.15 / vis) : geo.lwMajor;
+      const minorCol = GridMath.hexToRgba(geo.color, geo.minorAlpha);
+      const majorCol = GridMath.hexToRgba(geo.color, geo.majorAlpha);
+
+      for (const major of [false, true]) {
+        targetCtx.beginPath();
+        let any = false;
+        for (const l of geo.lines) {
+          if (l.major !== major) continue;
+          targetCtx.moveTo(l.x1, l.y1); targetCtx.lineTo(l.x2, l.y2); any = true;
+        }
+        for (const c of geo.circles) {
+          if (c.major !== major) continue;
+          targetCtx.moveTo(c.cx + c.r, c.cy); targetCtx.arc(c.cx, c.cy, c.r, 0, Math.PI * 2); any = true;
+        }
+        if (any) {
+          targetCtx.strokeStyle = major ? majorCol : minorCol;
+          targetCtx.lineWidth = major ? lwMajor : lwMinor;
+          targetCtx.stroke();
+        }
+        if (geo.dots.length) {
           targetCtx.beginPath();
-          targetCtx.strokeStyle = (x % (sqStep * 5) === 0) ? 'rgba(148, 163, 184, 0.65)' : 'rgba(203, 213, 225, 0.75)';
-          targetCtx.lineWidth = (x % (sqStep * 5) === 0) ? 1.0 : 0.6;
-          targetCtx.moveTo(Math.floor(x) + 0.5, 0); targetCtx.lineTo(Math.floor(x) + 0.5, h); targetCtx.stroke();
-        }
-        for (let y = 0; y < h; y += sqStep) {
-          targetCtx.beginPath();
-          targetCtx.strokeStyle = (y % (sqStep * 5) === 0) ? 'rgba(148, 163, 184, 0.65)' : 'rgba(203, 213, 225, 0.75)';
-          targetCtx.lineWidth = (y % (sqStep * 5) === 0) ? 1.0 : 0.6;
-          targetCtx.moveTo(0, Math.floor(y) + 0.5); targetCtx.lineTo(w, Math.floor(y) + 0.5); targetCtx.stroke();
-        }
-      } else if (appState.paper === 'isometric') {
-        targetCtx.fillStyle = '#f8fafc';
-        targetCtx.fillRect(0, 0, w, h);
-        targetCtx.strokeStyle = 'rgba(203, 213, 225, 0.75)';
-        targetCtx.lineWidth = 0.7;
-        const isoStep = 30;
-        const hStep = isoStep * Math.sqrt(3) / 2;
-        for (let y = 0; y < h; y += hStep) {
-          targetCtx.beginPath(); targetCtx.moveTo(0, Math.floor(y) + 0.5); targetCtx.lineTo(w, Math.floor(y) + 0.5); targetCtx.stroke();
-        }
-        for (let x = -h; x < w + h; x += isoStep) {
-          targetCtx.beginPath(); targetCtx.moveTo(x, 0); targetCtx.lineTo(x + h / Math.tan(Math.PI / 3), h); targetCtx.stroke();
-          targetCtx.beginPath(); targetCtx.moveTo(x, 0); targetCtx.lineTo(x - h / Math.tan(Math.PI / 3), h); targetCtx.stroke();
-        }
-      } else if (appState.paper === 'polar') {
-        targetCtx.fillStyle = '#f8fafc';
-        targetCtx.fillRect(0, 0, w, h);
-        const cx = w / 2, cy = h / 2;
-        const maxR = Math.sqrt(cx * cx + cy * cy);
-        targetCtx.strokeStyle = 'rgba(203, 213, 225, 0.8)';
-        targetCtx.lineWidth = 0.8;
-        for (let r = 32; r < maxR; r += 32) {
-          targetCtx.beginPath(); targetCtx.arc(cx, cy, r, 0, Math.PI * 2); targetCtx.stroke();
-        }
-        for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
-          targetCtx.beginPath(); targetCtx.moveTo(cx, cy); targetCtx.lineTo(cx + Math.cos(a) * maxR, cy + Math.sin(a) * maxR); targetCtx.stroke();
-        }
-      } else if (appState.paper === 'dot') {
-        targetCtx.fillStyle = '#ffffff';
-        targetCtx.fillRect(0, 0, w, h);
-        targetCtx.fillStyle = 'rgba(148, 163, 184, 0.45)';
-        for (let x = 24; x < w; x += 28) {
-          for (let y = 24; y < h; y += 28) {
-            targetCtx.beginPath(); targetCtx.arc(Math.round(x), Math.round(y), 1.25, 0, Math.PI * 2); targetCtx.fill();
+          const r = (geo.dotR || 1) * (major ? 1.45 : 1) * (isScreen ? Math.max(1, 0.8 / vis) : 1);
+          for (const d of geo.dots) {
+            if (d.major !== major) continue;
+            targetCtx.moveTo(d.x + r, d.y); targetCtx.arc(d.x, d.y, r, 0, Math.PI * 2);
           }
+          targetCtx.fillStyle = major ? majorCol : GridMath.hexToRgba(geo.color, Math.min(1, geo.minorAlpha * 1.5));
+          targetCtx.fill();
         }
-      } else {
-        targetCtx.fillStyle = '#ffffff';
-        targetCtx.fillRect(0, 0, w, h);
       }
 
       targetCtx.restore();
@@ -3570,6 +3964,25 @@
           targetCtx.lineCap = 'round';
           targetCtx.lineJoin = 'round';
           targetCtx.lineWidth = s.size;
+        }
+
+        // 虚线：立体几何的隐藏棱 (isDashed) 与虚线引导笔
+        if (s.isDashed || s.tool === 'dotted') {
+          const dl = Math.max(4, (s.size || 2) * (s.tool === 'dotted' ? 1.8 : 2.2));
+          targetCtx.setLineDash([dl, dl * 0.8]);
+        }
+
+        // 直线 / 矩形 / 折线：按折线直接连接，不做曲线平滑 (保持棱角与精确端点)
+        if (s.shape === 'line' || s.shape === 'rect' || s.poly) {
+          targetCtx.lineCap = s.shape === 'rect' ? 'square' : 'round';
+          targetCtx.lineJoin = 'miter';
+          targetCtx.beginPath();
+          targetCtx.moveTo(s.points[0].x, s.points[0].y);
+          for (let i = 1; i < s.points.length; i++) targetCtx.lineTo(s.points[i].x, s.points[i].y);
+          if (s.shape === 'rect') targetCtx.closePath();
+          targetCtx.stroke();
+          targetCtx.restore();
+          continue;
         }
 
         if (s.points.length === 1) {
@@ -3705,15 +4118,16 @@
         totalLen += Math.hypot(pts[i].x - pts[i-1].x, pts[i].y - pts[i-1].y);
       }
 
-      // 1. 直线吸附识别 (水平/垂直或斜线)
+      // 1. 直线规整 (开启吸附时端点落在网格交点)
       if (straightDist > 30 && straightDist / totalLen > 0.88) {
-        stroke.points = [p0, pN];
+        stroke.points = [maybeSnap(p0), maybeSnap(pN)];
+        stroke.shape = 'line';
         isShapeSnapped = true;
         redrawAllStrokes();
         return;
       }
 
-      // 2. 闭合圆形/椭圆几何吸附识别
+      // 2. 闭合图形：矩形 或 圆/椭圆
       if (straightDist < Math.max(35, totalLen * 0.2)) {
         let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         for (const p of pts) {
@@ -3725,17 +4139,154 @@
         const w = maxX - minX;
         const h = maxY - minY;
         if (w > 20 && h > 20) {
-          const cx = minX + w / 2;
-          const cy = minY + h / 2;
-          const ellipsePts = [];
-          for (let a = 0; a <= Math.PI * 2 + 0.1; a += Math.PI / 16) {
-            ellipsePts.push({ x: cx + Math.cos(a) * (w / 2), y: cy + Math.sin(a) * (h / 2) });
-          }
-          stroke.points = ellipsePts;
+          const kind = classifyClosedShape(pts, minX, minY, maxX, maxY);
+          const a = maybeSnap({ x: minX, y: minY });
+          const b = maybeSnap({ x: maxX, y: maxY });
+          stroke.points = buildShapePoints(kind, a, b);
+          stroke.shape = kind;
           isShapeSnapped = true;
           redrawAllStrokes();
         }
       }
+    }
+
+    // 矩形 vs 椭圆：矩形的点几乎都贴着包围盒四边，并且四个角都被经过
+    function classifyClosedShape(pts, minX, minY, maxX, maxY) {
+      const w = maxX - minX, h = maxY - minY, m = Math.min(w, h);
+      const tol = Math.max(6, m * 0.08);
+      let near = 0;
+      for (const p of pts) {
+        const d = Math.min(Math.abs(p.x - minX), Math.abs(p.x - maxX), Math.abs(p.y - minY), Math.abs(p.y - maxY));
+        if (d <= tol) near++;
+      }
+      const cornerTol = Math.max(8, m * 0.15);
+      const corners = [[minX, minY], [maxX, minY], [maxX, maxY], [minX, maxY]];
+      const cornersHit = corners.every(([cx, cy]) => pts.some(p => Math.hypot(p.x - cx, p.y - cy) <= cornerTol));
+      return (near / pts.length >= 0.85 && cornersHit) ? 'rect' : 'ellipse';
+    }
+
+    // ================= 📏 直线 / 矩形 / 椭圆 工具 (网格吸附 + 实时尺寸读数) =================
+    const SHAPE_TOOLS = new Set(['line', 'rect', 'ellipse']);
+    function isShapeTool(t) { return SHAPE_TOOLS.has(t); }
+    let shapeGesture = null; // { board, target, stroke, start, kind }
+
+    function buildShapePoints(kind, a, b) {
+      if (kind === 'line') return [{ x: a.x, y: a.y }, { x: b.x, y: b.y }];
+      if (kind === 'rect') return [{ x: a.x, y: a.y }, { x: b.x, y: a.y }, { x: b.x, y: b.y }, { x: a.x, y: b.y }, { x: a.x, y: a.y }];
+      const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2, rx = Math.abs(b.x - a.x) / 2, ry = Math.abs(b.y - a.y) / 2;
+      const pts = [];
+      const n = 96;
+      for (let i = 0; i <= n; i++) {
+        const t = (i / n) * Math.PI * 2;
+        pts.push({ x: cx + Math.cos(t) * rx, y: cy + Math.sin(t) * ry });
+      }
+      return pts;
+    }
+
+    // Shift：直线锁定 15° 角 / 矩形变正方形 / 椭圆变正圆；开启吸附时长度取整格
+    function constrainShapeEnd(kind, a, raw, shift) {
+      const s = getGridSpacingPx();
+      if (!shift) return maybeSnap(raw);
+      const dx = raw.x - a.x, dy = raw.y - a.y;
+      if (kind === 'line') {
+        let len = Math.hypot(dx, dy);
+        if (appState.snap && s > 0) len = Math.round(len / s) * s;
+        const step = Math.PI / 12;
+        const ang = Math.round(Math.atan2(dy, dx) / step) * step;
+        return { x: a.x + Math.cos(ang) * len, y: a.y + Math.sin(ang) * len };
+      }
+      let d = Math.max(Math.abs(dx), Math.abs(dy));
+      if (appState.snap && s > 0) d = Math.round(d / s) * s;
+      return { x: a.x + (dx < 0 ? -d : d), y: a.y + (dy < 0 ? -d : d) };
+    }
+
+    function beginShapeGesture(board, target, pos, e) {
+      const kind = appState.tool;
+      const a = maybeSnap(pos);
+      const stroke = {
+        id: Date.now() + Math.random(),
+        tool: kind,
+        shape: kind,
+        color: appState.currentColor,
+        size: Math.max(1, Number(appState.brushSize) || 3),
+        points: buildShapePoints(kind, a, a)
+      };
+      if (!target.strokes) target.strokes = [];
+      target.strokes.push(stroke);
+      shapeGesture = { board, target, stroke, start: a, kind };
+      renderShapeBoard();
+      showMeasureBadge(describeShape(kind, a, a), e);
+    }
+
+    function updateShapeGesture(pos, e) {
+      const g = shapeGesture;
+      if (!g) return;
+      const b = constrainShapeEnd(g.kind, g.start, pos, !!(e && e.shiftKey));
+      g.end = b;
+      g.stroke.points = buildShapePoints(g.kind, g.start, b);
+      renderShapeBoard();
+      showMeasureBadge(describeShape(g.kind, g.start, b), e);
+    }
+
+    function endShapeGesture() {
+      const g = shapeGesture;
+      shapeGesture = null;
+      hideMeasureBadge();
+      if (!g) return;
+      const b = g.end || g.start;
+      if (Math.hypot(b.x - g.start.x, b.y - g.start.y) < 1) {
+        // 只点了一下：撤回这次空操作
+        g.target.strokes = (g.target.strokes || []).filter(st => st !== g.stroke);
+        if (g.target.history && g.target.history.length) g.target.history.pop();
+      }
+      renderShapeBoard(g.board);
+      if (g.board === 'right' && typeof renderLayersUI === 'function') renderLayersUI();
+      if (typeof scheduleAutosave === 'function') scheduleAutosave();
+    }
+
+    function renderShapeBoard(board) {
+      if ((board || (shapeGesture && shapeGesture.board)) === 'left') renderReferenceBoard();
+      else redrawAllStrokes();
+    }
+
+    // 长度 / 角度 / 尺寸读数 (mm + 格)
+    function describeShape(kind, a, b) {
+      const ppm = getPxPerMm();
+      const cellMm = getGridSpacingMm();
+      const u = tr('unit_cells');
+      const dx = b.x - a.x, dy = b.y - a.y;
+      if (kind === 'line') {
+        const mm = Math.hypot(dx, dy) / ppm;
+        let ang = -Math.atan2(dy, dx) * 180 / Math.PI;
+        if (ang <= -180) ang += 360;
+        return `${fmtNum(mm, 1)} mm · ${fmtNum(mm / cellMm, 2)} ${u} · ∠ ${fmtNum(ang, 1)}°`;
+      }
+      const wmm = Math.abs(dx) / ppm, hmm = Math.abs(dy) / ppm;
+      if (kind === 'ellipse' && Math.abs(wmm - hmm) < 0.05) {
+        return `⌀ ${fmtNum(wmm, 1)} mm · r ${fmtNum(wmm / 2, 1)} mm · ${fmtNum(wmm / cellMm, 2)} ${u}`;
+      }
+      const pre = kind === 'ellipse' ? '⌀ ' : '';
+      return `${pre}${fmtNum(wmm, 1)} × ${fmtNum(hmm, 1)} mm · ${fmtNum(wmm / cellMm, 2)} × ${fmtNum(hmm / cellMm, 2)} ${u}`;
+    }
+
+    function showMeasureBadge(text, e) {
+      let el = document.getElementById('measureBadge');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'measureBadge';
+        document.body.appendChild(el);
+      }
+      el.textContent = text;
+      el.style.display = 'block';
+      if (e && typeof e.clientX === 'number') {
+        const x = Math.min(window.innerWidth - 240, e.clientX);
+        el.style.left = `${Math.max(4, x)}px`;
+        el.style.top = `${Math.max(40, e.clientY)}px`;
+      }
+    }
+    function hideMeasureBadge() {
+      const el = document.getElementById('measureBadge');
+      if (el) el.style.display = 'none';
     }
 
     // ⭕ 鼠标选择与调整 UI (包含平移、四角等比缩放手柄与删除徽章)
@@ -4423,6 +4974,11 @@
         const pos = getRefCanvasCoordinates(e);
         isRefDrawing = true;
 
+        if (isShapeTool(tool)) {
+          beginShapeGesture('left', p, pos, e);
+          return;
+        }
+
         if (tool === 'eraser') {
           eraseOnLeftPage(pos);
           renderReferenceBoard();
@@ -4470,6 +5026,11 @@
         if (activePointerId !== null && e.pointerId !== activePointerId) return;
         e.preventDefault();
 
+        if (shapeGesture && shapeGesture.board === 'left') {
+          updateShapeGesture(getRefCanvasCoordinates(e), e);
+          return;
+        }
+
         if (appState.tool === 'eraser' && !currentRefStroke) {
           eraseOnLeftPage(getRefCanvasCoordinates(e));
           renderReferenceBoard();
@@ -4499,6 +5060,7 @@
         if (activePointerId !== null && e && e.pointerId !== activePointerId) return;
         try { if (e && refCanvas.hasPointerCapture(e.pointerId)) refCanvas.releasePointerCapture(e.pointerId); } catch (err) {}
         if (isRefDrawing) {
+          if (shapeGesture && shapeGesture.board === 'left') endShapeGesture();
           isRefDrawing = false;
           currentRefStroke = null;
           activePointerId = null;
@@ -5062,6 +5624,17 @@
         return;
       }
 
+      // 直线 / 矩形 / 椭圆：拖动绘制，端点可吸附网格交点
+      if (isShapeTool(appState.tool)) {
+        saveHistory();
+        isDrawing = true;
+        activePointerId = e.pointerId;
+        activeGesture = { board: 'right', redoBackup };
+        try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+        beginShapeGesture('right', appState, pos, e);
+        return;
+      }
+
       saveHistory();
       isDrawing = true;
       activePointerId = e.pointerId;
@@ -5120,6 +5693,11 @@
       }
 
       if (!isDrawing) return;
+
+      if (shapeGesture && shapeGesture.board === 'right') {
+        updateShapeGesture(pos, e);
+        return;
+      }
 
       if (appState.tool === 'lasso') {
         appState.lassoPath.push(pos);
@@ -5235,6 +5813,7 @@
         activePointerId = null;
       }
       if (isDrawing) {
+        if (shapeGesture && shapeGesture.board === 'right') endShapeGesture();
         activePointerId = null;
         activeGesture = null;
         if (typeof scheduleAutosave === 'function') scheduleAutosave();
@@ -5530,6 +6109,8 @@
         currentPageIndex: appState.isDualSpread ? 0 : appState.currentPageIndex, // 双板状态下刷新回到第 1 页
         paper: appState.paper,
         ratio: appState.ratio,
+        grid: GridMath.normalizeGrid(appState.grid),
+        snap: !!appState.snap,
         pages
       };
     }
@@ -5612,6 +6193,8 @@
         appState.ratio = doc.ratio;
         ratioSel.value = doc.ratio;
       }
+      if (doc.grid && typeof doc.grid === 'object') appState.grid = GridMath.normalizeGrid(doc.grid);
+      appState.snap = !!doc.snap;
       return true;
     }
 
@@ -5649,6 +6232,17 @@
         appState.tool = 'lasso'; updateToolButtonsUI();
       } else if (key === 't') {
         appState.tool = 'text'; updateToolButtonsUI();
+      } else if (key === 'n') {
+        appState.tool = 'line'; updateToolButtonsUI();
+      } else if (key === 'r') {
+        appState.tool = 'rect'; updateToolButtonsUI();
+      } else if (key === 'o') {
+        appState.tool = 'ellipse'; updateToolButtonsUI();
+      } else if (key === 'g') {
+        setSnapEnabled(!appState.snap);
+      } else if (e.key === '?' || (key === '/' && e.shiftKey)) {
+        e.preventDefault();
+        if (typeof openShortcutsModal === 'function') openShortcutsModal();
       } else if (key === 'delete' || key === 'backspace') {
         if ((appState.selectedImages && appState.selectedImages.length > 0) ||
             (appState.selectedTexts && appState.selectedTexts.length > 0) ||
@@ -5672,6 +6266,7 @@
     // 第一根手指已开始的落笔/擦除，在识别为双指手势后回滚 (避免双指轻敲留下墨点并撤销错对象)
     function cancelActiveGesture() {
       const g = activeGesture;
+      if (shapeGesture) { shapeGesture = null; hideMeasureBadge(); }
       if (isDrawing && g && g.board === 'right') {
         clearTimeout(shapeHoldTimer);
         if (g.lasso) {
@@ -5797,7 +6392,7 @@
         { x: cx + xLen, y: cy },
         { x: cx + xLen - 12, y: cy + 5 }
       ];
-      appState.strokes.push({ id: Date.now(), tool: 'pen', color: col, size: sz, points: ptsX });
+      appState.strokes.push({ id: Date.now(), tool: 'pen', color: col, size: sz, poly: true, points: ptsX });
 
       for (let dx = -160; dx <= 160; dx += 40) {
         if (dx === 0) continue;
@@ -5817,7 +6412,7 @@
         { x: cx, y: cy - yLen },
         { x: cx + 5, y: cy - yLen + 12 }
       ];
-      appState.strokes.push({ id: Date.now() + 1, tool: 'pen', color: col, size: sz, points: ptsY });
+      appState.strokes.push({ id: Date.now() + 1, tool: 'pen', color: col, size: sz, poly: true, points: ptsY });
 
       for (let dy = -120; dy <= 120; dy += 40) {
         if (dy === 0) continue;
@@ -5852,7 +6447,7 @@
         { x: cx, y: cy - len },
         { x: cx + 5, y: cy - len + 12 }
       ];
-      appState.strokes.push({ id: Date.now(), tool: 'pen', color: col, size: sz, points: ptsZ });
+      appState.strokes.push({ id: Date.now(), tool: 'pen', color: col, size: sz, poly: true, points: ptsZ });
 
       const ptsY = [
         { x: cx, y: cy },
@@ -5861,7 +6456,7 @@
         { x: cx + len, y: cy },
         { x: cx + len - 12, y: cy + 5 }
       ];
-      appState.strokes.push({ id: Date.now() + 1, tool: 'pen', color: col, size: sz, points: ptsY });
+      appState.strokes.push({ id: Date.now() + 1, tool: 'pen', color: col, size: sz, poly: true, points: ptsY });
 
       const xEnd = { x: Math.round(cx - len * 0.707), y: Math.round(cy + len * 0.707) };
       const ptsX = [
@@ -5871,7 +6466,7 @@
         xEnd,
         { x: xEnd.x + 3, y: xEnd.y - 11 }
       ];
-      appState.strokes.push({ id: Date.now() + 2, tool: 'pen', color: col, size: sz, points: ptsX });
+      appState.strokes.push({ id: Date.now() + 2, tool: 'pen', color: col, size: sz, poly: true, points: ptsX });
 
       for (let i = 1; i <= 3; i++) {
         const d = i * 40;
@@ -6757,7 +7352,7 @@
       if (appState.tool === 'select') {
         canvasCard.style.cursor = 'default';
         canvasCard.classList.remove('cursor-pen-nib');
-      } else if (appState.tool === 'lasso') {
+      } else if (appState.tool === 'lasso' || isShapeTool(appState.tool)) {
         canvasCard.style.cursor = 'crosshair';
         canvasCard.classList.remove('cursor-pen-nib');
       } else if (appState.tool === 'laser') {
@@ -6793,15 +7388,20 @@
       resizeCanvas();
       scheduleAutosave();
     };
-    document.getElementById('paperSelector').onchange = (e) => {
+    // 切换网格类型 (顶栏下拉与网格设置面板共用)
+    function setPaper(newPaper) {
+      const paperSel = document.getElementById('paperSelector');
+      if (paperSel && !Array.from(paperSel.options).some(o => o.value === newPaper)) newPaper = 'square';
       const prevPaper = appState.paper;
-      const newPaper = e.target.value;
-      adaptPaperContrast(prevPaper, newPaper);
+      if (prevPaper !== newPaper) adaptPaperContrast(prevPaper, newPaper);
       appState.paper = newPaper;
+      if (paperSel) paperSel.value = newPaper;
       redrawAllStrokes();
       if (appState.isDualSpread) renderReferenceBoard();
+      syncGridPanelUI();
       scheduleAutosave();
-    };
+    }
+    document.getElementById('paperSelector').onchange = (e) => setPaper(e.target.value);
 
     const btnToggleFullscreen = document.getElementById('btnToggleFullscreen');
     const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
@@ -6832,19 +7432,21 @@
       const labels = { zh: '中', en: 'EN', ja: '日', ko: '한', de: 'DE', es: 'ES', fr: 'FR' };
       document.getElementById('currentLangLabel').textContent = labels[lang] || 'EN';
       const dict = TRANSLATIONS[lang];
+      // 缺词时按 tr() 规则回退 (其他语言 → 英文 → 中文)，避免界面残留中文
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (!dict[key]) return;
-        if (HTML_I18N_KEYS.has(key)) el.innerHTML = dict[key];
-        else el.textContent = dict[key];
+        const v = tr(key);
+        if (!v || typeof v !== 'string') return;
+        if (HTML_I18N_KEYS.has(key)) el.innerHTML = v;
+        else el.textContent = v;
       });
       document.querySelectorAll('[data-i18n-title]').forEach(el => {
-        const key = el.getAttribute('data-i18n-title');
-        if (dict[key]) el.title = dict[key];
+        const v = tr(el.getAttribute('data-i18n-title'));
+        if (v && typeof v === 'string') el.title = v;
       });
       document.querySelectorAll('[data-i18n-ph], [data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-ph') || el.getAttribute('data-i18n-placeholder');
-        if (dict[key]) el.placeholder = dict[key];
+        const v = tr(el.getAttribute('data-i18n-ph') || el.getAttribute('data-i18n-placeholder'));
+        if (v && typeof v === 'string') el.placeholder = v;
       });
       if (dict.ratios) {
         const ratioSel = document.getElementById('ratioSelector');
@@ -6854,14 +7456,17 @@
           });
         }
       }
-      if (dict.papers) {
+      {
+        const papers = Object.assign({}, lang === 'zh' ? {} : (TRANSLATIONS.en.papers || {}), dict.papers || {});
         const paperSel = document.getElementById('paperSelector');
         if (paperSel) {
           Array.from(paperSel.options).forEach(opt => {
-            if (dict.papers[opt.value]) opt.textContent = dict.papers[opt.value];
+            if (papers[opt.value]) opt.textContent = papers[opt.value];
           });
         }
       }
+      if (typeof syncGridPanelUI === 'function') syncGridPanelUI();
+      if (typeof refreshDynamicI18n === 'function') refreshDynamicI18n();
       const isLight = document.body.classList.contains('theme-light');
       if (themeLabel) themeLabel.innerText = isLight ? (dict.theme_light || '白天') : (dict.theme_dark || '夜间');
       if (typeof updateExportModalUI === 'function') updateExportModalUI();
@@ -6877,6 +7482,7 @@
     function applyTheme(theme) {
       const isLight = theme === 'light';
       document.body.classList.toggle('theme-light', isLight);
+      document.documentElement.classList.toggle('dark', !isLight);
       if (themeIcon) themeIcon.innerText = isLight ? '☀️' : '🌙';
       const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
       if (themeLabel) themeLabel.innerText = isLight ? (dict.theme_light || '白天') : (dict.theme_dark || '夜间');
@@ -6954,15 +7560,18 @@
       const pt = (appState.isDualSpread && refCanvasForCoords && e.target === refCanvasForCoords)
         ? getRefCanvasCoordinates(e)
         : getCanvasCoordinates(e);
-      const cx = cssWidth / 2;
-      const cy = cssHeight / 2;
-      // 假设网格以画布中心为原点 (0,0)，50px 为 1.0 数学单位
-      const mathX = ((pt.x - cx) / 50).toFixed(2);
-      const mathY = (-(pt.y - cy) / 50).toFixed(2);
-      const signX = mathX >= 0 ? '+' : '';
-      const signY = mathY >= 0 ? '+' : '';
-      coordDisplay.innerText = `X: ${signX}${mathX} | Y: ${signY}${mathY}`;
+      updateCoordReadout(pt);
     });
+    // 坐标读数与网格一致：以网格原点为 (0,0)，单位 = 格 (同时给出毫米)，y 轴向上为正
+    function updateCoordReadout(pt) {
+      if (!coordDisplay || !pt) return;
+      const O = getGridOrigin();
+      const s = getGridSpacingPx();
+      const mm = getGridSpacingMm();
+      const gx = (pt.x - O.x) / s, gy = -(pt.y - O.y) / s;
+      const sg = (v) => (v > 0 ? '+' : '') + fmtNum(v, 1);
+      coordDisplay.textContent = `x ${sg(gx)}  y ${sg(gy)} ${tr('unit_cells')}  ·  ${sg(gx * mm)}, ${sg(gy * mm)} mm`;
+    }
 
     // ==========================================
     // 📈 常用函数曲线绘制引擎 (Function Plotter)
@@ -7053,17 +7662,82 @@
     }
 
     document.querySelectorAll('.grid-opt-btn').forEach(btn => {
-      btn.onclick = () => {
-        const grid = btn.dataset.grid;
-        appState.paper = grid;
-        const paperSel = document.getElementById('paperSelector');
-        if (paperSel) paperSel.value = grid;
-        redrawAllStrokes();
-        if (appState.isDualSpread) renderReferenceBoard();
-        gridSelectorMenu.classList.add('hidden');
-        scheduleAutosave();
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        setPaper(btn.dataset.grid);
       };
     });
+
+    // ⚙️ 网格设置：间距 / 粗线间隔 / 颜色透明度 / 原点 / 吸附
+    function applyGridSettings(patch) {
+      appState.grid = GridMath.normalizeGrid(Object.assign({}, appState.grid, patch || {}));
+      redrawAllStrokes();
+      if (appState.isDualSpread) renderReferenceBoard();
+      if (typeof refreshMeasureTools === 'function') refreshMeasureTools();
+      syncGridPanelUI();
+      scheduleAutosave();
+    }
+    function fmtNum(v, d = 2) {
+      const n = Number(v);
+      if (!isFinite(n)) return '0';
+      return String(Math.round(n * Math.pow(10, d)) / Math.pow(10, d)).replace(/^-0$/, '0');
+    }
+    function syncGridPanelUI() {
+      const g = appState.grid = GridMath.normalizeGrid(appState.grid);
+      document.querySelectorAll('.grid-opt-btn').forEach(b => b.classList.toggle('active', b.dataset.grid === appState.paper));
+      const sp = document.getElementById('gridSpacingSelect'); if (sp) sp.value = g.spacing;
+      const cr = document.getElementById('gridCustomRow'); if (cr) cr.classList.toggle('hidden', g.spacing !== 'custom');
+      const cm = document.getElementById('gridCustomMm'); if (cm && document.activeElement !== cm) cm.value = g.customMm;
+      const mj = document.getElementById('gridMajorSelect');
+      if (mj) {
+        if (!Array.from(mj.options).some(o => Number(o.value) === g.major)) {
+          const o = document.createElement('option'); o.value = String(g.major); o.textContent = String(g.major); mj.appendChild(o);
+        }
+        mj.value = String(g.major);
+      }
+      const col = document.getElementById('gridColorInput'); if (col) col.value = g.color;
+      const op = document.getElementById('gridOpacityInput'); if (op) op.value = g.opacity;
+      document.querySelectorAll('#gridSelectorMenu .seg-btn[data-origin]').forEach(b => b.classList.toggle('active', b.dataset.origin === g.origin));
+      const snapCb = document.getElementById('gridSnapCheckbox'); if (snapCb) snapCb.checked = !!appState.snap;
+      const snapBtn = document.getElementById('btnToggleSnap');
+      if (snapBtn) { snapBtn.classList.toggle('tool-toggle-on', !!appState.snap); snapBtn.setAttribute('aria-pressed', appState.snap ? 'true' : 'false'); }
+      const note = document.getElementById('gridScaleNote');
+      if (note) {
+        const mm = getGridSpacingMm();
+        const paper = GridMath.paperSizeMm(appState.ratio);
+        const page = GridMath.pageSizeMm(appState.ratio, cssWidth, cssHeight);
+        let txt = tr('grid_note_scale').replace('{mm}', fmtNum(mm)).replace('{major}', fmtNum(mm * g.major)).replace('{px}', fmtNum(getPxPerMm(), 2));
+        txt += ' ' + (paper
+          ? tr('grid_note_paper').replace('{w}', fmtNum(page[0], 1)).replace('{h}', fmtNum(page[1], 1))
+          : tr('grid_note_free'));
+        note.textContent = txt;
+      }
+    }
+    function setSnapEnabled(on) {
+      appState.snap = !!on;
+      syncGridPanelUI();
+      showToast(tr(appState.snap ? 'toast_snap_on' : 'toast_snap_off'), 1600);
+      scheduleAutosave();
+    }
+    (function bindGridPanel() {
+      const sp = document.getElementById('gridSpacingSelect');
+      if (sp) sp.onchange = () => applyGridSettings({ spacing: sp.value });
+      const cm = document.getElementById('gridCustomMm');
+      if (cm) cm.onchange = () => applyGridSettings({ customMm: Number(cm.value) });
+      const mj = document.getElementById('gridMajorSelect');
+      if (mj) mj.onchange = () => applyGridSettings({ major: Number(mj.value) });
+      const col = document.getElementById('gridColorInput');
+      if (col) col.oninput = () => applyGridSettings({ color: col.value });
+      const op = document.getElementById('gridOpacityInput');
+      if (op) op.oninput = () => applyGridSettings({ opacity: Number(op.value) });
+      document.querySelectorAll('#gridSelectorMenu .seg-btn[data-origin]').forEach(b => {
+        b.onclick = (e) => { e.stopPropagation(); applyGridSettings({ origin: b.dataset.origin }); };
+      });
+      const snapCb = document.getElementById('gridSnapCheckbox');
+      if (snapCb) snapCb.onchange = () => setSnapEnabled(snapCb.checked);
+      const snapBtn = document.getElementById('btnToggleSnap');
+      if (snapBtn) snapBtn.onclick = (e) => { e.stopPropagation(); setSnapEnabled(!appState.snap); };
+    })();
 
     // ==========================================
     // 🗄️ PS 式「更多工具」抽屉
