@@ -1422,6 +1422,15 @@
         <button id="btnToolPyramid" class="flex items-center gap-1.5 p-1.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 border border-stone-200 dark:border-slate-700 transition text-left" title="插入三棱锥/四面体">
           <span>🔺</span> <span class="text-[11px] font-medium">三棱锥</span>
         </button>
+        <div class="col-span-2 pt-1 pb-0.5 border-t border-stone-200 dark:border-slate-800 text-[10px] font-bold text-amber-600 dark:text-amber-400 flex items-center justify-between">
+          <span data-i18n="measure_tools_title">📏 测量工具</span><span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 font-bold">PRO</span>
+        </div>
+        <button id="btnToolRuler" class="flex items-center gap-1.5 p-1.5 rounded-xl hover:bg-amber-50 dark:hover:bg-slate-800 border border-stone-200 dark:border-slate-700 transition text-left" data-i18n-title="tip_ruler" title="直尺：可拖动、旋转；沿边缘画线自动成直线">
+          <span>📏</span> <span class="text-[11px] font-medium" data-i18n="tool_ruler">直尺</span>
+        </button>
+        <button id="btnToolProtractor" class="flex items-center gap-1.5 p-1.5 rounded-xl hover:bg-amber-50 dark:hover:bg-slate-800 border border-stone-200 dark:border-slate-700 transition text-left" data-i18n-title="tip_protractor" title="量角器：可拖动、旋转，拖动指针读角度">
+          <span>◠</span> <span class="text-[11px] font-medium" data-i18n="tool_protractor">量角器</span>
+        </button>
       </div>
       <div class="pt-1.5 border-t border-stone-200 dark:border-slate-800 grid grid-cols-2 gap-1.5">
         <button id="btnOpenDocDrawer" class="panel-btn" data-i18n-title="tip_open_doc" title="打开作品 (Ctrl/Cmd+O)">
@@ -1881,6 +1890,7 @@
         <div id="laserLayer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
         <div id="stickyLayer" class="absolute inset-0 pointer-events-none"></div>
         <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
+        <div id="measureToolLayer" class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:25"></div>
         <div id="rightPageBadge" class="hidden absolute bottom-2 right-3 px-2 py-0.5 rounded-md bg-stone-900/60 text-[10px] text-blue-300 font-mono select-none pointer-events-none border border-slate-700/50 backdrop-blur-sm">第 2 页</div>
       </div>
     </div>
@@ -3402,6 +3412,9 @@
         fn_plot_btn: '绘制到网格上', fn_help: '可用：+ − × ÷ ^ ( )、sin cos tan sqrt abs log ln exp、pi e，支持 2x、3sin(x) 这类写法。曲线是普通笔画，可选中移动、改色或删除。',
         fn_nothing_visible: '这个函数在当前页面范围内没有可见的部分', fn_plotted: '✅ 已绘制，可用选择工具移动或删除', fn_undefined: '无定义',
         fn_err_empty: '请输入函数表达式', fn_err_char: '不支持的字符「{d}」', fn_err_ident: '不认识的名称「{d}」', fn_err_paren: '括号不匹配', fn_err_syntax: '表达式不完整或写法有误', fn_err_too_long: '表达式太长或嵌套太深',
+        measure_tools_title: '📏 测量工具', tool_ruler: '直尺', tool_protractor: '量角器',
+        tip_ruler: '直尺 (Pro)：拖动移动，拖右端圆点旋转 (Shift 或吸附时按 15°)，贴着刻度边画线自动成直线',
+        tip_protractor: '量角器 (Pro)：拖动移动，拖蓝点旋转，拖红色指针读角度',
         save_doc: '保存作品', open_doc: '打开作品', tip_save_doc: '保存作品文件 .eazyopc（含全部页面与图片，Ctrl/Cmd+S）', tip_open_doc: '打开作品文件 .eazyopc（Ctrl/Cmd+O，也可直接拖到画布上）',
         toast_doc_saved: '✅ 作品已保存为 .eazyopc 文件，下次用「打开作品」即可继续编辑', toast_doc_save_failed: '保存失败，请重试',
         toast_doc_invalid: '这不是有效的 EazyOPC 作品文件 (.eazyopc)', toast_doc_opened: '✅ 已打开作品（{n} 页）',
@@ -3453,6 +3466,9 @@
         fn_plot_btn: 'Plot on the grid', fn_help: 'Allowed: + − × ÷ ^ ( ), sin cos tan sqrt abs log ln exp, pi e; implicit products like 2x or 3sin(x). The curve is a normal stroke you can move, recolour or delete.',
         fn_nothing_visible: 'No part of this function is visible on the current page', fn_plotted: '✅ Plotted — use the select tool to move or delete it', fn_undefined: 'undefined',
         fn_err_empty: 'Enter a function', fn_err_char: 'Unsupported character "{d}"', fn_err_ident: 'Unknown name "{d}"', fn_err_paren: 'Unbalanced parentheses', fn_err_syntax: 'The expression is incomplete or malformed', fn_err_too_long: 'Expression too long or nested too deeply',
+        measure_tools_title: '📏 Measuring tools', tool_ruler: 'Ruler', tool_protractor: 'Protractor',
+        tip_ruler: 'Ruler (Pro): drag to move, drag the right dot to rotate (15° steps with Shift or snap); drawing along the edge makes a straight line',
+        tip_protractor: 'Protractor (Pro): drag to move, drag the blue dot to rotate, drag the red arm to read an angle',
         save_doc: 'Save work', open_doc: 'Open work', tip_save_doc: 'Save a .eazyopc work file (all pages and images, Ctrl/Cmd+S)', tip_open_doc: 'Open a .eazyopc work file (Ctrl/Cmd+O, or drop it on the canvas)',
         toast_doc_saved: '✅ Saved as a .eazyopc file — use "Open work" to keep editing later', toast_doc_save_failed: 'Save failed, please try again',
         toast_doc_invalid: 'This is not a valid EazyOPC work file (.eazyopc)', toast_doc_opened: '✅ Work opened ({n} pages)',
@@ -4432,6 +4448,219 @@
       const cornersHit = corners.every(([cx, cy]) => pts.some(p => Math.hypot(p.x - cx, p.y - cy) <= cornerTol));
       return (near / pts.length >= 0.85 && cornersHit) ? 'rect' : 'ellipse';
     }
+
+    // ================= 📏 Pro：直尺与量角器 (可拖动 / 旋转 / 吸附，真实毫米刻度) =================
+    // 工具只是屏幕上的辅助叠加层，不属于作品内容，不会被导出。坐标均为逻辑 px (与笔迹同一坐标系)。
+    const measureTools = { ruler: null, protractor: null };
+    const RULER_H_MM = 14;
+    function mtLayer() { return document.getElementById('measureToolLayer'); }
+    function clientToLogicalScale() {
+      const r = canvasCard.getBoundingClientRect();
+      return r.width ? cssWidth / r.width : 1;
+    }
+    function snapAngleDeg(deg, shift) {
+      const step = (shift || appState.snap) ? 15 : 0.5;
+      return Math.round(deg / step) * step;
+    }
+    function toggleMeasureTool(kind) {
+      if (!appState.isPro) { document.getElementById('proModal').classList.remove('hidden'); return; }
+      if (measureTools[kind]) {
+        measureTools[kind] = null;
+      } else {
+        const ppm = getPxPerMm();
+        const pageMm = cssWidth / ppm;
+        if (kind === 'ruler') {
+          const L = Math.max(50, Math.min(200, Math.floor(pageMm * 0.8 / 10) * 10));
+          const origin = maybeSnap({ x: (cssWidth - L * ppm) / 2, y: cssHeight * 0.62 });
+          measureTools.ruler = { x: origin.x, y: origin.y, angle: 0, lengthMm: L };
+        } else {
+          const R = Math.max(30, Math.min(60, Math.floor(pageMm * 0.22 / 5) * 5));
+          const c = maybeSnap({ x: cssWidth / 2, y: cssHeight * 0.45 });
+          measureTools.protractor = { x: c.x, y: c.y, angle: 0, radiusMm: R, arm: 45 };
+        }
+      }
+      refreshMeasureTools();
+      const drawer = document.getElementById('moreToolsDrawer');
+      if (drawer) drawer.classList.add('hidden');
+    }
+
+    function refreshMeasureTools() {
+      const layer = mtLayer();
+      if (!layer) return;
+      layer.innerHTML = '';
+      const ppm = getPxPerMm();
+      if (measureTools.ruler) layer.appendChild(buildRulerEl(measureTools.ruler, ppm));
+      if (measureTools.protractor) layer.appendChild(buildProtractorEl(measureTools.protractor, ppm));
+      ['btnToolRuler', 'btnToolProtractor'].forEach((id, i) => {
+        const b = document.getElementById(id);
+        if (b) b.classList.toggle('tool-toggle-on', !!measureTools[i === 0 ? 'ruler' : 'protractor']);
+      });
+    }
+
+    function svgEl(tag, attrs, text) {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      for (const k in attrs) el.setAttribute(k, attrs[k]);
+      if (text != null) el.textContent = text;
+      return el;
+    }
+
+    // 通用拖动：onMove(dxLogical, dyLogical, ev)
+    function bindDrag(el, onStart, onMove, onEnd) {
+      el.addEventListener('pointerdown', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        const k = clientToLogicalScale();
+        const sx = e.clientX, sy = e.clientY;
+        const ctx0 = onStart ? onStart(e) : null;
+        try { el.setPointerCapture(e.pointerId); } catch (err) {}
+        const mv = (ev) => { if (ev.pointerId !== e.pointerId) return; ev.preventDefault(); onMove((ev.clientX - sx) * k, (ev.clientY - sy) * k, ev, ctx0); };
+        const up = (ev) => {
+          if (ev.pointerId !== e.pointerId) return;
+          el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up);
+          if (onEnd) onEnd(ev, ctx0);
+        };
+        el.addEventListener('pointermove', mv); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+      });
+    }
+    function pointerToLogical(e) {
+      const r = canvasCard.getBoundingClientRect();
+      const k = r.width ? cssWidth / r.width : 1;
+      return { x: (e.clientX - r.left) * k, y: (e.clientY - r.top) * k };
+    }
+
+    function buildRulerEl(R, ppm) {
+      const W = R.lengthMm * ppm, H = RULER_H_MM * ppm, pad = 6 * ppm;
+      const wrap = document.createElement('div');
+      wrap.className = 'measure-tool pointer-events-auto';
+      wrap.style.transform = `translate(${R.x}px, ${R.y}px) rotate(${-R.angle}deg)`;
+      const svg = svgEl('svg', { width: W + pad * 2, height: H, viewBox: `${-pad} 0 ${W + pad * 2} ${H}`, style: `margin-left:${-pad}px` });
+      svg.appendChild(svgEl('rect', { class: 'mt-body', x: -pad, y: 0, width: W + pad * 2, height: H, rx: 1.5 * ppm, fill: 'rgba(254, 243, 199, 0.82)', stroke: '#b45309', 'stroke-width': 0.8 }));
+      let d = '';
+      for (let mm = 0; mm <= R.lengthMm; mm++) {
+        const x = mm * ppm, len = (mm % 10 === 0 ? 5 : (mm % 5 === 0 ? 3.5 : 2)) * ppm;
+        d += `M${x.toFixed(2)} 0V${len.toFixed(2)}`;
+      }
+      svg.appendChild(svgEl('path', { d, stroke: '#78350f', 'stroke-width': 0.7, fill: 'none', 'pointer-events': 'none' }));
+      const fs = Math.max(8, 2.6 * ppm);
+      for (let cm = 0; cm * 10 <= R.lengthMm; cm++) {
+        svg.appendChild(svgEl('text', { x: cm * 10 * ppm, y: 8.2 * ppm, 'font-size': fs, 'text-anchor': 'middle', fill: '#78350f', 'font-family': 'ui-monospace, Menlo, monospace', 'font-weight': 700, 'pointer-events': 'none' }, String(cm)));
+      }
+      svg.appendChild(svgEl('text', { x: W / 2, y: H - 1.6 * ppm, 'font-size': fs * 0.95, 'text-anchor': 'middle', fill: '#92400e', 'font-weight': 700, 'pointer-events': 'none' }, `${R.lengthMm} mm · ∠ ${fmtNum(R.angle, 1)}°`));
+      // 旋转手柄 (右端) 与关闭按钮 (左端)
+      const rot = svgEl('circle', { class: 'mt-rot', cx: W + pad * 0.45, cy: H / 2, r: Math.max(7, 2.6 * ppm), fill: '#f59e0b', stroke: '#fff', 'stroke-width': 1.5 });
+      svg.appendChild(rot);
+      const close = svgEl('g', { class: 'mt-close' });
+      close.appendChild(svgEl('circle', { cx: -pad * 0.5, cy: H / 2, r: Math.max(7, 2.4 * ppm), fill: '#0f172a' }));
+      close.appendChild(svgEl('text', { x: -pad * 0.5, y: H / 2 + Math.max(3, 1 * ppm), 'font-size': Math.max(9, 3 * ppm), 'text-anchor': 'middle', fill: '#fff', 'pointer-events': 'none' }, '✕'));
+      svg.appendChild(close);
+      wrap.appendChild(svg);
+
+      const body = svg.querySelector('.mt-body');
+      bindDrag(body, () => ({ x: R.x, y: R.y }), (dx, dy, ev, st) => {
+        const p = maybeSnap({ x: st.x + dx, y: st.y + dy });
+        R.x = p.x; R.y = p.y;
+        wrap.style.transform = `translate(${R.x}px, ${R.y}px) rotate(${-R.angle}deg)`;
+      });
+      bindDrag(rot, null, (dx, dy, ev) => {
+        const p = pointerToLogical(ev);
+        const deg = -Math.atan2(p.y - R.y, p.x - R.x) * 180 / Math.PI;
+        R.angle = snapAngleDeg(deg, ev.shiftKey);
+        wrap.style.transform = `translate(${R.x}px, ${R.y}px) rotate(${-R.angle}deg)`;
+        const label = svg.querySelectorAll('text'); label[label.length - 2].textContent = `${R.lengthMm} mm · ∠ ${fmtNum(R.angle, 1)}°`;
+      });
+      close.addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); measureTools.ruler = null; refreshMeasureTools(); });
+      return wrap;
+    }
+
+    function buildProtractorEl(P, ppm) {
+      const R = P.radiusMm * ppm, pad = 10 * ppm;
+      const wrap = document.createElement('div');
+      wrap.className = 'measure-tool pointer-events-auto';
+      wrap.style.transform = `translate(${P.x}px, ${P.y}px) rotate(${-P.angle}deg)`;
+      const svg = svgEl('svg', { width: 2 * (R + pad), height: R + pad * 1.6, viewBox: `${-(R + pad)} ${-(R + pad)} ${2 * (R + pad)} ${R + pad * 1.6}`, style: `margin-left:${-(R + pad)}px;margin-top:${-(R + pad)}px` });
+      const body = svgEl('path', { class: 'mt-body', d: `M${-R} 0 A${R} ${R} 0 0 1 ${R} 0 L${R} ${3 * ppm} L${-R} ${3 * ppm} Z`, fill: 'rgba(219, 234, 254, 0.78)', stroke: '#1d4ed8', 'stroke-width': 0.8 });
+      svg.appendChild(body);
+      let d = '';
+      for (let deg = 0; deg <= 180; deg++) {
+        const a = deg * Math.PI / 180, len = (deg % 10 === 0 ? 5 : (deg % 5 === 0 ? 3.5 : 2)) * ppm;
+        const c = Math.cos(a), s = Math.sin(a);
+        d += `M${(c * R).toFixed(2)} ${(-s * R).toFixed(2)}L${(c * (R - len)).toFixed(2)} ${(-s * (R - len)).toFixed(2)}`;
+      }
+      d += `M${-R} 0H${R}M0 0V${-2 * ppm}`;
+      svg.appendChild(svgEl('path', { d, stroke: '#1e3a8a', 'stroke-width': 0.7, fill: 'none', 'pointer-events': 'none' }));
+      const fs = Math.max(7, 2.3 * ppm);
+      for (let deg = 0; deg <= 180; deg += 10) {
+        const a = deg * Math.PI / 180, rr = R - 8 * ppm;
+        svg.appendChild(svgEl('text', { x: Math.cos(a) * rr, y: -Math.sin(a) * rr + fs * 0.35, 'font-size': fs, 'text-anchor': 'middle', fill: '#1e3a8a', 'font-weight': 700, 'pointer-events': 'none' }, String(deg)));
+      }
+      // 读角指针
+      const armA = P.arm * Math.PI / 180;
+      const arm = svgEl('line', { x1: 0, y1: 0, x2: Math.cos(armA) * (R + pad * 0.55), y2: -Math.sin(armA) * (R + pad * 0.55), stroke: '#dc2626', 'stroke-width': 1.2, 'pointer-events': 'none' });
+      svg.appendChild(arm);
+      const knob = svgEl('circle', { class: 'mt-rot', cx: Math.cos(armA) * (R + pad * 0.55), cy: -Math.sin(armA) * (R + pad * 0.55), r: Math.max(7, 2.4 * ppm), fill: '#dc2626', stroke: '#fff', 'stroke-width': 1.5 });
+      svg.appendChild(knob);
+      const readout = svgEl('text', { x: 0, y: -R * 0.32, 'font-size': fs * 1.5, 'text-anchor': 'middle', fill: '#991b1b', 'font-weight': 800, 'pointer-events': 'none' }, `${fmtNum(P.arm, 1)}°`);
+      svg.appendChild(readout);
+      svg.appendChild(svgEl('circle', { cx: 0, cy: 0, r: 1.2 * ppm, fill: '#1e3a8a', 'pointer-events': 'none' }));
+      // 旋转手柄 (底边右端) 与关闭按钮 (底边左端)
+      const rot = svgEl('circle', { class: 'mt-rot', cx: R + pad * 0.5, cy: 1.5 * ppm, r: Math.max(7, 2.4 * ppm), fill: '#3b82f6', stroke: '#fff', 'stroke-width': 1.5 });
+      svg.appendChild(rot);
+      const close = svgEl('g', { class: 'mt-close' });
+      close.appendChild(svgEl('circle', { cx: -R - pad * 0.5, cy: 1.5 * ppm, r: Math.max(7, 2.4 * ppm), fill: '#0f172a' }));
+      close.appendChild(svgEl('text', { x: -R - pad * 0.5, y: 1.5 * ppm + Math.max(3, 1 * ppm), 'font-size': Math.max(9, 3 * ppm), 'text-anchor': 'middle', fill: '#fff', 'pointer-events': 'none' }, '✕'));
+      svg.appendChild(close);
+      wrap.appendChild(svg);
+
+      bindDrag(body, () => ({ x: P.x, y: P.y }), (dx, dy, ev, st) => {
+        const p = maybeSnap({ x: st.x + dx, y: st.y + dy });
+        P.x = p.x; P.y = p.y;
+        wrap.style.transform = `translate(${P.x}px, ${P.y}px) rotate(${-P.angle}deg)`;
+      });
+      bindDrag(rot, null, (dx, dy, ev) => {
+        const p = pointerToLogical(ev);
+        P.angle = snapAngleDeg(-Math.atan2(p.y - P.y, p.x - P.x) * 180 / Math.PI, ev.shiftKey);
+        wrap.style.transform = `translate(${P.x}px, ${P.y}px) rotate(${-P.angle}deg)`;
+      });
+      bindDrag(knob, null, (dx, dy, ev) => {
+        const p = pointerToLogical(ev);
+        let deg = -Math.atan2(p.y - P.y, p.x - P.x) * 180 / Math.PI - P.angle;
+        deg = ((deg % 360) + 360) % 360;
+        if (deg > 180) deg = deg > 270 ? 0 : 180;
+        P.arm = (ev.shiftKey || appState.snap) ? Math.round(deg / 5) * 5 : Math.round(deg);
+        const a = P.arm * Math.PI / 180, rr = R + pad * 0.55;
+        arm.setAttribute('x2', Math.cos(a) * rr); arm.setAttribute('y2', -Math.sin(a) * rr);
+        knob.setAttribute('cx', Math.cos(a) * rr); knob.setAttribute('cy', -Math.sin(a) * rr);
+        readout.textContent = `${fmtNum(P.arm, 1)}°`;
+      });
+      close.addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); measureTools.protractor = null; refreshMeasureTools(); });
+      return wrap;
+    }
+
+    // 沿直尺边缘书写：起笔点靠近直尺刻度边时，整笔投影到这条边上 (像真实直尺一样画出直线)
+    function rulerLockFor(pos) {
+      const R = measureTools.ruler;
+      if (!R) return null;
+      const a = -R.angle * Math.PI / 180;
+      const ux = Math.cos(a), uy = Math.sin(a);
+      const L = R.lengthMm * getPxPerMm();
+      const rx = pos.x - R.x, ry = pos.y - R.y;
+      const t = rx * ux + ry * uy;
+      const nrm = -rx * uy + ry * ux; // 负值 = 刻度边外侧 (尺子上方)
+      const thr = 14 / Math.max(0.3, appState.fitScale || 1);
+      if (t < -thr || t > L + thr || nrm > thr * 0.6 || nrm < -thr * 1.6) return null;
+      return { ox: R.x, oy: R.y, ux, uy, L, off: 0 };
+    }
+    // 投影到刻度边外侧 (向外偏移半个线宽，线条紧贴尺边而不被尺身遮住)
+    function projectOnRuler(lock, p) {
+      const t = Math.max(0, Math.min(lock.L, (p.x - lock.ox) * lock.ux + (p.y - lock.oy) * lock.uy));
+      return { x: lock.ox + lock.ux * t + lock.uy * lock.off, y: lock.oy + lock.uy * t - lock.ux * lock.off, time: p.time, pressure: p.pressure };
+    }
+
+    (function bindMeasureButtons() {
+      const br = document.getElementById('btnToolRuler');
+      if (br) br.onclick = (e) => { e.stopPropagation(); toggleMeasureTool('ruler'); };
+      const bp = document.getElementById('btnToolProtractor');
+      if (bp) bp.onclick = (e) => { e.stopPropagation(); toggleMeasureTool('protractor'); };
+    })();
 
     // ================= 📏 直线 / 矩形 / 椭圆 工具 (网格吸附 + 实时尺寸读数) =================
     const SHAPE_TOOLS = new Set(['line', 'rect', 'ellipse']);
@@ -5912,6 +6141,10 @@
       const pressure = (e.pressure !== undefined && e.pressure > 0) ? e.pressure : 0.5;
       const strokeWidth = computeStrokeWidth(appState.tool, pressure);
 
+      // Pro 直尺：起笔贴近刻度边时，整笔沿直尺边缘成直线
+      const rulerLock = (appState.tool !== 'spray') ? rulerLockFor(pos) : null;
+      if (rulerLock) { rulerLock.off = Math.max(1.5, strokeWidth) / 2 + 0.8; const q = projectOnRuler(rulerLock, pos); pos.x = q.x; pos.y = q.y; }
+
       pos.time = performance.now();
       pos.pressure = pressure;
       if (appState.tool === 'spray' && typeof generateSprayDots === 'function') {
@@ -5925,6 +6158,7 @@
         size: Math.max(1.5, strokeWidth),
         points: [pos]
       };
+      if (rulerLock) currentStroke._ruler = rulerLock;
       appState.strokes.push(currentStroke);
       clearTimeout(shapeHoldTimer);
 
@@ -6004,6 +6238,7 @@
 
         for (const ce of events) {
           const cPos = getCanvasCoordinates(ce);
+          if (currentStroke._ruler) { const q = projectOnRuler(currentStroke._ruler, cPos); cPos.x = q.x; cPos.y = q.y; }
           const pts = currentStroke.points;
           if (pts.length > 0) {
             const lastPt = pts[pts.length - 1];
@@ -6023,6 +6258,11 @@
           }
         }
 
+        if (currentStroke._ruler) {
+          const pts = currentStroke.points;
+          if (pts.length > 1) showMeasureBadge(describeShape('line', pts[0], pts[pts.length - 1]), e);
+          return;
+        }
         // 🌟 启动 GoodNotes 停顿 420ms 智能吸附计时器
         clearTimeout(shapeHoldTimer);
         shapeHoldTimer = setTimeout(() => {
@@ -6082,6 +6322,14 @@
       }
       if (isDrawing) {
         if (shapeGesture && shapeGesture.board === 'right') endShapeGesture();
+        if (currentStroke && currentStroke._ruler) {
+          // 沿直尺画出的笔画规整为一条精确直线
+          const pts = currentStroke.points;
+          delete currentStroke._ruler;
+          if (pts.length >= 2) { currentStroke.points = [pts[0], pts[pts.length - 1]]; currentStroke.shape = 'line'; }
+          hideMeasureBadge();
+          redrawAllStrokes();
+        }
         activePointerId = null;
         activeGesture = null;
         if (typeof scheduleAutosave === 'function') scheduleAutosave();
