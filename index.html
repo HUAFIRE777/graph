@@ -836,6 +836,7 @@
       background: #e2e8f0 !important;
     }
     /* Pro 格式切换：未选中白底深色描边，选中黑底白字 */
+    body.theme-light #exportModal > div .btn-free-fmt:not(.bg-emerald-500),
     body.theme-light #exportModal > div .btn-pro-fmt:not(.bg-amber-500) {
       background: #ffffff !important;
       border: 1.5px solid #0f172a !important;
@@ -2354,18 +2355,23 @@
 
       <!-- 选项二选一卡片容器 -->
       <div class="space-y-3 text-xs">
-        <!-- 选项 1：免费普通导出 (Free 1080P) -->
+        <!-- 选项 1：免费导出 (1080P PNG / 300 DPI 打印 PDF / 直接打印) -->
         <label id="exportCardFree" class="export-tier-card flex items-start gap-3 p-3.5 rounded-2xl bg-slate-800/80 border-2 border-emerald-500 cursor-pointer transition relative hover:bg-slate-800">
           <input type="radio" name="exportTier" value="free" checked class="w-4 h-4 mt-0.5 accent-emerald-500 cursor-pointer shrink-0" />
-          <div class="space-y-1 flex-1">
+          <div class="space-y-2 flex-1">
             <div class="flex items-center justify-between">
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span data-i18n="tier_free_title">选项一：免费普通导出</span>
+                <span data-i18n="tier_free_title">免费导出</span>
                 <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-semibold" data-i18n="free_badge">免费版</span>
               </div>
               <span class="font-bold text-emerald-400 text-xs" data-i18n="free_price">$0 免费</span>
             </div>
-            <p class="text-[11px] text-slate-300 leading-relaxed" data-i18n="tier_free_desc">输出 1080P 标准高清 PNG 格式，带微小 EazyOPC 水印。适合日常草图构思、随手记录与社媒快速分享。</p>
+            <p class="text-[11px] text-slate-300 leading-relaxed" data-i18n="tier_free_desc">高清 PNG（长边 1920 px）、按真实纸张尺寸的 300 DPI 打印 PDF（全部页面），或直接打印。带一行小水印。</p>
+            <div class="grid grid-cols-3 gap-1 text-[11px]">
+              <button type="button" class="btn-free-fmt py-1.5 px-1.5 rounded-lg border text-center transition active:scale-95" data-fmt="png_hd" data-i18n="fmt_png_hd">高清 PNG</button>
+              <button type="button" class="btn-free-fmt py-1.5 px-1.5 rounded-lg border text-center transition active:scale-95" data-fmt="pdf_print" data-i18n="fmt_pdf_print">打印 PDF</button>
+              <button type="button" class="btn-free-fmt py-1.5 px-1.5 rounded-lg border text-center transition active:scale-95" data-fmt="print" data-i18n="fmt_print">🖨 打印</button>
+            </div>
           </div>
         </label>
 
@@ -2375,7 +2381,7 @@
           <div class="space-y-2 flex-1">
             <div class="flex items-center justify-between">
               <div class="font-bold text-amber-300 flex items-center gap-1.5">
-                <span data-i18n="tier_pro_title">选项二：Pro 终身版</span>
+                <span data-i18n="tier_pro_title">Pro 终身版</span>
                 <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">一次付费 · 永久使用</span>
               </div>
               <div class="text-right">
@@ -2383,28 +2389,28 @@
                 <span class="font-black text-amber-400 text-xs">$4.99 USD</span>
               </div>
             </div>
-            
+
             <p class="text-[11px] text-slate-200 leading-relaxed" data-i18n="tier_pro_desc">
-              单次 $4.99 永久买断，解锁<strong>全部 4 大专业规格</strong>与商业授权，跨设备终身有效，无任何后续订阅费：
+              单次 $4.99 永久买断，去水印并解锁下面 4 种专业格式，以及尺规 / 量角器、自定义函数绘图：
             </p>
 
             <!-- 4 大专业特权微缩矩阵 -->
             <div class="grid grid-cols-2 gap-1.5 text-[10px] pt-0.5">
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
-                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                <div><span class="font-bold text-white block">4K 超清原画</span><span class="text-slate-400 text-[9px]">3840px 终身去水印</span></div>
+                <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <div><span class="font-bold text-white block" data-i18n="perk_4k_t">4K 超清 PNG</span><span class="text-slate-400 text-[9px]" data-i18n="perk_4k_d">长边 3840 px · 无水印</span></div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
-                <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
-                <div><span class="font-bold text-white block">透明背景 PNG</span><span class="text-slate-400 text-[9px]">剥离底纸·贴纸免抠</span></div>
+                <svg class="w-3.5 h-3.5 text-sky-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+                <div><span class="font-bold text-white block" data-i18n="perk_trans_t">透明背景 PNG</span><span class="text-slate-400 text-[9px]" data-i18n="perk_trans_d">去掉网格底纸 · 4K</span></div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
-                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
-                <div><span class="font-bold text-white block">Canva/Figma SVG</span><span class="text-slate-400 text-[9px]">矢量贝塞尔无损二次编辑</span></div>
+                <svg class="w-3.5 h-3.5 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+                <div><span class="font-bold text-white block" data-i18n="perk_svg_t">矢量 SVG</span><span class="text-slate-400 text-[9px]" data-i18n="perk_svg_d">网格 + 笔迹均为矢量</span></div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
-                <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <div><span class="font-bold text-white block">矢量 PDF 打印文档</span><span class="text-slate-400 text-[9px]">按幅面出版印刷排版</span></div>
+                <svg class="w-3.5 h-3.5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <div><span class="font-bold text-white block" data-i18n="perk_vpdf_t">矢量网格 PDF</span><span class="text-slate-400 text-[9px]" data-i18n="perk_vpdf_d">网格为矢量线 · 多页 · 页码</span></div>
               </div>
             </div>
 
@@ -2412,14 +2418,15 @@
             <div id="proFormatSubOptions" class="hidden pt-2 border-t border-amber-500/20 space-y-1.5">
               <span class="text-[10px] text-amber-300 font-bold block" data-i18n="pro_choose_format">选择本次导出的 Pro 文件规格：</span>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 text-[11px]">
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400 text-center transition active:scale-95" data-fmt="png_4k">4K 超清图</button>
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="png_transparent">透明免抠</button>
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="svg_vector">矢量 SVG</button>
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="pdf_pro">矢量 PDF</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400 text-center transition active:scale-95" data-fmt="png_4k" data-i18n="fmt_png_4k">4K PNG</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="png_transparent" data-i18n="fmt_png_trans">透明 PNG</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="svg_vector" data-i18n="fmt_svg">矢量 SVG</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="pdf_pro" data-i18n="fmt_vpdf">矢量网格 PDF</button>
               </div>
             </div>
           </div>
         </label>
+        <p id="exportSizeNote" class="text-[11px] text-slate-400 leading-relaxed px-1"></p>
       </div>
 
       <!-- Canva / Figma 快捷动作坞 (选中 SVG 时展开) -->
@@ -3341,6 +3348,32 @@
         tip_line_tool: '直线 (N) · Shift 锁定 15° · 拖动时显示长度与角度', tip_snap: '🧲 吸附到网格交点 (G)',
         unit_cells: '格',
         tool_rect: '矩形 (R)', tool_ellipse: '圆 / 椭圆 (O)', tip_rect_tool: '矩形 (R) · Shift 画正方形 · 显示宽 × 高', tip_ellipse_tool: '圆 / 椭圆 (O) · Shift 画正圆 · 显示直径',
+        export_modal_desc: '选择导出规格', tier_free_title: '免费导出',
+        tier_free_desc: '高清 PNG（长边 1920 px）、按真实纸张尺寸的 300 DPI 打印 PDF（全部页面），或直接打印。带一行小水印。',
+        tier_pro_title: 'Pro 终身版', tier_pro_desc: '单次 $4.99 永久买断，去水印并解锁下面 4 种专业格式，以及尺规 / 量角器、自定义函数绘图：',
+        fmt_png_hd: '高清 PNG', fmt_pdf_print: '打印 PDF', fmt_print: '🖨 打印', fmt_png_4k: '4K PNG', fmt_png_trans: '透明 PNG', fmt_svg: '矢量 SVG', fmt_vpdf: '矢量网格 PDF',
+        perk_4k_t: '4K 超清 PNG', perk_4k_d: '长边 3840 px · 无水印', perk_trans_t: '透明背景 PNG', perk_trans_d: '去掉网格底纸 · 4K',
+        perk_svg_t: '矢量 SVG', perk_svg_d: '网格 + 笔迹均为矢量', perk_vpdf_t: '矢量网格 PDF', perk_vpdf_d: '网格为矢量线 · 多页 · 页码',
+        lbl_export_png_hd: '免费导出高清 PNG（长边 1920 px · 带小水印）',
+        lbl_export_pdf_print: '免费导出 300 DPI 打印 PDF（{pages} 页 · {w}×{h} mm）',
+        lbl_export_print: '🖨 打印（{pages} 页 · {w}×{h} mm · 100% 实际尺寸）',
+        lbl_export_png_4k: '✨ 导出 4K PNG（长边 3840 px · 无水印）',
+        lbl_export_png_transparent: '🪟 导出透明背景 PNG（长边 3840 px）',
+        lbl_export_svg_vector: '🎨 导出矢量 SVG（网格与笔迹均为矢量）',
+        lbl_export_pdf_pro: '📄 导出矢量网格 PDF（{pages} 页 · 含页码 · 无水印）',
+        lbl_buy_pro: '仅需 $4.99 一次付费 · 永久解锁 Pro 全套特权',
+        export_size_note: '页面 {w}×{h} mm · 1 格 = {mm} mm · 共 {pages} 页。',
+        export_note_paper: '打印时请选择「实际大小 / 缩放 100%」，5 mm 格子在纸上就是 5 mm。',
+        export_note_free: '当前是屏幕画幅，按长边 297 mm 等比输出；要 1:1 真实毫米请先把画幅换成 A4 / A3 / Letter / B5。',
+        toast_exporting: '正在生成文件，请稍候…', toast_pdf_done: '✅ PDF 已生成', toast_export_failed: '导出失败，请减少页数或图片后重试',
+        toast_pdf_loading: 'PDF 组件还在加载，请稍后再试', toast_print_preparing: '正在准备打印页面…',
+        print_hint: '打印对话框里请选「实际大小 / 缩放 100%」、边距「无」，格子即为真实毫米。',
+        svg_copied_toast: '✅ 矢量 SVG 已复制到剪贴板，可在 Figma / Illustrator / Canva 中粘贴编辑',
+        pro_desc: '一次付费 $4.99 永久使用：去水印、4K PNG、透明 PNG、矢量 SVG、矢量网格 PDF，外加尺规 / 量角器与自定义函数绘图。',
+        pro_perk_1: '<strong>4K 超清 PNG</strong>（长边 3840 px，永久去水印）',
+        pro_perk_2: '<strong>透明背景 PNG</strong> 与 <strong>矢量 SVG</strong>（网格与笔迹均为矢量）',
+        pro_perk_3: '<strong>矢量网格打印 PDF</strong>（网格为矢量线，内容 300 DPI，多页带页码）',
+        pro_perk_4: '<strong>尺规 · 量角器 · 自定义函数绘图</strong> y = f(x)',
         papers: { square: '直角方格纸 (Square Grid)', dot: '点阵纸 (Dot Grid)', isometric: '等轴测三角格 (Isometric)', polar: '极坐标网格 (Polar Grid)', blueprint: '蓝图方格纸 (Blueprint)', plain: '空白纸 (Plain)' }
       },
       en: {
@@ -3355,6 +3388,32 @@
         tip_line_tool: 'Line (N) · Shift locks 15° · shows length & angle while dragging', tip_snap: '🧲 Snap to grid intersections (G)',
         unit_cells: 'cells',
         tool_rect: 'Rectangle (R)', tool_ellipse: 'Circle / ellipse (O)', tip_rect_tool: 'Rectangle (R) · Shift for square · shows width × height', tip_ellipse_tool: 'Circle / ellipse (O) · Shift for circle · shows diameter',
+        export_modal_desc: 'Choose an export option', tier_free_title: 'Free export',
+        tier_free_desc: 'HD PNG (1920 px long side), a 300 DPI print PDF at the real paper size (all pages), or print directly. Small watermark line.',
+        tier_pro_title: 'Pro lifetime', tier_pro_desc: 'Pay $4.99 once: no watermark, the 4 pro formats below, plus ruler / protractor and custom function plotting:',
+        fmt_png_hd: 'HD PNG', fmt_pdf_print: 'Print PDF', fmt_print: '🖨 Print', fmt_png_4k: '4K PNG', fmt_png_trans: 'Transparent', fmt_svg: 'Vector SVG', fmt_vpdf: 'Vector-grid PDF',
+        perk_4k_t: '4K PNG', perk_4k_d: '3840 px long side · no watermark', perk_trans_t: 'Transparent PNG', perk_trans_d: 'Grid removed · 4K',
+        perk_svg_t: 'Vector SVG', perk_svg_d: 'Grid + strokes as vectors', perk_vpdf_t: 'Vector-grid PDF', perk_vpdf_d: 'Vector grid lines · multi-page · page numbers',
+        lbl_export_png_hd: 'Export HD PNG free (1920 px long side · small watermark)',
+        lbl_export_pdf_print: 'Export 300 DPI print PDF free ({pages} pages · {w}×{h} mm)',
+        lbl_export_print: '🖨 Print ({pages} pages · {w}×{h} mm · 100% actual size)',
+        lbl_export_png_4k: '✨ Export 4K PNG (3840 px long side · no watermark)',
+        lbl_export_png_transparent: '🪟 Export transparent PNG (3840 px long side)',
+        lbl_export_svg_vector: '🎨 Export vector SVG (grid and strokes as vectors)',
+        lbl_export_pdf_pro: '📄 Export vector-grid PDF ({pages} pages · page numbers · no watermark)',
+        lbl_buy_pro: 'Unlock all Pro features for a one-time $4.99',
+        export_size_note: 'Page {w}×{h} mm · 1 cell = {mm} mm · {pages} page(s).',
+        export_note_paper: 'When printing choose "Actual size / 100% scale" — a 5 mm cell measures 5 mm on paper.',
+        export_note_free: 'Screen-sized canvas: output is scaled to a 297 mm long side. For true 1:1 millimetres switch the page to A4 / A3 / Letter / B5 first.',
+        toast_exporting: 'Generating file, please wait…', toast_pdf_done: '✅ PDF ready', toast_export_failed: 'Export failed — try fewer pages or images',
+        toast_pdf_loading: 'The PDF library is still loading, try again in a moment', toast_print_preparing: 'Preparing pages for printing…',
+        print_hint: 'In the print dialog choose "Actual size / 100%" and margins "None" so cells are true millimetres.',
+        svg_copied_toast: '✅ Vector SVG copied — paste it into Figma / Illustrator / Canva to edit',
+        pro_desc: 'One-time $4.99, lifetime: no watermark, 4K PNG, transparent PNG, vector SVG, vector-grid PDF, plus ruler / protractor and custom function plotting.',
+        pro_perk_1: '<strong>4K PNG</strong> (3840 px long side, no watermark)',
+        pro_perk_2: '<strong>Transparent PNG</strong> and <strong>vector SVG</strong> (grid and strokes as vectors)',
+        pro_perk_3: '<strong>Vector-grid print PDF</strong> (vector grid lines, 300 DPI content, multi-page with page numbers)',
+        pro_perk_4: '<strong>Ruler · protractor · custom function plot</strong> y = f(x)',
         papers: { square: 'Square grid paper', dot: 'Dot grid paper', isometric: 'Isometric triangle grid', polar: 'Polar grid', blueprint: 'Blueprint grid', plain: 'Plain paper' }
       },
       ja: { papers: { square: '方眼紙 (Square)', dot: 'ドット方眼', isometric: '等角三角グリッド', polar: '極座標グリッド', blueprint: 'ブループリント方眼', plain: '白紙' } },
@@ -6755,10 +6814,19 @@
     exportModal.onclick = (e) => { if (e.target === exportModal) exportModal.classList.add('hidden'); };
 
     let selectedProFormat = 'png_4k';
+    let selectedFreeFormat = 'png_hd';
 
     function getSelectedExportTier() {
       const checked = document.querySelector('input[name="exportTier"]:checked');
       return checked ? checked.value : 'free';
+    }
+
+    function exportFormatContext() {
+      const [w, h] = GridMath.pageSizeMm(appState.ratio, cssWidth, cssHeight);
+      return { w: fmtNum(w, 1), h: fmtNum(h, 1), pages: appState.pages.length };
+    }
+    function fillTpl(str, ctx) {
+      return String(str || '').replace(/\{(\w+)\}/g, (m, k) => (ctx && ctx[k] != null ? ctx[k] : m));
     }
 
     function updateExportModalUI() {
@@ -6767,6 +6835,13 @@
       const cardPro = document.getElementById('exportCardPro');
       const proSub = document.getElementById('proFormatSubOptions');
       const canvaBox = document.getElementById('canvaFigmaActions');
+      const ctx = exportFormatContext();
+
+      document.querySelectorAll('.btn-free-fmt').forEach(b => {
+        const on = tier === 'free' && b.dataset.fmt === selectedFreeFormat;
+        b.className = 'btn-free-fmt py-1.5 px-1.5 rounded-lg border text-center transition active:scale-95 ' +
+          (on ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-400' : 'bg-slate-900 text-slate-300 hover:text-white border-slate-700');
+      });
 
       if (tier === 'free') {
         if (cardFree) {
@@ -6781,7 +6856,7 @@
         if (canvaBox) canvaBox.classList.add('hidden');
 
         btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
-        lblExecuteExport.innerText = '免费导出 1080P 标准图 (带水印)';
+        lblExecuteExport.innerText = fillTpl(tr('lbl_export_' + selectedFreeFormat), ctx);
       } else {
         if (cardFree) {
           cardFree.classList.remove('border-emerald-500');
@@ -6796,17 +6871,16 @@
 
         if (appState.isPro) {
           btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
-          const fmtLabels = {
-            png_4k: '✨ 立即导出 4K 超清原画 (去水印)',
-            png_transparent: '🪟 立即导出透明背景 PNG (免抠图)',
-            svg_vector: '🎨 立即导出 Canva/SVG 矢量工程',
-            pdf_pro: '📄 立即导出矢量 PDF 打印文档'
-          };
-          lblExecuteExport.innerText = fmtLabels[selectedProFormat] || '✨ 立即以 Pro 特权导出';
+          lblExecuteExport.innerText = fillTpl(tr('lbl_export_' + selectedProFormat), ctx);
         } else {
           btnExecuteExport.className = 'w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
-          lblExecuteExport.innerText = '仅需 $4.99 一次付费 · 永久解锁 Pro 全套特权';
+          lblExecuteExport.innerText = tr('lbl_buy_pro');
         }
+      }
+      const note = document.getElementById('exportSizeNote');
+      if (note) {
+        const paper = GridMath.isPaperRatio(appState.ratio);
+        note.textContent = fillTpl(tr('export_size_note'), Object.assign({ mm: fmtNum(getGridSpacingMm(), 2) }, ctx)) + ' ' + tr(paper ? 'export_note_paper' : 'export_note_free');
       }
     }
 
@@ -6814,8 +6888,20 @@
       radio.onchange = updateExportModalUI;
     });
 
+    document.querySelectorAll('.btn-free-fmt').forEach(btn => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        selectedFreeFormat = btn.dataset.fmt;
+        const radioFree = document.querySelector('input[name="exportTier"][value="free"]');
+        if (radioFree) radioFree.checked = true;
+        updateExportModalUI();
+      };
+    });
+
     document.querySelectorAll('.btn-pro-fmt').forEach(btn => {
       btn.onclick = (e) => {
+        e.preventDefault();
         e.stopPropagation();
         selectedProFormat = btn.dataset.fmt;
         document.querySelectorAll('.btn-pro-fmt').forEach(b => {
@@ -6831,17 +6917,19 @@
       const tier = getSelectedExportTier();
       if (tier === 'free') {
         exportModal.classList.add('hidden');
-        exportImageCanvas(1.5, true, false);
+        if (selectedFreeFormat === 'pdf_print') exportPrintPDF({ vector: false });
+        else if (selectedFreeFormat === 'print') printPages();
+        else exportImageCanvas(1920, true, false);
       } else {
         if (!appState.isPro) {
           document.getElementById('proModal').classList.remove('hidden');
           return;
         }
         exportModal.classList.add('hidden');
-        if (selectedProFormat === 'png_4k') exportImageCanvas(3.0, false, false);
-        else if (selectedProFormat === 'png_transparent') exportImageCanvas(2.0, false, true);
+        if (selectedProFormat === 'png_4k') exportImageCanvas(3840, false, false);
+        else if (selectedProFormat === 'png_transparent') exportImageCanvas(3840, false, true);
         else if (selectedProFormat === 'svg_vector') exportVectorSVG();
-        else if (selectedProFormat === 'pdf_pro') exportToPDF();
+        else if (selectedProFormat === 'pdf_pro') exportPrintPDF({ vector: true });
       }
     };
 
@@ -6868,25 +6956,52 @@
       btnConfirmRestore.onclick = () => activateProLicense(restoreKeyInput, btnConfirmRestore, restoreModal);
     }
 
-    function exportImageCanvas(scaleFactor = 2, withWatermark = false, isTransparent = false) {
-      const offCanvas = document.createElement('canvas');
-      offCanvas.width = Math.round(cssWidth * scaleFactor);
-      offCanvas.height = Math.round(cssHeight * scaleFactor);
-      const offCtx = offCanvas.getContext('2d');
-      redrawAllStrokes(offCtx, scaleFactor, isTransparent);
+    // ================= 📤 导出：PNG (长边精确像素) / 打印 PDF / 打印 / SVG =================
+    function fileStamp() {
+      const d = new Date();
+      const p = (n) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`;
+    }
+    // 第 idx 页的实时数据 (当前右板/单板页在 appState 上，其余页 (含双板左板) 在 pages[idx])
+    function getBoardForPage(idx) {
+      return idx === appState.currentPageIndex ? appState : (appState.pages[idx] || { strokes: [], texts: [], images: [] });
+    }
+    function boardHasContent(b) {
+      return !!(b && ((b.strokes && b.strokes.length) || (b.texts && b.texts.length) || (b.images && b.images.length) || (b.videos && b.videos.length)));
+    }
+    function renderBoardCanvas(board, scale, transparent) {
+      const c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(cssWidth * scale));
+      c.height = Math.max(1, Math.round(cssHeight * scale));
+      redrawAllStrokes(c.getContext('2d'), scale, transparent, board);
+      return c;
+    }
+    function drawFreeWatermark(c, scale) {
+      const x = c.getContext('2d');
+      x.save();
+      x.setTransform(1, 0, 0, 1, 0, 0);
+      x.font = `600 ${Math.max(10, Math.round(9 * scale))}px sans-serif`;
+      x.fillStyle = isDarkPaper(appState.paper) ? 'rgba(226, 232, 240, 0.6)' : 'rgba(100, 116, 139, 0.65)';
+      x.textAlign = 'right';
+      x.textBaseline = 'alphabetic';
+      x.fillText('Made with EazyOPC Graph Paper · graph.eazyopc.com', c.width - 10 * scale, c.height - 8 * scale);
+      x.restore();
+    }
+    // 打印 / PDF 的栅格分辨率：300 DPI，长边不超过 4960 px (内存保护)
+    function printRasterScale() {
+      const [wMm, hMm] = GridMath.pageSizeMm(appState.ratio, cssWidth, cssHeight);
+      const longPx = Math.min(4960, Math.round(Math.max(wMm, hMm) / 25.4 * 300));
+      return longPx / Math.max(cssWidth, cssHeight);
+    }
 
-      if (withWatermark && !isTransparent) {
-        offCtx.save();
-        offCtx.font = `600 ${Math.round(13 * scaleFactor)}px sans-serif`;
-        offCtx.fillStyle = 'rgba(100, 116, 139, 0.65)';
-        offCtx.textAlign = 'right';
-        offCtx.fillText('Made with EazyOPC Graph Paper', offCanvas.width - 16 * scaleFactor, offCanvas.height - 14 * scaleFactor);
-        offCtx.restore();
-      }
-
+    // PNG：longSide = 长边像素 (免费 1920 / Pro 3840)，与屏幕尺寸无关
+    function exportImageCanvas(longSide = 1920, withWatermark = false, isTransparent = false) {
+      const scaleFactor = longSide / Math.max(cssWidth, cssHeight);
+      const offCanvas = renderBoardCanvas(appState, scaleFactor, isTransparent);
+      if (withWatermark && !isTransparent) drawFreeWatermark(offCanvas, scaleFactor);
       offCanvas.toBlob(blob => {
-        if (!blob) return;
-        handleFileDownloadOrShare(blob, `Graph-${Date.now()}.png`, 'image/png');
+        if (!blob) { showToast(tr('toast_export_failed')); return; }
+        handleFileDownloadOrShare(blob, `Graph-${fileStamp()}.png`, 'image/png');
       }, 'image/png');
     }
 
@@ -6899,51 +7014,139 @@
         .replace(/'/g, '&apos;');
     }
 
-    function generateVectorSVGString() {
-      let pathsSvg = '';
-      for (const s of appState.strokes) {
-        if (!s.points || s.points.length === 0) continue;
-        if (s.points.length === 1) {
-          pathsSvg += `<circle cx="${s.points[0].x}" cy="${s.points[0].y}" r="${s.size / 2}" fill="${s.color}" />\n`;
-          continue;
-        }
-        let d = `M ${s.points[0].x} ${s.points[0].y}`;
-        for (let i = 1; i < s.points.length; i++) {
-          const p1 = s.points[i - 1];
-          const p2 = s.points[i];
-          const midX = (p1.x + p2.x) / 2;
-          const midY = (p1.y + p2.y) / 2;
-          d += ` Q ${p1.x} ${p1.y} ${midX} ${midY}`;
-        }
-        const opacity = s.tool === 'highlighter' ? '0.35' : '1';
-        pathsSvg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.size}" stroke-linecap="round" stroke-linejoin="round" opacity="${opacity}" />\n`;
-      }
+    // 与 redrawAllStrokes 一致的笔刷外观参数
+    function strokeStyleFor(s) {
+      const sz = Number(s.size) || 2;
+      if (s.tool === 'highlighter') return { width: sz * 3.6, opacity: 0.35, cap: 'square', join: 'miter' };
+      if (s.tool === 'pencil') return { width: Math.max(1, sz * 0.75), opacity: 0.78, cap: 'round', join: 'round' };
+      if (s.tool === 'brush') return { width: sz * 1.3, opacity: 0.9, cap: 'round', join: 'round' };
+      if (s.tool === 'crayon') return { width: sz * 1.15, opacity: 0.85, cap: 'round', join: 'round' };
+      if (s.tool === 'ballpoint') return { width: Math.max(1, sz * 0.85), opacity: 1, cap: 'round', join: 'round' };
+      return { width: sz, opacity: 1, cap: s.shape === 'rect' ? 'square' : 'round', join: (s.shape || s.poly) ? 'miter' : 'round' };
+    }
+    const r2 = (v) => Math.round(Number(v) * 100) / 100;
 
-      for (const t of appState.texts) {
-        pathsSvg += `<text x="${Number(t.x) || 0}" y="${Number(t.y) || 0}" font-size="${Number(t.size) || 24}" fill="${escapeXml(t.color || '#18181b')}" font-weight="600" font-family="sans-serif">${escapeXml(t.text)}</text>\n`;
+    function strokeToSvg(s) {
+      const pts = s.points || [];
+      if (!pts.length) return '';
+      const col = escapeXml(s.color || '#0f172a');
+      if (s.tool === 'spray') {
+        let out = `<g fill="${col}" opacity="0.45">`;
+        for (const pt of pts) {
+          if (pt.sprayDots) for (const d of pt.sprayDots) out += `<rect x="${r2(pt.x + d.dx)}" y="${r2(pt.y + d.dy)}" width="${r2(d.r)}" height="${r2(d.r)}"/>`;
+          else out += `<rect x="${r2(pt.x)}" y="${r2(pt.y)}" width="2" height="2"/>`;
+        }
+        return out + '</g>\n';
       }
+      const st = strokeStyleFor(s);
+      if (pts.length === 1) {
+        return `<circle cx="${r2(pts[0].x)}" cy="${r2(pts[0].y)}" r="${r2(Math.max(1.5, st.width / 2))}" fill="${col}" opacity="${st.opacity}"/>\n`;
+      }
+      let d = `M ${r2(pts[0].x)} ${r2(pts[0].y)}`;
+      if (s.shape === 'line' || s.shape === 'rect' || s.poly || pts.length === 2) {
+        for (let i = 1; i < pts.length; i++) d += ` L ${r2(pts[i].x)} ${r2(pts[i].y)}`;
+        if (s.shape === 'rect') d += ' Z';
+      } else {
+        for (let i = 1; i < pts.length - 1; i++) {
+          const p1 = pts[i], p2 = pts[i + 1];
+          d += ` Q ${r2(p1.x)} ${r2(p1.y)} ${r2((p1.x + p2.x) / 2)} ${r2((p1.y + p2.y) / 2)}`;
+        }
+        d += ` L ${r2(pts[pts.length - 1].x)} ${r2(pts[pts.length - 1].y)}`;
+      }
+      let dash = '';
+      if (s.isDashed || s.tool === 'dotted') {
+        const dl = Math.max(4, (Number(s.size) || 2) * (s.tool === 'dotted' ? 1.8 : 2.2));
+        dash = ` stroke-dasharray="${r2(dl)} ${r2(dl * 0.8)}"`;
+      }
+      const blend = s.tool === 'highlighter' ? ' style="mix-blend-mode:multiply"' : '';
+      return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${r2(st.width)}" stroke-linecap="${st.cap}" stroke-linejoin="${st.join}" opacity="${st.opacity}"${dash}${blend}/>\n`;
+    }
 
+    function textToSvg(t, mctx) {
+      const fontSize = Number(t.size) || 24;
+      const family = t.fontFamily || "'Noto Sans SC', sans-serif";
+      mctx.font = `${t.bold ? 'bold' : 'normal'} ${fontSize}px ${family}`;
+      const lines = String(t.text || '').split('\n');
+      let maxW = 30;
+      for (const line of lines) maxW = Math.max(maxW, mctx.measureText(line).width);
+      const lineH = fontSize * 1.25;
+      const totalH = Math.max(lineH, lines.length * lineH);
+      const cx = t.x + maxW / 2, cy = t.y - lineH + totalH / 2;
+      const rot = t.rotation ? ` rotate(${r2(t.rotation * 180 / Math.PI)})` : '';
+      let out = `<g transform="translate(${r2(cx)} ${r2(cy)})${rot}"><text font-size="${fontSize}" font-family="${escapeXml(family)}" font-weight="${t.bold ? 'bold' : 'normal'}" fill="${escapeXml(t.color || '#18181b')}" xml:space="preserve">`;
+      lines.forEach((line, li) => {
+        out += `<tspan x="${r2(-maxW / 2)}" y="${r2(-totalH / 2 + (li + 0.82) * lineH)}">${escapeXml(line)}</tspan>`;
+      });
+      return out + '</text></g>\n';
+    }
+
+    function imageToSvg(im) {
+      let href = '';
+      try { href = im.img && im.img.src ? im.img.src : ''; } catch (e) {}
+      if (!href) return '';
+      const cx = im.x + im.width / 2, cy = im.y + im.height / 2;
+      const rot = im.rotation ? ` transform="rotate(${r2(im.rotation * 180 / Math.PI)} ${r2(cx)} ${r2(cy)})"` : '';
+      return `<image x="${r2(im.x)}" y="${r2(im.y)}" width="${r2(im.width)}" height="${r2(im.height)}" preserveAspectRatio="none" href="${escapeXml(href)}" xlink:href="${escapeXml(href)}"${rot}/>\n`;
+    }
+
+    // 网格 → SVG 矢量线 (与画布、矢量 PDF 共用 getGridGeometry)
+    function gridToSvg(w, h) {
+      const geo = getGridGeometry(w, h);
+      let out = `<rect width="${w}" height="${h}" fill="${geo.bg}"/>\n`;
+      for (const major of [false, true]) {
+        const col = geo.color, op = r2(major ? geo.majorAlpha : geo.minorAlpha * (geo.dots.length ? 1.5 : 1));
+        const lw = major ? geo.lwMajor : geo.lwMinor;
+        let d = '';
+        for (const l of geo.lines) if (l.major === major) d += `M${r2(l.x1)} ${r2(l.y1)}L${r2(l.x2)} ${r2(l.y2)}`;
+        if (d) out += `<path d="${d}" fill="none" stroke="${col}" stroke-opacity="${op}" stroke-width="${lw}"/>\n`;
+        const circles = geo.circles.filter(c => c.major === major);
+        if (circles.length) {
+          out += `<g fill="none" stroke="${col}" stroke-opacity="${op}" stroke-width="${lw}">`;
+          for (const c of circles) out += `<circle cx="${r2(c.cx)}" cy="${r2(c.cy)}" r="${r2(c.r)}"/>`;
+          out += '</g>\n';
+        }
+        const dots = geo.dots.filter(dd => dd.major === major);
+        if (dots.length) {
+          const rr = r2((geo.dotR || 1) * (major ? 1.45 : 1));
+          out += `<g fill="${col}" fill-opacity="${Math.min(1, op)}">`;
+          for (const dd of dots) out += `<circle cx="${r2(dd.x)}" cy="${r2(dd.y)}" r="${rr}"/>`;
+          out += '</g>\n';
+        }
+      }
+      return out;
+    }
+
+    function generateVectorSVGString(board = appState) {
+      const w = cssWidth, h = cssHeight;
+      const [wMm, hMm] = GridMath.pageSizeMm(appState.ratio, w, h);
+      const mctx = document.createElement('canvas').getContext('2d');
+      let body = '';
+      for (const im of (board.images || [])) body += imageToSvg(im);
+      for (const s of (board.strokes || [])) body += strokeToSvg(s);
+      for (const t of (board.texts || [])) body += textToSvg(t, mctx);
       return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cssWidth} ${cssHeight}" width="${cssWidth}" height="${cssHeight}">
-  <rect width="100%" height="100%" fill="#f8fafc" />
-  ${pathsSvg}
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${w} ${h}" width="${r2(wMm)}mm" height="${r2(hMm)}mm">
+<title>Graph Paper · ${escapeXml(fmtNum(getGridSpacingMm(), 2))} mm grid</title>
+<g id="grid">
+${gridToSvg(w, h)}</g>
+<g id="content">
+${body}</g>
 </svg>`;
     }
 
     function exportVectorSVG() {
       const svgContent = generateVectorSVGString();
       const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
-      handleFileDownloadOrShare(blob, `Graph-${Date.now()}.svg`, 'image/svg+xml');
+      handleFileDownloadOrShare(blob, `Graph-${fileStamp()}.svg`, 'image/svg+xml');
     }
 
     const btnCopySvg = document.getElementById('btnCopySvgToClipboard');
     if (btnCopySvg) {
       btnCopySvg.onclick = async () => {
+        if (!appState.isPro) { document.getElementById('proModal').classList.remove('hidden'); return; }
         const svgContent = generateVectorSVGString();
-        const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
         try {
           await navigator.clipboard.writeText(svgContent);
-          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
         } catch (err) {
           const ta = document.createElement('textarea');
           ta.value = svgContent;
@@ -6951,39 +7154,156 @@
           ta.select();
           document.execCommand('copy');
           ta.remove();
-          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
         }
+        showToast(tr('svg_copied_toast'), 4000);
       };
     }
 
-    function exportToPDF() {
-      if (!window.jspdf) {
-        alert('PDF 渲染组件加载中，请稍后再试');
-        return;
-      }
-      const { jsPDF } = window.jspdf;
-      const isLandscape = cssWidth >= cssHeight;
-      const pdf = new jsPDF({ orientation: isLandscape ? 'l' : 'p', unit: 'pt', format: 'a4' });
-      const pdfW = pdf.internal.pageSize.getWidth();
-      const pdfH = pdf.internal.pageSize.getHeight();
-
-      const offCanvas = document.createElement('canvas');
-      offCanvas.width = Math.round(cssWidth * 2);
-      offCanvas.height = Math.round(cssHeight * 2);
-      const offCtx = offCanvas.getContext('2d');
-
-      // 逐页绘制并打包多页 PDF：只读渲染每一页，绝不改写 appState / pages
-      appState.pages.forEach((p, idx) => {
-        if (idx > 0) pdf.addPage();
-        const board = (idx === appState.currentPageIndex) ? appState : p; // 当前页取实时数据
-        offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
-        redrawAllStrokes(offCtx, 2, false, board);
-        const imgData = offCanvas.toDataURL('image/jpeg', 0.95);
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
-      });
-
-      pdf.save(`Graph-Story-${Date.now()}.pdf`);
+    // 网格叠加色 = 网格色按透明度混合到纸张底色 (PDF 中无需透明度即可得到与屏幕一致的颜色)
+    function blendOver(bgHex, fgHex, a) {
+      const b = hexToRgb(bgHex) || { r: 255, g: 255, b: 255 }, f = hexToRgb(fgHex) || { r: 0, g: 0, b: 0 };
+      return [Math.round(b.r + (f.r - b.r) * a), Math.round(b.g + (f.g - b.g) * a), Math.round(b.b + (f.b - b.b) * a)];
     }
+
+    // 矢量网格：用 jsPDF 线段 API 画出与画布完全相同的网格 (单位 mm)
+    function drawVectorGridOnPdf(pdf, k) {
+      const geo = getGridGeometry(cssWidth, cssHeight);
+      const bg = hexToRgb(geo.bg);
+      pdf.setFillColor(bg.r, bg.g, bg.b);
+      pdf.rect(0, 0, cssWidth * k, cssHeight * k, 'F');
+      for (const major of [false, true]) {
+        const alpha = major ? geo.majorAlpha : geo.minorAlpha;
+        const [r, g, b] = blendOver(geo.bg, geo.color, alpha);
+        pdf.setDrawColor(r, g, b);
+        pdf.setLineWidth((major ? geo.lwMajor : geo.lwMinor) * k);
+        for (const l of geo.lines) if (l.major === major) pdf.line(l.x1 * k, l.y1 * k, l.x2 * k, l.y2 * k);
+        for (const c of geo.circles) if (c.major === major) pdf.circle(c.cx * k, c.cy * k, c.r * k, 'S');
+        if (geo.dots.length) {
+          const [dr, dg, db] = blendOver(geo.bg, geo.color, major ? alpha : Math.min(1, geo.minorAlpha * 1.5));
+          pdf.setFillColor(dr, dg, db);
+          const rr = (geo.dotR || 1) * (major ? 1.45 : 1) * k;
+          for (const d of geo.dots) if (d.major === major) pdf.circle(d.x * k, d.y * k, rr, 'F');
+        }
+      }
+    }
+
+    // 透明内容层的有效包围盒 (只嵌入有内容的区域，文件更小、生成更快)
+    function alphaBounds(c) {
+      const x = c.getContext('2d');
+      const { width: W, height: H } = c;
+      const data = x.getImageData(0, 0, W, H).data;
+      let minX = W, minY = H, maxX = -1, maxY = -1;
+      for (let y = 0; y < H; y++) {
+        const row = y * W * 4;
+        for (let i = 3; i < W * 4; i += 4) {
+          if (data[row + i] > 0) {
+            const px = (i - 3) >> 2;
+            if (px < minX) minX = px;
+            if (px > maxX) maxX = px;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+      if (maxX < 0) return null;
+      return { x: minX, y: minY, w: maxX - minX + 1, h: maxY - minY + 1 };
+    }
+
+    // 📄 打印 PDF：页面 = 真实纸张尺寸 (A4/A3/Letter/B5)，其他画幅长边 297mm；导出全部页面
+    //   vector:false (免费) → 每页 300 DPI 栅格 (网格 + 内容)，带小水印
+    //   vector:true  (Pro)  → 网格用 jsPDF 矢量线绘制 + 内容 300 DPI 透明图叠加，页脚页码，无水印
+    async function exportPrintPDF(opts = {}) {
+      if (!window.jspdf) { showToast(tr('toast_pdf_loading')); return; }
+      const vector = !!opts.vector;
+      if (vector && !appState.isPro) { document.getElementById('proModal').classList.remove('hidden'); return; }
+      const { jsPDF } = window.jspdf;
+      const [wMm, hMm] = GridMath.pageSizeMm(appState.ratio, cssWidth, cssHeight);
+      const orient = wMm > hMm ? 'l' : 'p';
+      const pdf = new jsPDF({ orientation: orient, unit: 'mm', format: [wMm, hMm], compress: true });
+      const k = wMm / cssWidth; // mm / 逻辑 px
+      const scale = printRasterScale();
+      const n = appState.pages.length;
+      showToast(tr('toast_exporting'), 6000);
+      await new Promise(r => setTimeout(r, 30));
+      try {
+        for (let idx = 0; idx < n; idx++) {
+          if (idx > 0) pdf.addPage([wMm, hMm], orient);
+          const board = getBoardForPage(idx);
+          if (vector) {
+            drawVectorGridOnPdf(pdf, k);
+            if (boardHasContent(board)) {
+              const c = renderBoardCanvas(board, scale, true);
+              const bb = alphaBounds(c);
+              if (bb) {
+                const crop = document.createElement('canvas');
+                crop.width = bb.w; crop.height = bb.h;
+                crop.getContext('2d').drawImage(c, bb.x, bb.y, bb.w, bb.h, 0, 0, bb.w, bb.h);
+                pdf.addImage(crop.toDataURL('image/png'), 'PNG', bb.x / scale * k, bb.y / scale * k, bb.w / scale * k, bb.h / scale * k, undefined, 'FAST');
+              }
+            }
+            pdf.setFontSize(8);
+            const dark = isDarkPaper(appState.paper);
+            pdf.setTextColor(dark ? 220 : 100, dark ? 230 : 116, dark ? 240 : 139);
+            pdf.text(`${idx + 1} / ${n}`, wMm / 2, hMm - 4, { align: 'center' });
+          } else {
+            const c = renderBoardCanvas(board, scale, false);
+            drawFreeWatermark(c, scale);
+            pdf.addImage(c.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, wMm, hMm, undefined, 'FAST');
+          }
+          await new Promise(r => setTimeout(r, 0));
+        }
+        pdf.save(`Graph-${fileStamp()}.pdf`);
+        showToast(tr('toast_pdf_done'), 3000);
+      } catch (err) {
+        console.error(err);
+        showToast(tr('toast_export_failed'), 4000);
+      }
+    }
+    // 兼容旧入口
+    function exportToPDF() { return exportPrintPDF({ vector: !!appState.isPro }); }
+
+    // 🖨 打印：只打印页面本身，按真实纸张尺寸 100% 输出 (@page size = 纸张毫米)
+    let printObjectUrls = [];
+    async function printPages() {
+      const [wMm, hMm] = GridMath.pageSizeMm(appState.ratio, cssWidth, cssHeight);
+      let root = document.getElementById('printRoot');
+      if (!root) {
+        root = document.createElement('div');
+        root.id = 'printRoot';
+        document.body.appendChild(root);
+      }
+      printObjectUrls.forEach(u => URL.revokeObjectURL(u));
+      printObjectUrls = [];
+      root.innerHTML = '';
+      let st = document.getElementById('printPageStyle');
+      if (!st) { st = document.createElement('style'); st.id = 'printPageStyle'; document.head.appendChild(st); }
+      st.textContent = `@page { size: ${r2(wMm)}mm ${r2(hMm)}mm; margin: 0; } @media print { #printRoot img { width: ${r2(wMm)}mm; height: ${r2(hMm)}mm; } }`;
+      showToast(tr('toast_print_preparing'), 4000);
+      const scale = printRasterScale();
+      const loads = [];
+      for (let idx = 0; idx < appState.pages.length; idx++) {
+        const c = renderBoardCanvas(getBoardForPage(idx), scale, false);
+        if (!appState.isPro) drawFreeWatermark(c, scale);
+        const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+        if (!blob) continue;
+        const url = URL.createObjectURL(blob);
+        printObjectUrls.push(url);
+        const img = new Image();
+        img.alt = `page ${idx + 1}`;
+        loads.push(new Promise(r => { img.onload = r; img.onerror = r; }));
+        img.src = url;
+        root.appendChild(img);
+      }
+      await Promise.all(loads);
+      showToast(tr('print_hint'), 6000);
+      setTimeout(() => window.print(), 60);
+    }
+    window.addEventListener('afterprint', () => {
+      const root = document.getElementById('printRoot');
+      if (root) root.innerHTML = '';
+      printObjectUrls.forEach(u => URL.revokeObjectURL(u));
+      printObjectUrls = [];
+    });
 
     async function handleFileDownloadOrShare(blob, filename, mimeType) {
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -7420,7 +7740,7 @@
     exitFullscreenBtn.onclick = toggleFullscreenMode;
 
     // 这些词条包含受信任的 <strong> 标记 (仅来自内置字典)，需用 innerHTML 写入
-    const HTML_I18N_KEYS = new Set(['pro_perk_5', 'tier_pro_desc']);
+    const HTML_I18N_KEYS = new Set(['pro_perk_1', 'pro_perk_2', 'pro_perk_3', 'pro_perk_4', 'pro_perk_5', 'tier_pro_desc']);
 
     function setLanguage(lang) {
       if (!TRANSLATIONS[lang]) lang = 'en';
